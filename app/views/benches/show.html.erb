@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @bench.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @bench.description %>
+</p>
+
+<p>
+  <strong>Num of genuine:</strong>
+  <%= @bench.num_of_genuine %>
+</p>
+
+<p>
+  <strong>Num of imposter:</strong>
+  <%= @bench.num_of_imposter %>
+</p>
+
+<p>
+  <strong>Strategy:</strong>
+  <%= @bench.strategy %>
+</p>
+
+<%= link_to 'Edit', edit_bench_path(@bench) %> |
+<%= link_to 'Back', benches_path %>

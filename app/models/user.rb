@@ -1,5 +1,15 @@
 class User
   include Mongoid::Document
+
+  has_many :generated_views, class_name: 'View', inverse_of: 'generator'
+  has_many :generated_benchs, class_name: 'Bench', inverse_of: 'generator'
+  has_many :algorithms, inverse_of: 'author'
+
+
+
+  ################
+  #### Devise ####
+  ################
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

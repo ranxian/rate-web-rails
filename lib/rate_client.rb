@@ -50,13 +50,16 @@ class RateResult
 end
 
 class RateClient
-  attr_accessor :host, :port, :verbose
+  attr_accessor :host, :port, :verbose, :progress
   
   def initialize(options = {})
-    @host = options[:host]
-    @port = options[:port]
+    @config = YAML.load_file(Rails.root.join('config', 'rate.yml'))
+
+    @host = @config['rate_host']
+    @port = @config['rate_port']
     @socket = TCPSocket.new(host, port)
     @verbose = false
+    @progress = 0.0
   end
 
   def need_arg!(options, arg)
@@ -82,28 +85,20 @@ class RateClient
       line = @socket.gets.chomp
       
       if line == "PROGRESS"
-        progress = 0
+        @progress = 0
         next
       elsif line == "DONE"
-        progress = 1
+        @progress = 1
         next
       elsif line == "END"
         break
       else
-        if progress >= 0 && progress < 1
-          progress = line.to_f
+        if @progress >= 0 && @progress < 1
+          @progress = line.to_f
         else
           msg << line
         end
       end
-
-      if progress >= 0 && progress <= 1
-        print_pbar(progress)
-      end
-    end
-
-    if progress >= 0
-      puts ""
     end
 
     RateResult.new(msg)
@@ -313,31 +308,5 @@ class RateClient
     end
 
     puts
-  end
-
-  def print_pbar(progress, msg="")
-    print get_pbar(progress) + " #{msg}\r"
-    STDOUT.flush
-  end
-
-  def get_pbar(progress, length=50)
-    bar = ""
-    bar << '['
-    passed = progress * (length-1)
-    remain = length - passed - 1
-    bar << "=" * passed
-    bar << ">" if progress < 1.0 
-    bar << " " * remain
-    bar << "] %2.2f%" % [progress * 100]
-
-    bar
-  end
-end
-
-def wait(task)
-  loop do
-    info = client.info(target: 'task', uuid: task.uuid)
-    break if indo.done == 1
-    sleep 1
   end
 end
