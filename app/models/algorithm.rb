@@ -3,6 +3,7 @@ class Algorithm
   include Mongoid::Timestamps
   field :name, type: String
   field :description, type: String
+  field :uuid, type: String
 
   belongs_to :author, class_name: 'User'
   has_many :tasks

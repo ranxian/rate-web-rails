@@ -7,6 +7,7 @@ class Bench
   field :num_of_imposter, type: Integer
   field :strategy, type: Symbol
   VALID_STRATEGIES = [:general]
+  field :uuid, type: String
 
   belongs_to :generator, class_name: 'User', inverse_of: 'generated_benchs'
   belongs_to :view
