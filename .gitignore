@@ -12,3 +12,5 @@
 !/log/.keep
 /tmp
 rate.yml
+
+.DS_Store
