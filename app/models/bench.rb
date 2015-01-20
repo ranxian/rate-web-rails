@@ -13,7 +13,23 @@ class Bench
   belongs_to :view
   has_many :tasks
 
-  def self.generate(user, strategy, options)
-    
+  def self.generate!(user, options)
+    # Create RATE benchmark
+    client = RateClient.new
+    client.create('benchmark', options)
+    client.wait
+    ratebench = client.result
+    client.destroy
+    # Store RATE-web benchmark
+    bench = Bench.new(name: options[:name],
+                      description: options[:description],
+                      strategy: options[:strategy],
+                      num_of_genuine: ratebench[:genuine_count],
+                      num_of_imposter: ratebench[:imposter_count],
+                      uuid: ratebench[:uuid]
+                      )
+    bench.generator = user
+    bench.save!
+    return bench
   end
 end

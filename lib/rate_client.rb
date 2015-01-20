@@ -24,7 +24,7 @@ class RateClient
     @port = @config['rate_port']
     @socket = TCPSocket.new(host, port)
     @verbose = false
-    @progress = 0.0
+    @progress = 1
     @thread = nil
     @result = nil
     @running = false
@@ -59,23 +59,22 @@ class RateClient
   #
   # [RateResult] view, algorithm, and benchmark created.
   # 
-  def create(options = {})
+  def create(target, options = {})
     thrd = Thread.new {
-      need_arg! options, :target
-      if options[:target] == 'algorithm'
+      if target == 'algorithm'
         result = create_algorithm(options)
-      elsif options[:target] == 'benchmark'
+      elsif target == 'benchmark'
         result = create_benchmark(options)
-      elsif options[:target] == 'view'
+      elsif target == 'view'
         result = create_view(options)
       else
       end
 
       if @verbose
         if result.success?
-          puts "#{options[:target]} #{options[:name]} created"
+          puts "#{target} #{options[:name]} created"
         else
-          puts "#{options[:target]} can't be created"
+          puts "#{target} can't be created"
           puts result[:message]
         end
       end
@@ -89,18 +88,8 @@ class RateClient
   ##
   # Delete RATE-server resources.
   #
-  # === Parameters
-  #
-  # [options (Hash)] :target and :uuid must be included.
-  #
-  def delete(options = {})
-    need_arg! options, :target
-    need_arg! options, :uuid
-    result = self.issue "delete #{options[:target]} uuid:#{options[:uuid]}"
-    if result.success? && @verbose
-      puts "#{options[:target]} deleted"
-    end
-    result
+  def delete(target, uuid)
+    result = self.issue "delete #{target} uuid:#{uuid}"
   end
 
   ##
@@ -136,13 +125,7 @@ class RateClient
   end
 
   # PRIVATE API
-  def update(options = {})
-    need_arg! options, :target
-    need_arg! options, :uuid
-    target = options[:target]
-    uuid = options[:uuid]
-    options.delete(:target)
-    options.delete(:uuid)
+  def update(target, uuid, options = {})
     update_items = options.map do |k, v|
       [k.to_s + ':' + v.to_s]
     end.join(' ')
@@ -198,7 +181,7 @@ class RateClient
     @socket.close
   end
 
-  private
+  ### PRIVATE METHOD ###
 
   ##
   # Send a command to RATE-server.

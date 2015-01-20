@@ -13,14 +13,31 @@ class View
   has_many :benchs
 
   # Generate views according to strategies
-  # For :file, a file path is provided, this file should reside in RATE_ROOT/temp
-  # For :import_tag, a import_tag is provided.
   def self.generate!(user, options)
-    rateview = nil
+    # Create a RATE view
     client = RateClient.new
-    rateview = client.create_view(options)
+    client.create('view', options)
+    client.wait
+    rateview = client.result
     client.destroy
+    # Store view in RATE-web
+    view = View.new(name: options[:name], 
+                    description: options[:name],
+                    strategy: options[:strategy],
+                    uuid: rateview['uuid'],
+                    num_of_samples: rateview['sample_count'],
+                    num_of_classes: rateview['class_count'])
+    view.generator = user
+    view.save!
+    return view
+  end
 
-
+  before_destroy do
+    client = RateClient.new
+    result = client.delete('view', self.uuid).success
+    if not result.success?
+      logger.debug(result.to_s)
+    end
+    client.destroy
   end
 end
