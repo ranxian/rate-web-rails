@@ -1,5 +1,7 @@
 class User
   include Mongoid::Document
+  # 用户名
+  field :name, type: String
 
   has_many :generated_views, class_name: 'View', inverse_of: 'generator'
   has_many :generated_benchs, class_name: 'Bench', inverse_of: 'generator'

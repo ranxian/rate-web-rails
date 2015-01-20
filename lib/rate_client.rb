@@ -38,6 +38,10 @@ class RateClient
     raise ":#{arg.to_s} needed" if not options[arg]
   end
 
+  def file_exist!(path)
+    raise "no such file: #{path}" if not File.exist?(path)
+  end
+
   ##
   # Wait for current creating jobs to end if have one, otherwise return immediately.
   #
@@ -143,7 +147,7 @@ class RateClient
   #
   def run(auuid, buuid)
     cmd = "run auuid:#{auuid} buuid:#{buuid}"
-    self.issue cmd
+    @result = self.issue cmd
   end
 
   ##
@@ -281,7 +285,7 @@ class RateClient
   #
   def create_benchmark(options = {})
     need_arg! options, :strategy
-    need_arg! options, :view
+    need_arg! options, :view_uuid
     if options[:strategy] == 'general' || options[:strategy] == 'allN'
       need_arg! options, :class_count
       need_arg! options, :sample_count 
@@ -292,7 +296,7 @@ class RateClient
     cmd = ['create']
     cmd << 'benchmark'
     cmd << "strategy:#{options[:strategy]}"
-    cmd << "view_uuid:#{options[:view]['uuid']}"
+    cmd << "view_uuid:#{options[:view_uuid]}"
     if options[:strategy] == 'general' || options[:strategy] == 'allN'
       cmd << "class_count:#{options[:class_count]}" << "sample_count:#{options[:sample_count]}"
       @socket.puts cmd.join(' ')
@@ -310,6 +314,7 @@ class RateClient
   # Create an algorithm.
   #
   def create_algorithm(options = {})
+    need_arg! options, :path
     file_exist! options[:path]
 
     if not options[:path].end_with?(".zip")
@@ -333,7 +338,7 @@ class RateClient
   #
   # [file (File)] file to sent
   #
-  def send_file(file)
+  def send_file(path)
     file = File.new(path, 'r')
     @socket.puts file.size
 

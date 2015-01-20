@@ -34,7 +34,7 @@ class View
 
   before_destroy do
     client = RateClient.new
-    result = client.delete('view', self.uuid).success
+    result = client.delete('view', self.uuid)
     if not result.success?
       logger.debug(result.to_s)
     end
