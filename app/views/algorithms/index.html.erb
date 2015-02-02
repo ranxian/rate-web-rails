@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Algorithms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @algorithms.each do |algorithm| %>
+      <tr>
+        <td><%= algorithm.name %></td>
+        <td><%= algorithm.description %></td>
+        <td><%= link_to 'Show', algorithm %></td>
+        <td><%= link_to 'Edit', edit_algorithm_path(algorithm) %></td>
+        <td><%= link_to 'Destroy', algorithm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Algorithm', new_algorithm_path %>
