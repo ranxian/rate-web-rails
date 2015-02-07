@@ -1,24 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @view.name %>
-</p>
+<h3><%= @view.name %> <small><%= link_to 'Edit', edit_view_path(@view) %></small></h3>
+<hr>
 
-<p>
-  <strong>Description:</strong>
-  <%= @view.description %>
-</p>
 
-<p>
-  <strong>Num of classes:</strong>
-  <%= @view.num_of_classes %>
-</p>
+  <table class="table">
+    <tr>
+      <th>Description</th>
+      <td><%= @view.description %></td>
+    </tr>
+    <tr>
+      <th># Classes</th>
+      <td><%= @view.num_of_classes %></td>
+    </tr>
+    <tr>
+      <th># Samples</th>
+      <td><%= @view.num_of_samples %></td>
+    </tr>
+  </table>
 
-<p>
-  <strong>Num of samples:</strong>
-  <%= @view.num_of_samples %>
-</p>
 
-<%= link_to 'Edit', edit_view_path(@view) %> |
-<%= link_to 'Back', views_path %>
+
+<h4>Benchmarks under <%= @view.name %></h4>
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Strategy</th>
+    <th>Created</th>
+    <th># Tasks</th>
+    <th>Generator</th>
+  </tr>
+
+  <% @view.benchs.each do |bench| %>
+    <tr>
+      <td><%= link_to bench.name, bench %></td>
+      <td><%= bench.description %></td>
+      <td><%= bench.strategy %></td>
+      <td><%= bench.created_at %></td>
+      <td><%= bench.tasks.count %></td>
+      <td><%= bench.generator.name %></td>
+    </tr>
+  <% end %>
+</table>
+
+<% content_for :sidebar do %>
+  <%= link_to 'Create benchmark', new_bench_path(view_id: @view.id), class: 'btn btn-primary' %>
+  <%= link_to 'Delete view', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>
+<% end %>
+
