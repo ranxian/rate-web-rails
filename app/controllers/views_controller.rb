@@ -24,7 +24,7 @@ class ViewsController < ApplicationController
   # POST /views
   # POST /views.json
   def create
-    @view = View.new(view_params)
+    @view = View.generate!(current_user, view_params)
 
     respond_to do |format|
       if @view.save
@@ -69,6 +69,6 @@ class ViewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def view_params
-      params.require(:view).permit(:name, :description, :num_of_classes, :num_of_samples)
+      params.require(:view).permit(:name, :description, :num_of_classes, :num_of_samples, :strategy)
     end
 end

@@ -1,28 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Views</h1>
+<h1>Views</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Description</th>
       <th>Num of classes</th>
       <th>Num of samples</th>
-      <th colspan="3"></th>
+      <th>Strategy</th>
+      <th>UUID</th>
     </tr>
   </thead>
 
   <tbody>
     <% @views.each do |view| %>
       <tr>
-        <td><%= view.name %></td>
+        <td><%= link_to view.name, view %></td>
         <td><%= view.description %></td>
         <td><%= view.num_of_classes %></td>
         <td><%= view.num_of_samples %></td>
-        <td><%= link_to 'Show', view %></td>
-        <td><%= link_to 'Edit', edit_view_path(view) %></td>
-        <td><%= link_to 'Destroy', view, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= view.strategy %></td>
+        <td><%= view.short_uuid %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,7 @@
 
 <br>
 
-<%= link_to 'New View', new_view_path %>
+<% content_for :sidebar do %>
+<%= link_to 'New View', new_view_path, class: 'btn btn-primary' %>
+<% end %>
+

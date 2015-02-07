@@ -32,13 +32,10 @@ gem 'twitter-bootstrap-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'pry-rails'
 
 group :development do
-  gem 'rack-mini-profiler'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'meta_request'
-  gem 'pry-rails'
+  gem 'rack-mini-profiler'  
   gem 'quiet_assets'
   gem 'rails_best_practices'
 end
@@ -56,6 +53,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'rb-fsevent'
+  gem "minitest-rails"
 end
 
 group :test do
