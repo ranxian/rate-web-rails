@@ -32,15 +32,19 @@ class View
     rateview = client.result
     client.destroy
     # Store view in RATE-web
-    view = View.new(name: options[:name], 
-                    description: options[:name],
-                    strategy: options[:strategy],
-                    uuid: rateview['uuid'],
-                    num_of_samples: rateview['sample_count'],
-                    num_of_classes: rateview['class_count'])
-    view.generator = user
-    view.save!
-    return view
+    if rateview.success?
+      view = View.new(name: options[:name], 
+                      description: options[:name],
+                      strategy: options[:strategy],
+                      uuid: rateview['uuid'],
+                      num_of_samples: rateview['sample_count'],
+                      num_of_classes: rateview['class_count'])
+      view.generator = user
+      view.save!
+      return view
+    else
+      raise rateview.message
+    end
   end
 
   before_destroy do

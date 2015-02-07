@@ -27,11 +27,11 @@ class ViewsController < ApplicationController
     @view = View.generate!(current_user, view_params)
 
     respond_to do |format|
-      if @view.save
+      if @view
         format.html { redirect_to @view, notice: 'View was successfully created.' }
         format.json { render :show, status: :created, location: @view }
       else
-        format.html { render :new }
+        format.html { render :new, notice: 'Cannot create view' }
         format.json { render json: @view.errors, status: :unprocessable_entity }
       end
     end
