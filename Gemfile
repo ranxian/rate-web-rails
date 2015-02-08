@@ -1,6 +1,5 @@
-# source 'http://ruby.taobao.org'
-source 'https://rubygems.org'
-
+source 'http://ruby.taobao.org'
+# source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -8,9 +7,6 @@ gem 'rails', '4.2.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -20,8 +16,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'less-rails', '~> 2.5.0'
 gem 'therubyracer', :platforms => :ruby
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'twitter-bootstrap-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -31,13 +28,10 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'pry-rails'
 
 group :development do
-  gem 'rack-mini-profiler'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'meta_request'
-  gem 'pry-rails'
+  gem 'rack-mini-profiler'  
   gem 'quiet_assets'
   gem 'rails_best_practices'
 end
@@ -55,6 +49,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'rb-fsevent'
+  gem "minitest-rails"
 end
 
 group :test do
@@ -62,16 +57,16 @@ group :test do
   gem 'capybara'
 end
 
+gem 'mongoid', '~> 4.0'
+gem 'mongoid-tree'
+
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
-gem 'devise', :git => 'https://github.com/plataformatec/devise.git', :branch => 'lm-rails-4-2'
-
+gem 'devise', '~> 3.4.1'
 gem 'mini_magick'
 
 gem 'kaminari'
 
 gem 'thin'
-
-gem 'mongoid', github: 'mongoid/mongoid'
 

@@ -11,6 +11,8 @@ Bench.destroy_all
 Algorithm.destroy_all
 Task.destroy_all
 
+puts "clear"
+
 user = User.create!(name: 'Ran Xian', email: 'xianran@pku.edu.cn', password: '12345678')
 view = View.generate!(user, name: 'Test-View', strategy: 'all')
 bench1 = Bench.generate!(user, view, 
@@ -23,7 +25,7 @@ bench2 = Bench.generate!(user, view,
                                name: "All Benchmark")
 algorithm = Algorithm.generate!(user, name: 'my algorithm',
                                 description: 'algorihm seed',
-                                path: Rails.root.join('alg.zip').to_s)
+                                path: Rails.root.join('examples/alg.zip').to_s)
 task = Task.run!(user, bench1, algorithm)
 
 puts task.inspect

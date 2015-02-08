@@ -1,4 +1,4 @@
-<%= form_for(@view) do |f| %>
+<%= form_for(@view, html: { class: 'form-horizontal col-xs-12' }) do |f| %>
   <% if @view.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@view.errors.count, "error") %> prohibited this view from being saved:</h2>
@@ -11,23 +11,39 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 3, class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :num_of_classes %><br>
-    <%= f.text_field :num_of_classes %>
+
+  <div class="form-group">
+    <%= f.label :strategy %>
+    <% if @view.new_record? %>
+      <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy' %>
+    <% else %>
+      <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy', disabled: true %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :num_of_samples %><br>
-    <%= f.text_field :num_of_samples %>
+
+  <div id="view-by-import-tag">
+    <div class="form-group">
+      <%= f.label :import_tag %>
+      <%= f.text_field :import_tag, class: 'form-control' %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div id="view-by-file">
+    <div class="form-group">
+      <%= f.label :file %>
+      <%= f.file_field :file %>
+      <p class="help-block">Upload a file with one sample uuid per line, must hava a '.txt' extension</p>
+    </div>
   </div>
+
+  <button type="submit" class="btn btn-default">Submit</button>
 <% end %>
