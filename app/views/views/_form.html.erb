@@ -23,7 +23,11 @@
 
   <div class="form-group">
     <%= f.label :strategy %>
-    <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control' %>
+    <% if @view.new_record? %>
+      <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy' %>
+    <% else %>
+      <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy', disabled: true %>
+    <% end %>
   </div>
 
   <div id="view-by-import-tag">
@@ -36,7 +40,8 @@
   <div id="view-by-file">
     <div class="form-group">
       <%= f.label :file %>
-      <%= f.file :import_tag, class: 'form-control' %>
+      <%= f.file_field :file %>
+      <p class="help-block">Upload a file with one sample uuid per line, must hava a '.txt' extension</p>
     </div>
   </div>
 

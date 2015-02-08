@@ -7,9 +7,6 @@ gem 'rails', '4.2.0'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -60,15 +57,16 @@ group :test do
   gem 'capybara'
 end
 
+gem 'mongoid', '~> 4.0'
+gem 'mongoid-tree'
+
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
-gem 'devise', :git => 'https://github.com/plataformatec/devise.git', :branch => 'lm-rails-4-2'
+gem 'devise', '~> 3.4.1'
 gem 'mini_magick'
 
 gem 'kaminari'
 
 gem 'thin'
-
-gem 'mongoid', github: 'mongoid/mongoid'
 

@@ -4,7 +4,7 @@ class ViewsController < ApplicationController
   # GET /views
   # GET /views.json
   def index
-    @views = View.all
+    @views = View.all.desc(:created_at)
   end
 
   # GET /views/1
@@ -69,6 +69,12 @@ class ViewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def view_params
-      params.require(:view).permit(:name, :description, :num_of_classes, :num_of_samples, :strategy)
+      params.require(:view).permit(:name, 
+                                   :description, 
+                                   :num_of_classes, 
+                                   :num_of_samples, 
+                                   :strategy,
+                                   :import_tag,
+                                   :file)
     end
 end
