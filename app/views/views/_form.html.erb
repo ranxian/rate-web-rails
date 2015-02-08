@@ -12,18 +12,32 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :name %><br>
+    <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= f.label :description %><br>
+    <%= f.label :description %>
     <%= f.text_area :description, rows: 3, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= f.label :strategy %><br>
+    <%= f.label :strategy %>
     <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control' %>
+  </div>
+
+  <div id="view-by-import-tag">
+    <div class="form-group">
+      <%= f.label :import_tag %>
+      <%= f.text_field :import_tag, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div id="view-by-file">
+    <div class="form-group">
+      <%= f.label :file %>
+      <%= f.file :import_tag, class: 'form-control' %>
+    </div>
   </div>
 
   <button type="submit" class="btn btn-default">Submit</button>

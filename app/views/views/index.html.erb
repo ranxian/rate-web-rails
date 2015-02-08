@@ -7,8 +7,9 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Num of classes</th>
-      <th>Num of samples</th>
+      <th># Classes</th>
+      <th># Samples</th>
+      <th># Benchmarks</th>
       <th>Strategy</th>
       <th>UUID</th>
     </tr>
@@ -21,6 +22,7 @@
         <td><%= view.description %></td>
         <td><%= view.num_of_classes %></td>
         <td><%= view.num_of_samples %></td>
+        <td><%= view.benches.count %></td>
         <td><%= view.strategy %></td>
         <td><%= view.short_uuid %></td>
       </tr>

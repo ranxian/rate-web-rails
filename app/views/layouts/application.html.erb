@@ -49,8 +49,8 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><%= link_to "Home", "#"  %></li>
-            <li><%= link_to "View", views_path  %></li>
-            <li><%= link_to "Benchmark", "#"  %></li>
+            <li class="<%= params[:controller] == 'views' ? 'active' : '' %>"><%= link_to "View", views_path  %></li>
+            <li class="<%= params[:controller] == 'benches' ? 'active' : '' %>"><%= link_to "Benchmark", "#"  %></li>
             <li><%= link_to "Algorithm", "#"  %></li>
             <li><%= link_to "Task", "#"  %></li>
           </ul>
@@ -67,9 +67,7 @@
         <div class="col-lg-3">
           <div class="well sidebar-nav">
             <h3>Sidebar</h3>
-            <ul class="nav nav-list">
-              <%= yield :sidebar %>
-            </ul>
+            <%= yield :sidebar %>
           </div><!--/.well -->
         </div><!--/span-->
       </div><!--/row-->

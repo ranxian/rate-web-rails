@@ -8,7 +8,7 @@ class Bench
   field :strategy, type: Symbol
   field :uuid, type: String
 
-  belongs_to :generator, class_name: 'User', inverse_of: 'generated_benchs'
+  belongs_to :generator, class_name: 'User', inverse_of: 'generated_benches'
   belongs_to :view
   has_many :tasks
 

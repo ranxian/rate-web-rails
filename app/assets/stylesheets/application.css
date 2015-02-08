@@ -6,3 +6,7 @@
  *= require bootstrap_and_overrides
  *= require_tree .
 */
+div.sidebar-nav .btn {
+  margin-bottom: 5px;
+  width: 100%;
+}

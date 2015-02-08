@@ -14,10 +14,13 @@ class View
   # 策略
   field :strategy, type: Symbol
   VALID_STRATEGIES = [:file, :import_tag, :all]
+  # 策略相关字段
+  field :import_tag, type: String
+  mount_uploader :file, type: FileUploader, ignore_integrity_errors: true
   # 生成用户
   belongs_to :generator, class_name: 'User', inverse_of: 'generated_views'
   # 在 View 上建立的 benchmark
-  has_many :benchs
+  has_many :benches
 
   def short_uuid
     self.uuid.split('-')[0]

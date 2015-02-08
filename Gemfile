@@ -1,6 +1,5 @@
-# source 'http://ruby.taobao.org'
-source 'https://rubygems.org'
-
+source 'http://ruby.taobao.org'
+# source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -65,7 +64,6 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 gem 'devise', :git => 'https://github.com/plataformatec/devise.git', :branch => 'lm-rails-4-2'
-
 gem 'mini_magick'
 
 gem 'kaminari'

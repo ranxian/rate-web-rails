@@ -3,23 +3,18 @@
 <h3><%= @view.name %> <small><%= link_to 'Edit', edit_view_path(@view) %></small></h3>
 <hr>
 
-
-  <table class="table">
-    <tr>
-      <th>Description</th>
-      <td><%= @view.description %></td>
-    </tr>
-    <tr>
-      <th># Classes</th>
-      <td><%= @view.num_of_classes %></td>
-    </tr>
-    <tr>
-      <th># Samples</th>
-      <td><%= @view.num_of_samples %></td>
-    </tr>
-  </table>
-
-
+<table class="table">
+  <tr>
+    <th>Description</th>
+    <th># Classes</th>
+    <th># Samples</th>
+  </tr>
+  <tr>
+    <td><%= @view.description %></td>      
+    <td><%= @view.num_of_samples %></td>
+    <td><%= @view.num_of_classes %></td>
+  </tr>
+</table>
 
 <h4>Benchmarks under <%= @view.name %></h4>
 <table class="table">
@@ -32,7 +27,7 @@
     <th>Generator</th>
   </tr>
 
-  <% @view.benchs.each do |bench| %>
+  <% @view.benches.each do |bench| %>
     <tr>
       <td><%= link_to bench.name, bench %></td>
       <td><%= bench.description %></td>
@@ -45,7 +40,7 @@
 </table>
 
 <% content_for :sidebar do %>
-  <%= link_to 'Create benchmark', new_bench_path(view_id: @view.id), class: 'btn btn-primary' %>
-  <%= link_to 'Delete view', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>
+    <%= link_to 'Add Benchmark', new_bench_path(view_id: @view.id), class: 'btn btn-primary' %>
+    <%= link_to 'Delete View', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  
 <% end %>
 
