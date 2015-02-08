@@ -1,8 +1,9 @@
 == README
 
-如何开始开发
+如何运行本项目
 
 1. 安装 mongodb，并且跑起来
 2. 在本项目下 bundle install
-3. 在本项目下 rake db:seed
-4. rails server
+3. cp config/rate.yml.example config/rate.yml，并修改其中的配置信息
+4. 在本项目下 rake db:seed
+5. rails server 即可！

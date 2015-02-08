@@ -1,2 +1,4 @@
+# RATE-server 的地址
 rate_host: localhost
+# RATE-server 的端口
 rate_port: 2015

@@ -25,7 +25,7 @@ bench2 = Bench.generate!(user, view,
                                name: "All Benchmark")
 algorithm = Algorithm.generate!(user, name: 'my algorithm',
                                 description: 'algorihm seed',
-                                path: Rails.root.join('alg.zip').to_s)
+                                path: Rails.root.join('examples/alg.zip').to_s)
 task = Task.run!(user, bench1, algorithm)
 
 puts task.inspect
