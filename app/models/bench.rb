@@ -12,6 +12,10 @@ class Bench
   belongs_to :view
   has_many :tasks
 
+  def short_uuid
+    self.uuid.split('-')[0]
+  end
+
   ##
   # Valid strategies: general, all, allN, file, allinter, allinner, allInnerOneInter
   def self.generate!(user, view, options)

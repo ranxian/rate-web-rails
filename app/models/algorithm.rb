@@ -8,6 +8,10 @@ class Algorithm
   belongs_to :author, class_name: 'User'
   has_many :tasks
 
+  def short_uuid
+    self.uuid.split('-')[0]
+  end
+
   def self.generate!(user, options)
     client = RateClient.new
     client.create('algorithm', options)

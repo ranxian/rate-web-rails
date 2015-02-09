@@ -9,7 +9,7 @@ development:
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - localhost:27017
+        - ranxian.me
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
@@ -60,7 +60,7 @@ test:
     default:
       database: rate_web_rails_test
       hosts:
-        - localhost:27017
+        - ranxian.me
       options:
         read: primary
         # In the test environment we lower the retries and retry interval to

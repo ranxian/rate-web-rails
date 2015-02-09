@@ -1,12 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Algorithms</h1>
+<h1>Algorithms</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Description</th>
+      <th># Tasks</th>
+      <th>UUID</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +18,8 @@
       <tr>
         <td><%= algorithm.name %></td>
         <td><%= algorithm.description %></td>
+        <td><%= algorithm.tasks.count %></th>
+        <td><%= algorithm.short_uuid %></td>
         <td><%= link_to 'Show', algorithm %></td>
         <td><%= link_to 'Edit', edit_algorithm_path(algorithm) %></td>
         <td><%= link_to 'Destroy', algorithm, method: :delete, data: { confirm: 'Are you sure?' } %></td>

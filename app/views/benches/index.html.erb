@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Benches</h1>
+<h1>Benchmarks</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -10,6 +10,7 @@
       <th>Num of genuine</th>
       <th>Num of imposter</th>
       <th>Strategy</th>
+      <th>UUID</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,6 +23,7 @@
         <td><%= bench.num_of_genuine %></td>
         <td><%= bench.num_of_imposter %></td>
         <td><%= bench.strategy %></td>
+        <td><%= bench.short_uuid %></td>
         <td><%= link_to 'Show', bench %></td>
         <td><%= link_to 'Edit', edit_bench_path(bench) %></td>
         <td><%= link_to 'Destroy', bench, method: :delete, data: { confirm: 'Are you sure?' } %></td>
