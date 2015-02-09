@@ -47,6 +47,7 @@
         </button>
         <a class="navbar-brand" href="#">RateWeb</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
+          <% if user_signed_in? %>
           <ul class="nav navbar-nav">
             <li><%= link_to "Home", root_path  %></li>
             <li class="<%= params[:controller] == 'views' ? 'active' : '' %>"><%= link_to "View", views_path  %></li>
@@ -54,6 +55,7 @@
             <li class="<%= params[:controller] == 'algorithms' ? 'active' : '' %>"><%= link_to "Algorithm", algorithms_path  %></li>
             <li><%= link_to "Task", "#"  %></li>
           </ul>
+          <% end %>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <% if user_signed_in? %>
