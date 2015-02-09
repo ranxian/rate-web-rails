@@ -30,4 +30,6 @@
 
 <br>
 
-<%= link_to 'New Algorithm', new_algorithm_path %>
+<% content_for :sidebar do %>
+<%= link_to 'New Algorithm', new_algorithm_path, class: 'btn btn-primary' %>
+<% end %>
