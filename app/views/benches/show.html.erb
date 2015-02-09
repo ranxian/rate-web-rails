@@ -1,29 +1,32 @@
-<p id="notice"><%= notice %></p>
+<h3><%= @bench.name %> <small><%= link_to 'Edit', edit_bench_path(@bench) %></small></h3>
 
-<p>
-  <strong>Name:</strong>
-  <%= @bench.name %>
-</p>
+<table class="table">
+  <tr>
+    <th>Description</th>
+    <th># Genuines</th>
+    <th># Imposters</th>
+    <% if @bench.strategy == :file %>
+      <th>File</th>
+    <% end %>
+  </tr>
+  <tr>
+    <td><%= @bench.description %></td>
+    <td><%= @bench.num_of_genuine %></td>
+    <td><%= @bench.num_of_imposter %></td>
+    <% if @bench.strategy == :file %>
+      <td><%= link_to File.basename(@bench.file.path), @bench.file.url %></td>
+    <% end %>
+  </tr>
+</table>
 
-<p>
-  <strong>Description:</strong>
-  <%= @bench.description %>
-</p>
+<h4>Tasks under <%= @bench.name %></h4>
+<table class="table">
+  <tr>
+  </tr>
+</table>
 
-<p>
-  <strong>Num of genuine:</strong>
-  <%= @bench.num_of_genuine %>
-</p>
-
-<p>
-  <strong>Num of imposter:</strong>
-  <%= @bench.num_of_imposter %>
-</p>
-
-<p>
-  <strong>Strategy:</strong>
-  <%= @bench.strategy %>
-</p>
-
-<%= link_to 'Edit', edit_bench_path(@bench) %> |
-<%= link_to 'Back', benches_path %>
+<% content_for :sidebar do %>
+  <%= link_to 'Add Task', new_task_path(bench_id: @bench.id), class: 'btn btn-primary' %>
+  <%= link_to 'Delete Benchmark', @bench, method: :delete, data: { confirm: 'Delete this bench will also delete all tasks, are you sure?' }, class: 'btn btn-danger' %>  
+  <%= link_to 'Create Bechmark', new_bench_path, class: 'btn btn-success' %>
+<% end %>

@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_area :description, rows: 3, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :num_of_genuine %><br>
-    <%= f.number_field :num_of_genuine %>
+    <%= f.number_field :num_of_genuine, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="gorm-group">
     <%= f.label :num_of_imposter %><br>
-    <%= f.number_field :num_of_imposter %>
+    <%= f.number_field :num_of_imposter, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :strategy %><br>
-    <%= f.text_field :strategy %>
+    <%= f.text_field :strategy, class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <%= f.submit "Create Benchmark", class: "btn btn-primary" %>
+
 <% end %>

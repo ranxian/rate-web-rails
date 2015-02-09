@@ -9,7 +9,7 @@ class Algorithm
   has_many :tasks
 
   def short_uuid
-    self.uuid.split('-')[0]
+    self.uuid ? self.uuid.split('-')[0] : self.uuid
   end
 
   def self.generate!(user, options)

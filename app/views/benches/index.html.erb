@@ -18,11 +18,11 @@
   <tbody>
     <% @benches.each do |bench| %>
       <tr>
-        <td><%= bench.name %></td>
+        <td><%= link_to bench.name, bench %></td>
         <td><%= bench.description %></td>
         <td><%= bench.num_of_genuine %></td>
         <td><%= bench.num_of_imposter %></td>
-        <td><%= bench.strategy %></td>
+        <td><%= bench.verbose_strategy %></td>
         <td><%= bench.short_uuid %></td>
         <td><%= link_to 'Show', bench %></td>
         <td><%= link_to 'Edit', edit_bench_path(bench) %></td>

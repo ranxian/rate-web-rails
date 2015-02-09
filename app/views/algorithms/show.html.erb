@@ -1,14 +1,23 @@
-<p id="notice"><%= notice %></p>
+<h3><%= @algorithm.name %> <small><%= link_to 'Edit', edit_algorithm_path(@algorithm) %></small></h3>
 
-<p>
-  <strong>Name:</strong>
-  <%= @algorithm.name %>
-</p>
+<table class="table">
+  <tr>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><%= @algorithm.description %></td>
+  </tr>
+</table>
 
-<p>
-  <strong>Description:</strong>
-  <%= @algorithm.description %>
-</p>
+<h4>Tasks under <%= @algorithm.name %></h4>
+<table class="table">
+  <tr>
+  </tr>
+</table>
 
-<%= link_to 'Edit', edit_algorithm_path(@algorithm) %> |
-<%= link_to 'Back', algorithms_path %>
+<% content_for :sidebar do %>
+  <%= link_to 'Add Task', new_task_path(algorithm_id: @algorithm.id), class: 'btn btn-primary' %>
+  <%= link_to 'Delete Algorithm', @algorithm, method: :delete, data: { confirm: 'Delete this algorithm will also delete all tasks, are you sure?' }, class: 'btn btn-danger' %>  
+  <%= link_to 'Create Algorithm', new_algorithm_path, class: 'btn btn-success' %>
+<% end %>
+

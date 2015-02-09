@@ -31,7 +31,7 @@ class View
   end
 
   def short_uuid
-    self.uuid.split('-')[0]
+    self.uuid ? self.uuid.split('-')[0] : self.uuid
   end
 
   # Generate views according to strategies

@@ -16,7 +16,7 @@
   <tbody>
     <% @algorithms.each do |algorithm| %>
       <tr>
-        <td><%= algorithm.name %></td>
+        <td><%= link_to algorithm.name, algorithm %></td>
         <td><%= algorithm.description %></td>
         <td><%= algorithm.tasks.count %></th>
         <td><%= algorithm.short_uuid %></td>

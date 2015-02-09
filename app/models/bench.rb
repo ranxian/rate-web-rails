@@ -12,8 +12,12 @@ class Bench
   belongs_to :view
   has_many :tasks
 
+  def verbose_strategy
+    return self.strategy.to_s
+  end
+
   def short_uuid
-    self.uuid.split('-')[0]
+    self.uuid ? self.uuid.split('-')[0] : self.uuid
   end
 
   ##
