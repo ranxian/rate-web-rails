@@ -1,14 +1,17 @@
-<p id="notice"><%= notice %></p>
+<h3><%= @task.name %> <small><%= link_to 'Edit', edit_task_path(@task) %></small></h3>
 
-<p>
-  <strong>Name:</strong>
-  <%= @task.name %>
-</p>
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Score</th>
+  </tr>
+  <tr>
+    <td><%= @task.name %></td>      
+    <td><%= @task.score %></td>
+  </tr>
+</table>
 
-<p>
-  <strong>Score:</strong>
-  <%= @task.score %>
-</p>
-
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<% content_for :sidebar do %>
+    <%= link_to 'Delete Task', @task, method: :delete, data: { confirm: 'Delete this task will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  
+    <%= link_to 'Create Task', new_task_path, class: 'btn btn-success' %>
+<% end %>

@@ -53,7 +53,7 @@
             <li class="<%= params[:controller] == 'views' ? 'active' : '' %>"><%= link_to "View", views_path  %></li>
             <li class="<%= params[:controller] == 'benches' ? 'active' : '' %>"><%= link_to "Benchmark", benches_path  %></li>
             <li class="<%= params[:controller] == 'algorithms' ? 'active' : '' %>"><%= link_to "Algorithm", algorithms_path  %></li>
-            <li><%= link_to "Task", "#"  %></li>
+            <li class="<%= params[:controller] == 'tasks' ? 'active' : '' %>"><%= link_to "Task", tasks_path  %></li>
           </ul>
           <% end %>
           <ul class="nav navbar-nav navbar-right">

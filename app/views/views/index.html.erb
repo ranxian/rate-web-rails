@@ -12,6 +12,7 @@
       <th># Benchmarks</th>
       <th>Strategy</th>
       <th>UUID</th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -25,6 +26,10 @@
         <td><%= view.benches.count %></td>
         <td><%= view.verbose_strategy %></td>
         <td><%= view.short_uuid %></td>
+        <td><%= link_to 'Show', view %></td>
+        <td><%= link_to 'Edit', edit_view_path(view) %></td>
+        <td><%= link_to 'Destroy', view, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
       </tr>
     <% end %>
   </tbody>

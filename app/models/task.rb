@@ -1,6 +1,7 @@
 class Task
   include Mongoid::Document
   include Mongoid::Timestamps
+  field :name, type: String
   field :score, type: Float
   field :uuid, type: String
   field :finished, type: DateTime
@@ -9,6 +10,10 @@ class Task
   belongs_to :runner, class_name: 'User', inverse_of: 'run_tasks'
   belongs_to :algorithm
   belongs_to :bench
+
+  def short_uuid
+    self.uuid ? self.uuid.split('-')[0] : self.uuid
+  end
 
   def update_from_server
     client = RateClient.new
