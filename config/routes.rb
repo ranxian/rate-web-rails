@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   get 'home/index'
+  get 'home/show'
+  get 'users/show'
   resources :tasks
   resources :algorithms
   resources :benches
