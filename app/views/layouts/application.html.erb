@@ -45,7 +45,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">RateWeb</a>
+        <%= link_to "RateWeb", root_path, class: "navbar-brand" %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <% if user_signed_in? %>
           <ul class="nav navbar-nav">
@@ -64,10 +64,10 @@
                     <li><%= link_to "Profile", '#' %></li>
                     <li><%= link_to "Settings", edit_user_registration_path %></li>
                     <li class="divider"></li>
-                    <li><%= link_to "Sign out", destroy_user_session_path, method: "delete" %></li>
+                    <li><%= link_to "Log out", destroy_user_session_path, method: "delete" %></li>
                   </ul>
               <% else %>
-                <li><%= link_to "Sign in", new_user_session_path %></li>
+                <li><%= link_to "Log in", new_user_session_path %></li>
               <% end %>
             </li>
           </ul>
@@ -76,18 +76,28 @@
     </div>
 
     <div class="container">
-      <div class="row">
-        <div class="col-lg-9">
+      <% if controller_name == 'algorithms' ||
+            controller_name == 'views' ||
+            controller_name == 'benches' ||
+            controller_name == 'tasks' %>
+        <div class="row">
+          <div class="col-lg-9">
+            <%= bootstrap_flash %>
+            <%= yield %>
+          </div>
+          <div class="col-lg-3">
+            <div class="sidebar-nav">
+              <h3>Options</h3>
+              <%= yield :sidebar %>
+            </div>
+          </div><!--/span-->
+        </div><!--/row-->
+      <% else %>
+        <div class="row">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
-        <div class="col-lg-3">
-          <div class="sidebar-nav">
-            <h3>Sidebar</h3>
-            <%= yield :sidebar %>
-          </div>
-        </div><!--/span-->
-      </div><!--/row-->
+      <% end %>
 
       <hr>
       <footer>

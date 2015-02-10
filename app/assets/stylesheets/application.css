@@ -7,6 +7,31 @@
  *= require_tree .
 */
 div.sidebar-nav .btn {
-  margin-bottom: 5px;
-  width: 100%;
+    margin-bottom: 5px;
+    width: 100%;
 }
+
+/* universal */
+
+html {
+    overflow-y: scroll;
+}
+
+.center {
+    text-align: center;
+}
+
+.front-page {
+    text-align: center;
+}
+
+.front-text {
+    width: 80%;
+    margin: auto;
+}
+
+.half-rule {
+    width: 100px;
+    margin: 40px auto;
+}
+
