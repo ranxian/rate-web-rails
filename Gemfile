@@ -70,3 +70,5 @@ gem 'kaminari'
 
 gem 'thin'
 
+gem 'font-awesome-less'
+
