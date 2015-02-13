@@ -45,10 +45,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <%= link_to "RateWeb", root_path, class: "navbar-brand" %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
+          <ul class="nav navbar-left">
+            <%= link_to image_tag("/images/Logo.png", alt: "Brand", class: "brand"), root_path %>
+          </ul>
           <% if user_signed_in? %>
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" style="margin-left: 18px">
             <li><%= link_to "Home", home_show_path %></li>
             <li class="<%= params[:controller] == 'views' ? 'active' : '' %>"><%= link_to "View", views_path %></li>
             <li class="<%= params[:controller] == 'benches' ? 'active' : '' %>"><%= link_to "Benchmark", benches_path %></li>

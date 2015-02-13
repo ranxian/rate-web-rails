@@ -39,6 +39,11 @@ html {
     margin: 40px auto;
 }
 
+.brand {
+    margin-top: 6px;
+    height:40px;
+}
+
 /* alert */
 
 .alert {
