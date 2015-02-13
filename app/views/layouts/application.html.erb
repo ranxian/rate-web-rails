@@ -87,11 +87,23 @@
           </div>
           <div class="col-lg-3">
             <div class="sidebar-nav">
-              <h3>Options</h3>
+              <h4>Options</h4>
               <%= yield :sidebar %>
             </div>
           </div><!--/span-->
         </div><!--/row-->
+      <% elsif current_page?(users_show_path) %>
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="sidebar-nav">
+              <%= yield :sidebar %>
+            </div>
+          </div>
+          <div class="col-lg-9">
+            <%= bootstrap_flash %>
+            <%= yield %>
+          </div>
+        </div>
       <% else %>
         <div class="row">
           <%= bootstrap_flash %>
