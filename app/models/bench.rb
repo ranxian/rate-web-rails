@@ -22,7 +22,33 @@ class Bench
   end
 
   ##
+  # Create benchmarks on @view by @options.
   # Valid strategies: general, all, allN, file, allinter, allinner, allInnerOneInter
+  #
+  # === Parameters
+  # 
+  # [user (User)] user who creates the benchmark
+  # [view (View)] view the benchmark is created on
+  # [options (Hash)] options to create benchmark, it must contain all information to
+  #                  create a benchmark.
+  #
+  # === Returns
+  # 
+  # Benchmark created
+  #
+  # === Examples
+  #
+  # @options must include all information to create a benchmark
+  # 
+  # => options for general benchmark
+  # options = { strategy: 'general', class_count: 5, sample_count: 2 }
+  # => options for allN benchmark
+  # options = { strategy: 'allN', class_count: 5, sample_count: 2 }
+  # => options for all, allinter, allinner, allInterOneInter benchmark
+  # options = { strategy: 'all' (or 'allinter', 'allinner', 'allInterOneInter') }
+  # => options for file benchmark
+  # options = { strategy: 'file', path: 'path-to-benchmark-file' }
+  #
   def self.generate!(user, view, options)
     options[:view_uuid] = view.uuid
     # Create RATE benchmark
