@@ -380,6 +380,9 @@ class RateResult
     elsif init_object.is_a?(String)
       @json = JSON.parse(init_object)
     end
+    @json.dup.each do |k, v|
+      @json[k.to_sym] = v
+    end
   end
 
   def method_missing(method, *args)
