@@ -12,6 +12,7 @@
       <th># Benchmarks</th>
       <th>Strategy</th>
       <th>UUID</th>
+      <th>Created</th>
     </tr>
   </thead>
 
@@ -25,6 +26,7 @@
         <td><%= view.benches.count %></td>
         <td><%= view.verbose_strategy %></td>
         <td><%= view.short_uuid %></td>
+        <td><%= view.created_at.strftime("%y' %b %d - %H:%M") %></td>
       </tr>
     <% end %>
   </tbody>

@@ -6,6 +6,7 @@ class Bench
   field :num_of_genuine, type: Integer
   field :num_of_imposter, type: Integer
   field :strategy, type: Symbol
+  VALID_STRATEGIES = [:general, :all, :allN, :file, :allinter, :allinner, :allInnerOneInter]
   field :uuid, type: String
 
   belongs_to :generator, class_name: 'User', inverse_of: 'generated_benches'

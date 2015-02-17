@@ -3,6 +3,7 @@
 <table class="table">
   <tr>
     <th>Description</th>
+    <th>UUID</th>
     <th># Classes</th>
     <th># Samples</th>
     <% if @view.strategy == :file %>
@@ -10,7 +11,8 @@
     <% end %>
   </tr>
   <tr>
-    <td><%= @view.description %></td>      
+    <td><%= @view.description %></td> 
+    <td><%= @view.short_uuid %></td>     
     <td><%= @view.num_of_samples %></td>
     <td><%= @view.num_of_classes %></td>
     <% if @view.strategy == :file %>

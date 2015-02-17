@@ -20,16 +20,12 @@
     <%= f.text_area :description, rows: 3, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :num_of_genuine %><br>
-    <%= f.number_field :num_of_genuine, class: 'form-control' %>
-  </div>
-  <div class="gorm-group">
-    <%= f.label :num_of_imposter %><br>
-    <%= f.number_field :num_of_imposter, class: 'form-control' %>
-  </div>
-  <div class="form-group">
     <%= f.label :strategy %><br>
-    <%= f.text_field :strategy, class: 'form-control' %>
+    <% if @bench.new_record? %>
+      <%= f.select :strategy, Bench::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy' %>
+    <% else %>
+      <%= f.select :strategy, Bench::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy', disabled: true %>
+    <% end %>
   </div>
 
   <%= f.submit "Create Benchmark", class: "btn btn-primary" %>&nbsp;
