@@ -7,9 +7,6 @@
  *= require_tree .
 */
 
-@import "font-awesome-sprockets";
-@import "font-awesome";
-
 div.sidebar-nav .btn {
     margin-bottom: 5px;
     width: 100%;

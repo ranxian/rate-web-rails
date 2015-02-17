@@ -4,7 +4,7 @@ class BenchesController < ApplicationController
   # GET /benches
   # GET /benches.json
   def index
-    @benches = Bench.all
+    @benches = current_user.generated_benchs
   end
 
   # GET /benches/1

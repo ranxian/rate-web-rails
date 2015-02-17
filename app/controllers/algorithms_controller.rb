@@ -4,7 +4,7 @@ class AlgorithmsController < ApplicationController
   # GET /algorithms
   # GET /algorithms.json
   def index
-    @algorithms = Algorithm.all
+    @algorithms = current_user.algorithms
   end
 
   # GET /algorithms/1

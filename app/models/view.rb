@@ -34,9 +34,19 @@ class View
     self.uuid ? self.uuid.split('-')[0] : self.uuid
   end
 
-  # Generate views according to strategies
+  ##
+  # 依据 options 的内容创建一个 view.
+  # 
+  # === Parameters
+  # 
+  # [user (User)] user who creates the view
+  # [options (Hash)] options to create a view, see @create_view in rate_client.rb
+  #
+  # === Return
+  #
+  # [View] a view created
+  #
   def self.generate!(user, options)
-    # Create a RATE view
     # 如果使用文件创建 view
     if options[:strategy] == 'file'
       options[:path] = options[:file].tempfile.path

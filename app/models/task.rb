@@ -1,13 +1,18 @@
 class Task
   include Mongoid::Document
   include Mongoid::Timestamps
+  # task 名
   field :name, type: String
+  # 得分
   field :score, type: Float
+  # uuid
   field :uuid, type: String
+  # 是否已经完成
   field :finished, type: DateTime
+  # task 进度
   field :progress, type: Float, default: 0.0
 
-  belongs_to :runner, class_name: 'User', inverse_of: 'run_tasks'
+  belongs_to :runner, class_name: 'User', inverse_of: 'tasks'
   belongs_to :algorithm
   belongs_to :bench
 

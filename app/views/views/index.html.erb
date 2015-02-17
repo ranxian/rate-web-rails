@@ -31,6 +31,7 @@
 </table>
 
 <br>
+<%= paginate @views %>
 
 <% content_for :sidebar do %>
 <%= link_to 'New View', new_view_path, class: 'btn btn-primary' %>
