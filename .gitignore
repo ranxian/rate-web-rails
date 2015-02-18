@@ -11,7 +11,8 @@
 /log/*
 !/log/.keep
 /tmp
-rate.yml
+/config/rate.yml
+/config/mongoid.yml
 
 .DS_Store
 public/uploads/*
