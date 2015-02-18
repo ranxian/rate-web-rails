@@ -47,7 +47,7 @@
         </button>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-left">
-            <%= link_to image_tag("/images/Logo.png", alt: "Brand", class: "brand"), root_path %>
+            <%= link_to image_tag(asset_path("Logo.png"), alt: "Brand", class: "brand"), root_path %>
           </ul>
           <% if user_signed_in? %>
           <ul class="nav navbar-nav" style="margin-left: 18px">
@@ -83,11 +83,11 @@
             controller_name == 'benches' ||
             controller_name == 'tasks' %>
         <div class="row">
-          <div class="col-lg-9">
+          <div class="col-md-9">
             <%= bootstrap_flash %>
             <%= yield %>
           </div>
-          <div class="col-lg-3">
+          <div class="col-md-3">
             <div class="sidebar-nav">
               <h4>Options</h4>
               <%= yield :sidebar %>
@@ -96,20 +96,22 @@
         </div><!--/row-->
       <% elsif current_page?(users_show_path) %>
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-md-3">
             <div class="sidebar-nav">
               <%= yield :sidebar %>
             </div>
           </div>
-          <div class="col-lg-9">
+          <div class="col-md-9">
             <%= bootstrap_flash %>
             <%= yield %>
           </div>
         </div>
       <% else %>
         <div class="row">
-          <%= bootstrap_flash %>
-          <%= yield %>
+          <div class="col-md-12">
+            <%= bootstrap_flash %>
+            <%= yield %>
+          q</div>
         </div>
       <% end %>
 
