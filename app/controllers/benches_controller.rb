@@ -4,7 +4,7 @@ class BenchesController < ApplicationController
   # GET /benches
   # GET /benches.json
   def index
-    @benches = current_user.generated_benchs
+    @benches = current_user.generated_benchs.page(params[:page])
   end
 
   # GET /benches/1
@@ -28,10 +28,10 @@ class BenchesController < ApplicationController
 
     respond_to do |format|
       if @bench.save
-        format.html { redirect_to @bench, notice: 'Bench was successfully created.' }
+        format.html { redirect_to @bench, notice: 'Benchmark was successfully created.' }
         format.json { render :show, status: :created, location: @bench }
       else
-        format.html { render :new }
+        format.html { render :new, notice: 'Cannot create benchmark' }
         format.json { render json: @bench.errors, status: :unprocessable_entity }
       end
     end

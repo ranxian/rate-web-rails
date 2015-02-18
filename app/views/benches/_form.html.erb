@@ -12,15 +12,17 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :name %><br>
+    <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
   </div>
+
   <div class="form-group">
-    <%= f.label :description %><br>
+    <%= f.label :description %>
     <%= f.text_area :description, rows: 3, class: 'form-control' %>
   </div>
+
   <div class="form-group">
-    <%= f.label :strategy %><br>
+    <%= f.label :strategy %>
     <% if @bench.new_record? %>
       <%= f.select :strategy, Bench::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy' %>
     <% else %>
@@ -28,7 +30,32 @@
     <% end %>
   </div>
 
-  <%= f.submit "Create Benchmark", class: "btn btn-primary" %>&nbsp;
-  <%= link_to 'Back', benches_path %>
+  <div id="bench-by-general">
+    <div class="form-group">
+      <%= f.label :class_count %>
+      <%= f.number_field :class_count, class: 'form-control' %><br>
+      <%= f.label :sample_count %>
+      <%= f.number_field :sample_count, class: 'form-control' %>
+    </div>
+  </div>
 
+  <div id="bench-by-allN">
+    <div class="form-group">
+      <%= f.label :class_count %>
+      <%= f.number_field :class_count, class: 'form-control' %><br>
+      <%= f.label :sample_count %>
+      <%= f.number_field :sample_count, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div id="bench-by-file">
+    <div class="form-group">
+      <%= f.label :file %>
+      <%= f.file_field :file %>
+      <p class="help-block">Upload a file with one sample uuid per line, must have a '.txt' extention</p>
+    </div>
+  </div>
+
+  <%= f.submit "Submit", class: "btn btn-primary" %>&nbsp;
+  <%= link_to 'Back', benches_path %>
 <% end %>

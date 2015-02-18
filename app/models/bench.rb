@@ -6,8 +6,12 @@ class Bench
   field :num_of_genuine, type: Integer
   field :num_of_imposter, type: Integer
   field :strategy, type: Symbol
-  VALID_STRATEGIES = [:general, :all, :allN, :file, :allinter, :allinner, :allInnerOneInter]
+  VALID_STRATEGIES = [:all, :allinter, :allinner, :allInnerOneInter, :general, :allN, :file]
   field :uuid, type: String
+
+  mount_uploader :file, FileUploader, ignore_integrity_errors: true
+  field :class_count, type: Integer
+  field :sample_count, type: Integer
 
   belongs_to :generator, class_name: 'User', inverse_of: 'generated_benches'
   belongs_to :view
@@ -58,17 +62,21 @@ class Bench
     ratebench = client.result
     client.destroy
     # Store RATE-web benchmark
-    bench = Bench.new(name: options[:name],
-                      description: options[:description],
-                      strategy: options[:strategy],
-                      num_of_genuine: ratebench['genuine_count'],
-                      num_of_imposter: ratebench['imposter_count'],
-                      uuid: ratebench['uuid']
-                      )
-    bench.generator = user
-    bench.view = view
-    bench.save!
-    return bench
+    if ratebench.success?
+      bench = Bench.new(name: options[:name],
+                        description: options[:description],
+                        strategy: options[:strategy],
+                        num_of_genuine: ratebench['genuine_count'],
+                        num_of_imposter: ratebench['imposter_count'],
+                        uuid: ratebench['uuid']
+                        )
+      bench.generator = user
+      bench.view = view
+      bench.save!
+      return bench
+    else
+      raise ratebench.message
+    end
   end
 
   before_destroy do

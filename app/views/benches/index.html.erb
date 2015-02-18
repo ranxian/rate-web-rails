@@ -29,6 +29,7 @@
 </table>
 
 <br>
+<%= paginate @benches %>
 
 <% content_for :sidebar do %>
 <%= link_to 'New Bench', new_bench_path, class: 'btn btn-primary' %>
