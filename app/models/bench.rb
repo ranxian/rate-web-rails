@@ -6,7 +6,7 @@ class Bench
   field :num_of_genuine, type: Integer
   field :num_of_imposter, type: Integer
   field :strategy, type: Symbol
-  VALID_STRATEGIES = [:all, :allinter, :allinner, :allInnerOneInter, :general, :allN, :file]
+  VALID_STRATEGIES = [:general, :all, :allN, :file, :allinter, :allinner, :allInnerOneInter]
   field :uuid, type: String
 
   mount_uploader :file, FileUploader, ignore_integrity_errors: true

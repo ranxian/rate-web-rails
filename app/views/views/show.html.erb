@@ -37,7 +37,7 @@
       <td><%= link_to bench.name, bench %></td>
       <td><%= bench.description %></td>
       <td><%= bench.verbose_strategy %></td>
-      <td><%= bench.created_at %></td>
+      <td><%= bench.created_at.strftime("%y' %b %d - %H:%M") %></td>
       <td><%= bench.tasks.count %></td>
       <td><%= bench.generator.name %></td>
     </tr>

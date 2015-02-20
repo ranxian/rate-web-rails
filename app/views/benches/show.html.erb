@@ -8,6 +8,7 @@
     <% if @bench.strategy == :file %>
       <th>File</th>
     <% end %>
+    <th>Belongs to</th>
   </tr>
   <tr>
     <td><%= @bench.description %></td>
@@ -16,6 +17,7 @@
     <% if @bench.strategy == :file %>
       <td><%= link_to File.basename(@bench.file.path), @bench.file.url %></td>
     <% end %>
+    <td><%= link_to @bench.view.name, @bench.view %></td>
   </tr>
 </table>
 
@@ -36,7 +38,7 @@
       <td><%= task.score %></td>
       <td><%= task.progress %></td>
       <td><%= task.finished %></td>
-      <td><%= task.created_at %></td>
+      <td><%= task.created_at.strftime("%y' %b %d - %H:%M") %></td>
       <td><%= task.runner.name %></td>
     </tr>
   <% end %>

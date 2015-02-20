@@ -10,6 +10,7 @@
       <th>Num of genuine</th>
       <th>Num of imposter</th>
       <th>Strategy</th>
+      <th>Belongs to</th>
       <th>UUID</th>
     </tr>
   </thead>
@@ -22,6 +23,7 @@
         <td><%= bench.num_of_genuine %></td>
         <td><%= bench.num_of_imposter %></td>
         <td><%= bench.verbose_strategy %></td>
+        <td><%= link_to bench.view.name, bench.view %></td>
         <td><%= bench.short_uuid %></td>
       </tr>
     <% end %>
@@ -30,7 +32,3 @@
 
 <br>
 <%= paginate @benches %>
-
-<% content_for :sidebar do %>
-<%= link_to 'New Bench', new_bench_path, class: 'btn btn-primary' %>
-<% end %>

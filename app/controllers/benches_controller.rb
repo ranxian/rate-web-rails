@@ -4,7 +4,7 @@ class BenchesController < ApplicationController
   # GET /benches
   # GET /benches.json
   def index
-    @benches = current_user.generated_benchs.page(params[:page])
+    @benches = current_user.generated_benches.all.page(params[:page])
   end
 
   # GET /benches/1
@@ -15,6 +15,7 @@ class BenchesController < ApplicationController
   # GET /benches/new
   def new
     @bench = Bench.new
+    flash[:view_id] = params[:view_id]
   end
 
   # GET /benches/1/edit
@@ -24,10 +25,10 @@ class BenchesController < ApplicationController
   # POST /benches
   # POST /benches.json
   def create
-    @bench = Bench.new(bench_params)
+    @bench = Bench.generate!(current_user, View.find(flash[:view_id]), bench_params)
 
     respond_to do |format|
-      if @bench.save
+      if @bench
         format.html { redirect_to @bench, notice: 'Benchmark was successfully created.' }
         format.json { render :show, status: :created, location: @bench }
       else
@@ -69,6 +70,6 @@ class BenchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bench_params
-      params.require(:bench).permit(:name, :description, :num_of_genuine, :num_of_imposter, :strategy)
+      params.require(:bench).permit(:name, :description, :class_count, :sample_count, :strategy)
     end
 end
