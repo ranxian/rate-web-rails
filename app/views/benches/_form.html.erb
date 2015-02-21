@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= hidden_field_tag :view_id, @view.id %>
+
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>

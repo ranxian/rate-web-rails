@@ -8,7 +8,7 @@
     <% if @bench.strategy == :file %>
       <th>File</th>
     <% end %>
-    <th>Belongs to</th>
+    <th>View</th>
   </tr>
   <tr>
     <td><%= @bench.description %></td>
@@ -47,5 +47,5 @@
 <% content_for :sidebar do %>
   <%= link_to 'Add Task', new_task_path(bench_id: @bench.id), class: 'btn btn-primary' %>
   <%= link_to 'Delete Benchmark', @bench, method: :delete, data: { confirm: 'Delete this bench will also delete all tasks, are you sure?' }, class: 'btn btn-danger' %>  
-  <%= link_to 'Create Bechmark', new_bench_path, class: 'btn btn-success' %>
+  <%= link_to 'Add Benchmark', new_bench_path(view_id: @bench.view.id), class: 'btn btn-success' %>  
 <% end %>

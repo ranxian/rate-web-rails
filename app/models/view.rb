@@ -4,7 +4,7 @@ class View
   # 名字
   field :name, type: String
   # 描述
-  field :description, type: String
+  field :description, type: String, default: 'No description'
   # 类数
   field :num_of_classes, type: Integer
   # 样本数
@@ -55,6 +55,8 @@ class View
     client.create('view', options)
     client.wait
     rateview = client.result
+    # Copy view file
+    filepath = client.download('view', rateview[:uuid], Rails.root.join('tmp'))['file']
     client.destroy
     # Store view in RATE-web
     if rateview.success?
@@ -67,6 +69,7 @@ class View
                       num_of_samples: rateview['sample_count'],
                       num_of_classes: rateview['class_count'])
       view.generator = user
+      view.file = File.new(filepath)
       view.save!
       return view
     else

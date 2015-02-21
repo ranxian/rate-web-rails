@@ -107,17 +107,16 @@ class RateClient
   #
   def download(target, uuid, path)
     if target != 'image'
-      r = self.info(options)
+      r = self.info(target, uuid)
       return r if not r.success?
     end
-
-    path = options[:path]
-    @socket.puts "download #{options[:target]} uuid:#{options[:uuid]}"
+    
+    @socket.puts "download #{target} uuid:#{uuid}"
     result = receive
     if result.success?
       if File.directory?(path)
         path = File.join(path, 
-          options[:target] + '-' + options[:uuid].split('-')[0] + '.zip')
+          target + '-' + uuid.split('-')[0] + '.zip')
       end
       file = File.new(path, "wb")
       receive_file(file)

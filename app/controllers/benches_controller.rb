@@ -15,17 +15,18 @@ class BenchesController < ApplicationController
   # GET /benches/new
   def new
     @bench = Bench.new
-    flash[:view_id] = params[:view_id]
+    @view = View.find(params[:view_id])
   end
 
   # GET /benches/1/edit
   def edit
+    @view = @bench.view
   end
 
   # POST /benches
   # POST /benches.json
   def create
-    @bench = Bench.generate!(current_user, View.find(flash[:view_id]), bench_params)
+    @bench = Bench.generate!(current_user, View.find(params[:view_id]), bench_params)
 
     respond_to do |format|
       if @bench
@@ -42,7 +43,7 @@ class BenchesController < ApplicationController
   # PATCH/PUT /benches/1.json
   def update
     respond_to do |format|
-      if @bench.update(bench_params)
+      if @bench.update(bench_params.permit!)
         format.html { redirect_to @bench, notice: 'Bench was successfully updated.' }
         format.json { render :show, status: :ok, location: @bench }
       else

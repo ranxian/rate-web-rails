@@ -2,7 +2,7 @@ class Bench
   include Mongoid::Document
   include Mongoid::Timestamps
   field :name, type: String
-  field :description, type: String
+  field :description, type: String, default: 'No description'
   field :num_of_genuine, type: Integer
   field :num_of_imposter, type: Integer
   field :strategy, type: Symbol
@@ -52,6 +52,8 @@ class Bench
   # options = { strategy: 'all' (or 'allinter', 'allinner', 'allInterOneInter') }
   # => options for file benchmark
   # options = { strategy: 'file', path: 'path-to-benchmark-file' }
+  # The format of the file is 'UUID1 UUID2 G' perline, where UUIDx is the UUID of the matching samples,
+  # and G means genuine, while I means imposter
   #
   def self.generate!(user, view, options)
     options[:view_uuid] = view.uuid

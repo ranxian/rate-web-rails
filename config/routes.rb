@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
-
   get 'home/index'
   get 'home/show'
   get 'users/show'
   resources :tasks
   resources :algorithms
   resources :benches
-  resources :views
+  resources :views do
+    member do
+    end
+  end
+
   devise_for :users
   root to: "home#index"
   
