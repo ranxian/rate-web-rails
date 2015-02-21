@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   get 'users/show'
   resources :tasks
   resources :algorithms
-  resources :benches
+  
+  resources :benches do
+    member do
+    end
+  end
+  
   resources :views do
     member do
     end

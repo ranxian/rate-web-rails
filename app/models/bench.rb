@@ -56,12 +56,18 @@ class Bench
   # and G means genuine, while I means imposter
   #
   def self.generate!(user, view, options)
+    # 如果使用文件创建 bench
+    if options[:strategy] == 'file'
+      options[:path] = options[:file].tempfile.path
+    end
     options[:view_uuid] = view.uuid
     # Create RATE benchmark
     client = RateClient.new
     client.create('benchmark', options)
     client.wait
     ratebench = client.result
+    # Copy bench file
+    filepath = client.download('benchmark', ratebench[:uuid], Rails.root.join('tmp'))['file']
     client.destroy
     # Store RATE-web benchmark
     if ratebench.success?
@@ -70,10 +76,12 @@ class Bench
                         strategy: options[:strategy],
                         num_of_genuine: ratebench['genuine_count'],
                         num_of_imposter: ratebench['imposter_count'],
-                        uuid: ratebench['uuid']
+                        uuid: ratebench['uuid'],
+                        file: options[:file]
                         )
       bench.generator = user
       bench.view = view
+      bench.file = File.new(filepath)
       bench.save!
       return bench
     else
