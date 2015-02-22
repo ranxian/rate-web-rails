@@ -2,11 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-ready = ->
-  # Hide extra field
-  $('#view-by-file').hide()
-  $('#view-by-import-tag').hide()
 
+ready = ->
   $('#view-strategy').change ->
     strategy = this.value
     if strategy is 'file'

@@ -1,5 +1,5 @@
 class BenchesController < ApplicationController
-  before_action :set_bench, only: [:show, :edit, :update, :destroy]
+  before_action :set_bench, only: [:show, :edit, :update, :destroy, :download]
 
   # GET /benches
   # GET /benches.json
@@ -71,6 +71,11 @@ class BenchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bench_params
-      params.require(:bench).permit(:name, :description, :class_count, :sample_count, :strategy)
+      params.require(:bench).permit(:name, 
+                                    :description, 
+                                    :class_count, 
+                                    :sample_count, 
+                                    :strategy,
+                                    :file)
     end
 end
