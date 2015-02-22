@@ -24,7 +24,7 @@
         <td><%= view.num_of_classes %></td>
         <td><%= view.num_of_samples %></td>
         <td><%= view.benches.count %></td>
-        <td><%= view.verbose_strategy %></td>
+        <td><%= view_verbose_strategy(view) %></td>
         <td><%= view.short_uuid %></td>
         <td><%= view.created_at.strftime("%y' %b %d - %H:%M") %></td>
       </tr>
@@ -37,5 +37,10 @@
 
 <% content_for :sidebar do %>
 <%= link_to 'Create View', new_view_path, class: 'btn btn-primary' %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    You have <%= current_user.generated_views.count %> views in total
+  </div>
+</div>
 <% end %>
 

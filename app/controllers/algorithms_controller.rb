@@ -24,7 +24,7 @@ class AlgorithmsController < ApplicationController
   # POST /algorithms
   # POST /algorithms.json
   def create
-    @algorithm = Algorithm.new(algorithm_params)
+    @algorithm = Algorithm.generate!(current_user, algorithm_params)
 
     respond_to do |format|
       if @algorithm.save
@@ -69,6 +69,6 @@ class AlgorithmsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def algorithm_params
-      params.require(:algorithm).permit(:name, :description)
+      params.require(:algorithm).permit(:name, :description, :enroll_exe, :match_exe)
     end
 end

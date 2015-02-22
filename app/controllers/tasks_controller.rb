@@ -24,7 +24,8 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = Task.run!(current_user, Benchmark.find(params[:bench_id], 
+                      Algorithm.find(params[:algorithm_id]), task_params))
 
     respond_to do |format|
       if @task.save

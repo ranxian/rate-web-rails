@@ -24,9 +24,9 @@
   <div class="form-group">
     <%= f.label :strategy %>
     <% if @view.new_record? %>
-      <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy' %>
+      <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'view-strategy' %>
     <% else %>
-      <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy', disabled: true %>
+      <%= f.select :strategy, View::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'view-strategy', disabled: true %>
     <% end %>
   </div>
 
@@ -34,6 +34,7 @@
     <div class="form-group">
       <%= f.label :import_tag %>
       <%= f.text_field :import_tag, class: 'form-control' %>
+      <p class="help-block">All samples with specified import_tag will be added in the view</p>
     </div>
   </div>
 

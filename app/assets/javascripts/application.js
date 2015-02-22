@@ -14,4 +14,9 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
+//= require validator
 //= require_tree .
+
+$(document).ready(function () {
+  $('.form-validate').validator();
+});

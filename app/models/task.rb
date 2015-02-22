@@ -39,6 +39,7 @@ class Task
     client.run(algorithm.uuid, bench.uuid)
     ratetask = client.result
     client.destroy
+    
     task = Task.new(uuid: ratetask['uuid'])
     task.bench = bench
     task.algorithm = algorithm

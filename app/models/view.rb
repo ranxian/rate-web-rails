@@ -22,14 +22,6 @@ class View
   # 在 View 上建立的 benchmark
   has_many :benches
 
-  def verbose_strategy
-    vs = self.strategy.to_s
-    if self.strategy == :import_tag
-      vs += "(#{self.import_tag})"
-    end
-    return vs
-  end
-
   def short_uuid
     self.uuid ? self.uuid.split('-')[0] : self.uuid
   end

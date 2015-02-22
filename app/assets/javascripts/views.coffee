@@ -7,7 +7,7 @@ ready = ->
   $('#view-by-file').hide()
   $('#view-by-import-tag').hide()
 
-  $('#strategy').change ->
+  $('#view-strategy').change ->
     strategy = this.value
     if strategy is 'file'
       $('#view-by-file').show()
