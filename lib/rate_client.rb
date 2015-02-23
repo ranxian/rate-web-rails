@@ -316,7 +316,7 @@ class RateClient
     need_arg! options, :path
     file_exist! options[:path]
 
-    if not options[:path].end_with?(".zip")
+    if not options[:path].ends_with?(".zip")
       return RateResult.new({ 'result' => 'failed', 
         'message' => "Algorithm must be compressed into zip" })
     end

@@ -3,9 +3,13 @@
 <table class="table">
   <tr>
     <th>Description</th>
+    <th>Enroll.exe</th>
+    <th>Match.exe</th>
   </tr>
   <tr>
     <td><%= @algorithm.description %></td>
+    <td><%= link_to 'Download', @algorithm.enroll_exe_url %></td>
+    <td><%= link_to 'Download', @algorithm.match_exe_url %></td>
   </tr>
 </table>
 

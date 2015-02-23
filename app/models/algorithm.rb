@@ -1,8 +1,10 @@
+require 'zip'
+
 class Algorithm
   include Mongoid::Document
   include Mongoid::Timestamps
   field :name, type: String
-  field :description, type: String
+  field :description, type: String, default: 'No description'
   field :uuid, type: String
 
   mount_uploader :enroll_exe, FileUploader, ignore_integrity_errors: true
@@ -20,14 +22,13 @@ class Algorithm
     enroll_exe = options[:enroll_exe]
     match_exe = options[:match_exe]
     random_dir_name = "alg-#{SecureRandom.hex}"
-    dir = Rails.root.join('tmp', random_dir_name)
-    FileUtils.mkdir(dir)
-    `cp #{enroll_exe.tempfile.path} #{dir.join('enroll.exe')}`
-    FileUtils.cp(enroll_exe.tempfile.path, dir.join('enroll.exe'))
-    FileUtils.cp(enroll_exe.tempfile.path, dir.join('match.exe'))
     zip_filepath = Rails.root.join('tmp', random_dir_name + '.zip')
     # TODO: create zip file
-    options[:path] = zip_filepath
+    Zip::File.open(zip_filepath, Zip::File::CREATE) do |zipfile|
+      zipfile.add('enroll.exe', enroll_exe.tempfile.path)
+      zipfile.add('match.exe', match_exe.tempfile.path)
+    end
+    options[:path] = zip_filepath.to_s
 
     client = RateClient.new
     client.create('algorithm', options)
@@ -39,6 +40,7 @@ class Algorithm
                         enroll_exe: options[:enroll_exe],
                         match_exe: options[:match_exe],
                         uuid: ratealg['uuid'])
+    alg.author = user
     alg.save!
     return alg
   end
