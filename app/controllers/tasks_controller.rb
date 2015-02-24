@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = current_user.tasks
+    @tasks = current_user.tasks.all
   end
 
   # GET /tasks/1
@@ -15,6 +15,12 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    if params[:algorithm_id] != nil 
+      @algorithm = Algorithm.find(params[:algorithm_id])
+    end
+    if params[:bench_id] != nil
+      @bench = Bench.find(params[:bench_id])
+    end
   end
 
   # GET /tasks/1/edit
@@ -24,8 +30,8 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.run!(current_user, Benchmark.find(params[:bench_id], 
-                      Algorithm.find(params[:algorithm_id]), task_params))
+    @task = Task.run!(current_user, Bench.find_by(name: params[:task][:bench]), 
+                      Algorithm.find_by(name: params[:task][:algorithm]), task_params)
 
     respond_to do |format|
       if @task.save
@@ -70,6 +76,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :score)
+      params.require(:task).permit(:name, 
+                                   :score)
     end
 end

@@ -44,7 +44,7 @@ class BenchesController < ApplicationController
   def update
     respond_to do |format|
       if @bench.update(bench_params.permit!)
-        format.html { redirect_to @bench, notice: 'Bench was successfully updated.' }
+        format.html { redirect_to @bench, notice: 'Benchmark was successfully updated.' }
         format.json { render :show, status: :ok, location: @bench }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class BenchesController < ApplicationController
   def destroy
     @bench.destroy
     respond_to do |format|
-      format.html { redirect_to benches_url, notice: 'Bench was successfully destroyed.' }
+      format.html { redirect_to benches_url, notice: 'Benchmark was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

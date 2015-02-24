@@ -26,9 +26,9 @@
   <div class="form-group">
     <%= f.label :strategy %>
     <% if @bench.new_record? %>
-      <%= f.select :strategy, Bench::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy' %>
+      <%= f.select :strategy, Bench::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'bench-strategy' %>
     <% else %>
-      <%= f.select :strategy, Bench::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'strategy', disabled: true %>
+      <%= f.select :strategy, Bench::VALID_STRATEGIES.collect { |s| [s.to_s, s.to_s] }, {}, class: 'form-control', id: 'bench-strategy', disabled: true %>
     <% end %>
   </div>
 

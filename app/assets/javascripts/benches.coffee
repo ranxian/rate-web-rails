@@ -18,9 +18,9 @@ show = (strategy) ->
 
 ready = ->
   # Hide extra field
-  show($('#strategy').val())
+  show($('#bench-strategy').val())
 
-  $('#strategy').change ->
+  $('#bench-strategy').change ->
     show(this.value)
 
 $(document).ready(ready)

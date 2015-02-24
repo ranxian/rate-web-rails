@@ -40,12 +40,19 @@ class Task
     ratetask = client.result
     client.destroy
     
-    task = Task.new(uuid: ratetask['uuid'])
-    task.bench = bench
-    task.algorithm = algorithm
-    task.runner = user
-    task.save!
-    return task
+    if ratetask.success?
+      task = Task.new(name: options[:name],
+                      score: ratetask['score'],
+                      finished: ratetask['finished'],
+                      uuid: ratetask['uuid'])
+      task.bench = bench
+      task.algorithm = algorithm
+      task.runner = user
+      task.save!
+      return task
+    else
+      raise ratetask.message
+    end
   end
 
   before_destroy do
