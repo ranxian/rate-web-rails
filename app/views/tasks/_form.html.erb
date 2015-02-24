@@ -21,7 +21,7 @@
     <% if params[:algorithm_id] == nil %>
       <%= f.select :algorithm, current_user.algorithms.all.collect { |s| [s.name] }, {}, class: 'form-control' %>
     <% else %>
-      <%= f.select :algorithm, [@algorithm.name], {}, class: 'form-control' %>
+      <%= f.select :algorithm, [Algorithm.find(params[:algorithm_id]).name], {}, class: 'form-control' %>
     <% end %>
   </div>
 
@@ -30,7 +30,7 @@
       <% if params[:bench_id] == nil %>
       <%= f.select :bench, current_user.generated_benches.all.collect { |s| [s.name] }, {}, class: 'form-control' %>
     <% else %>
-      <%= f.select :bench, [@bench.name], {}, class: 'form-control' %>
+      <%= f.select :bench, [Bench.find(params[:bench_id]).name], {}, class: 'form-control' %>
     <% end %>
   </div>
 

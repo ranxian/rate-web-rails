@@ -15,12 +15,6 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    if params[:algorithm_id] != nil 
-      @algorithm = Algorithm.find(params[:algorithm_id])
-    end
-    if params[:bench_id] != nil
-      @bench = Bench.find(params[:bench_id])
-    end
   end
 
   # GET /tasks/1/edit
