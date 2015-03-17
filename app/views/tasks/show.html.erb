@@ -21,6 +21,6 @@
 <% end %>
 
 <% content_for :sidebar do %>
-  <%= link_to 'Run Task', new_task_path, class: 'btn btn-primary' %>
+  <%= link_to 'Run Again', rerun_task_path, class: 'btn btn-primary' %>
   <%= link_to 'Delete Task', @task, method: :delete, data: { confirm: 'Delete this task will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  
 <% end %>

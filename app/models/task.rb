@@ -34,6 +34,12 @@ class Task
     self.save!
   end
 
+  def rerun
+    client = RateClient.new
+    client.run(self.algorithm.uuid, self.bench.uuid)
+    client.destroy
+  end
+
   def self.run!(user, bench, algorithm, options = {})
     client = RateClient.new
     client.run(algorithm.uuid, bench.uuid)

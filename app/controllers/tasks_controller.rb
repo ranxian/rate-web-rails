@@ -1,10 +1,15 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :rerun]
 
   # GET /tasks
   # GET /tasks.json
   def index
     @tasks = current_user.tasks.all
+  end
+
+  def rerun
+    @task.rerun
+    redirect_to :back
   end
 
   # GET /tasks/1

@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
       <th># Classes</th>
       <th># Samples</th>
       <th># Benchmarks</th>
@@ -18,7 +17,6 @@
     <% @views.each do |view| %>
       <tr>
         <td><%= link_to view.name, view %></td>
-        <td><%= view.description %></td>
         <td><%= view.num_of_classes %></td>
         <td><%= view.num_of_samples %></td>
         <td><%= view.benches.count %></td>
