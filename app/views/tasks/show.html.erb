@@ -1,24 +1,35 @@
 <h3><I><%= @task.name %></I> <small><%= link_to 'Edit', edit_task_path(@task) %></small></h3>
 
+
 <table class="table">
   <tr>
     <th>Name</th>
+    <th>Benchmark</th>
+    <th>Algorithm</th>
     <th>Progress</th>
     <th>Score</th>
   </tr>
   <tr>
     <td><%= @task.name %></td> 
+    <td><%= link_to @task.bench.name, @task.bench %></td>
+    <td><%= link_to @task.algorithm.name, @task.algorithm %></td>
     <td>
       <div id="progress">
         <div class="progress">
-        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-        </div>
+          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          </div>
         </div>
       </div>
     </td>
     <td><%= @task.score %></td>
   </tr>
 </table>
+
+<% if not @task.finished %>
+  Task is running
+<% else %>
+  
+<% end %>
 
 <% content_for :sidebar do %>
   <%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
