@@ -4,9 +4,10 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Score</th>
-      <th>Progress</th>
+      <th>Benchmark</th>
+      <th>Algorithm</th>
       <th>Finished</th>
+      <th>Score</th>
       <th>UUID</th>
     </tr>
   </thead>
@@ -15,9 +16,10 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= link_to task.name, task %></td>
-        <td><%= task.score %></td>
-        <td><%= task.progress %></td>
+        <td><%= link_to task.bench.name, task.bench %></td>
+        <td><%= link_to task.algorithm.name, task.algorithm %></td>
         <td><%= task.finished %></td>
+        <td><%= task.score %></td>
         <td><%= task.short_uuid %></td>
       </tr>
     <% end %>
@@ -27,5 +29,5 @@
 <br>
 
 <% content_for :sidebar do %>
-<%= link_to 'Run Task', new_task_path, class: 'btn btn-primary' %>
+<%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
 <% end %>

@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :rerun]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :rerun, :update_from_server]
 
   # GET /tasks
   # GET /tasks.json
@@ -12,9 +12,19 @@ class TasksController < ApplicationController
     redirect_to :back
   end
 
+  def update_from_server
+    @task.update_from_server!
+
+    render json: { progress: @task.progress.to_f }
+  end
+
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   # GET /tasks/new

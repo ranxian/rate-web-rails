@@ -26,7 +26,7 @@ class Task
     client.destroy
     self.finished = ratetask['finished']
     self.score = ratetask['score']
-    self.progress = ratetask['progress']
+    self.progress = ratetask['progress'] if ratetask['progress']
   end
 
   def update_from_server!
