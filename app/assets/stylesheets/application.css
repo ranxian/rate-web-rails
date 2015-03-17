@@ -14,8 +14,8 @@ div.sidebar-nav .btn {
 
 /* universal */
 
-html {
-    overflow-y: scroll;
+.table .progress {
+    margin-bottom: 0px;
 }
 
 .center {

@@ -3,15 +3,41 @@
 <table class="table">
   <tr>
     <th>Name</th>
+    <th>Progress</th>
     <th>Score</th>
   </tr>
   <tr>
-    <td><%= @task.name %></td>      
+    <td><%= @task.name %></td> 
+    <td>
+      <div id="progress">
+        <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+        </div>
+        </div>
+      </div>
+    </td>
     <td><%= @task.score %></td>
   </tr>
 </table>
 
 <% content_for :sidebar do %>
-  <%= link_to 'Run Task', new_task_path, class: 'btn btn-primary' %>
+  <%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
   <%= link_to 'Delete Task', @task, method: :delete, data: { confirm: 'Delete this task will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  
 <% end %>
+
+
+<script>
+  $(document).ready(function(){
+    var progresspump = setInterval(function(){
+      $.get("/tasks/update_from_server!", function(data){
+        $("#progress").css('width', data + '%');
+        $("#progress").html(data + '%');
+
+        if(data > 99.999) {
+          clearInterval(progresspump);
+          $("#progressouter").removeClass("active");
+          $("#progress").html("Done");
+        }
+      })
+    }, 5000);});
+</script>

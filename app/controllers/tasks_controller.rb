@@ -7,9 +7,17 @@ class TasksController < ApplicationController
     @tasks = current_user.tasks.all
   end
 
+  def update_from_server!
+    @task.update_from_server!
+  end
+
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   # GET /tasks/new
