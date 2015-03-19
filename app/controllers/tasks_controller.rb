@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :rerun, :update_from_server]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :rerun, :update_from_server, :stop]
 
   # GET /tasks
   # GET /tasks.json
@@ -9,6 +9,11 @@ class TasksController < ApplicationController
 
   def rerun
     @task.rerun
+    redirect_to :back
+  end
+
+  def stop
+    @task.kill
     redirect_to :back
   end
 

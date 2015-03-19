@@ -6,7 +6,7 @@
       <th>Name</th>
       <th>Benchmark</th>
       <th>Algorithm</th>
-      <th>Finished</th>
+      <th>Progress</th>
       <th>Score</th>
       <th>UUID</th>
     </tr>
@@ -18,8 +18,15 @@
         <td><%= link_to task.name, task %></td>
         <td><%= link_to task.bench.name, task.bench %></td>
         <td><%= link_to task.algorithm.name, task.algorithm %></td>
-        <td><%= task.finished %></td>
-        <td><%= task.score %></td>
+        <td>
+          <% if task.finished %>
+            <%= task.finished %>
+          <% else %>
+            <div class="progress-bar active" id="task-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= @task.progress * 100 %>%">
+            </div>
+          <% end %>
+        </td>
+        <td><%= task.score.round(2) %></td>
         <td><%= task.short_uuid %></td>
       </tr>
     <% end %>

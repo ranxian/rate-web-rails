@@ -34,6 +34,12 @@ class Task
     self.save!
   end
 
+  def kill
+    client = RateClient.new
+    client.kill(self.uuid)
+    client.destroy
+  end
+
   def rerun
     client = RateClient.new
     client.run(self.algorithm.uuid, self.bench.uuid)

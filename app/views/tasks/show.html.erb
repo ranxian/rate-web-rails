@@ -14,10 +14,8 @@
     <td><%= link_to @task.bench.name, @task.bench %></td>
     <td><%= link_to @task.algorithm.name, @task.algorithm %></td>
     <td>
-      <div id="progress">
-        <div class="progress">
-          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-          </div>
+      <div class="progress" style="width: 300px">
+        <div class="progress-bar active" id="task-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= @task.progress * 100 %>%">
         </div>
       </div>
     </td>
@@ -33,7 +31,8 @@
 
 <% content_for :sidebar do %>
   <%= link_to 'Run Again', rerun_task_path, class: 'btn btn-primary' %>
-  <%= link_to 'Delete Task', @task, method: :delete, data: { confirm: 'Delete this task will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  
+  <%= link_to 'Stop', stop_task_path, class: 'btn btn-warning' %>
+  <%= link_to 'Delete Task', @task, method: :delete, data: { confirm: 'are you sure?' }, class: 'btn btn-danger' %>  
 <% end %>
 
 
@@ -42,14 +41,14 @@
     var progresspump = setInterval(function(){
       $.get("/tasks/<%= @task.id.to_s %>/update_from_server", function(data){
         var progress = data['progress'] * 100;
-        $("#progress").css('width', progress + '%');
-        $("#progress").html(progress + '%');
+        $("#task-progress").css('width', progress + '%');
+        $("#task-progress").html(progress.toPrecision(2) + '%');
 
         if(data > 99.999) {
           clearInterval(progresspump);
-          $("#progressouter").removeClass("active");
-          $("#progress").html("Done");
+          $("#task-progress").removeClass("active");
+          $("#task-progress").html("Done");
         }
       })
-    }, 5000);});
+    }, 1000);});
 </script>

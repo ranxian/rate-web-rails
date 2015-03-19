@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     member do
       get 'rerun'
       get 'update_from_server'
+      get 'stop'
     end
   end
 
