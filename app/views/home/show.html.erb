@@ -1,2 +1,49 @@
-<h1>Home#show</h1>
-<p>Find me in app/views/home/show.html.erb</p>
+<p>A submission consists of two Win32 executables, enroll.exe and match.exe, for the enrollment step and the matching step. The two executables should read input from the command line arguments and output results to the standard output or a designated file with the right exit value. They must obey the following rules:</p>
+<table class="table">
+    <tr>
+        <th>Executable</th>
+        <th>Decription</th>
+        <th>Command line args</th>
+        <th>Standard output</th>
+        <th>Exit value</th>
+    </tr>
+    <tr>
+        <td>Enroll.exe</td>
+        <td>Extract feature and create template</td>
+        <td>Path of the input image and path of the output template file</td>
+        <td>None</td>
+        <td>0: success;
+            Else: failed</td>
+    </tr>
+    <tr>
+        <td>Match.exe</td>
+        <td>Paths of two templates for matching</td>
+        <td>Match two templates Paths of two templates for matching</td>
+        <td>Similarity degree is indicated by a float number between [0-1. 0], with 0 meaning not similar at all, and 1 meaning exact the same</td>
+        <td>0: success; Else: failed</td>
+    </tr>
+</table>
+<p class="ratered">Keep in mind that the right exit value is very important, and you may fail the evaluation if you don’t care about it.</p>
+<p>The executables will be used in a command line like follows:</p>
+<pre>
+    > Enroll.exe /path/to/read/image.bmp /path/to/write/template.t
+    > Match.exe /path/to/template1.t /path/to/template2.t
+</pre>
+<ul>
+    <li>There are also time and space limit for each executable. Time requirement for Enroll.exe is within 3 seconds. Time requirement for Match.exe is within 100ms. Memory requirement for both .exe is within 128M. The evaluation platform will be very strict on these constraints.</li>
+    <li>The evaluation platform is a distributed system running on 32-bit Windows system. So all the executables must be 32-bit Windows executables. Runtime libraries provided are:</li>
+    <ul>
+        <li>Microsoft Visual C++ 2005 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2005 SP1 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2008 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2008 SP1 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2010 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2010 SP1 Redistributable Package (x86)</li>
+        <li>Visual C++ Redistributable for Visual Studio 2012 Update 4</li>
+        <li>Visual C++ Redistributable Packages for Visual Studio 2013</li>
+        <li>OpenCV 2.4.9</li>
+    </ul>
+    <li>If you would like to use other libraries, make sure that they can work well on a machine with just the same previous environment. Static build might be a good option.</li>
+    <li>A code framework and example executables are be prepared for the participants. See <b>Downloads</b> section below</li>
+    <li>Details of the final submission by email will be posted later</li>
+</ul>

@@ -6,10 +6,11 @@
     <th>Algorithm</th>
     <th>Finished</th>
     <th>UUID</th>
+    <th>Runner</th>
   </tr>
   <% tasks.each do |task| %>
     <tr>
-      <td><%= task.name %></td> 
+      <td><%= link_to task.name, task %></td> 
       <td class="score"><%= task.score.round(2) if task.score %></td>
       <td><%= link_to task.bench.name, task.bench %></td>
       <td><%= link_to task.algorithm.name, task.algorithm %></td>
@@ -24,6 +25,7 @@
         <% end %>
       </td>
       <td><%= task.short_uuid %></td>
+      <td><%= task.runner.name %></td>
     </tr>
   <% end %>
 </table>

@@ -71,7 +71,7 @@ class Task
     end
   end
 
-  def roc_grapg_url
+  def roc_graph_url
     RateClient.static_file_url(['tasks', self.uuid, 'roc.png'])
   end
 
