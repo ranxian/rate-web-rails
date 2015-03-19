@@ -9,11 +9,6 @@ class User
   has_many :algorithms, inverse_of: 'author'
   has_many :tasks, inverse_of: 'runner'
 
-  def self.serialize_from_session(key, salt)
-    record = to_adapter.get(key[0]["$oid"])
-    record if record && record.authenticatable_salt == salt
-  end
-
   ################
   #### Devise ####
   ################

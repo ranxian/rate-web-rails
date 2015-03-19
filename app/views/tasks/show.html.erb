@@ -55,7 +55,7 @@
 <% end %>
 
 <%= link_to 'Browse Imposter', @task.imposter_viewer_url, target: '_blank', class: 'btn btn-primary' %>
-<%= link_to 'Genuine Imposter', @task.genuine_viewer_url, target: '_blank', class: 'btn btn-primary' %>
+<%= link_to 'Browse Genuine', @task.genuine_viewer_url, target: '_blank', class: 'btn btn-primary' %>
 
 <% if not @task.finished %>
 <script>
