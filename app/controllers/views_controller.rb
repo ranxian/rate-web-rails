@@ -4,7 +4,7 @@ class ViewsController < ApplicationController
   # GET /views
   # GET /views.json
   def index
-    @views = current_user.generated_views.all.desc(:created_at).page(params[:page])
+    @views = View.all.desc(:created_at).page(params[:page])
   end
 
   # GET /views/1

@@ -54,7 +54,6 @@ class View
                       description: options[:name],
                       strategy: options[:strategy],
                       import_tag: options[:import_tag],
-                      file: options[:file],
                       uuid: rateview['uuid'],
                       num_of_samples: rateview['sample_count'],
                       num_of_classes: rateview['class_count'])
