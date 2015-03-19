@@ -15,7 +15,7 @@
     <td><%= @task.short_uuid %></td>
     <td><%= link_to @task.bench.name, @task.bench %></td>
     <td><%= link_to @task.algorithm.name, @task.algorithm %></td>
-    <td>
+    <td class="progress-td">
       <% if @task.finished %>
         <%= simplify_time @task.finished %>
       <% else %>
@@ -25,7 +25,7 @@
         </div>
       <% end %>
     </td>
-    <td><%= @task.score %></td>
+    <td class="score"><%= @task.score.round(2) if @task.score %></td>
   </tr>
 </table>
 
@@ -37,7 +37,7 @@
 
 <% content_for :sidebar do %>
   <%= link_to 'Run Again', rerun_task_path, class: 'btn btn-primary' %>
-  <%= link_to 'Stop', stop_task_path, class: 'btn btn-warning' %>
+  <%= link_to 'Stop', stop_task_path, class: 'btn btn-warning', disabled: @task.finished %>
   <%= link_to 'Delete Task', @task, method: :delete, data: { confirm: 'are you sure?' }, class: 'btn btn-danger' %>  
 <% end %>
 
@@ -54,6 +54,7 @@
           clearInterval(progresspump);
           $("#task-progress").removeClass("active");
           $("#task-progress").html("Done");
+          $(".score").html(data['score'].toPrecision(2));
         }
       })
     }, 1000);});

@@ -41,6 +41,10 @@ class Task
   end
 
   def rerun
+    self.progress = 0
+    self.finished = nil
+    self.score = nil
+    self.save
     client = RateClient.new
     client.run(self.algorithm.uuid, self.bench.uuid)
     client.destroy

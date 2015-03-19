@@ -20,7 +20,7 @@ class TasksController < ApplicationController
   def update_from_server
     @task.update_from_server!
 
-    render json: { progress: @task.progress.to_f }
+    render json: { progress: @task.progress.to_f, score: @task.score }
   end
 
   # GET /tasks/1
@@ -44,17 +44,15 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.run!(current_user, Bench.find_by(name: params[:task][:bench]), 
-                      Algorithm.find_by(name: params[:task][:algorithm]), task_params)
-
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @task }
-      else
-        format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    # Check exist
+    @task = Task.where(bench_id: params[:task][:bench_id], algorithm_id: params[:task][:algorithm_id]).first
+    if @task
+      redirect_to task_path(@task)
+    else
+      bench = Bench.find(params[:task][:bench_id])
+      algorithm = Algorithm.find(params[:task][:algorithm_id])
+      @task = Task.run!(current_user, bench, algorithm, { name: params[:task][:name] })
+      redirect_to @task, notice: 'Task was successfully created.'
     end
   end
 

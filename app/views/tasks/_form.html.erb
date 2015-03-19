@@ -13,25 +13,17 @@
 
   <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name, class: 'form-control' %>
+    <%= f.text_field :name, class: 'form-control', value: "Task ##{current_user.tasks.count+1}" %>
   </div>
 
   <div class="form-group">
     <%= f.label :choose_algorithm %>
-    <% if params[:algorithm_id] == nil %>
-      <%= f.select :algorithm, current_user.algorithms.all.collect { |s| [s.name] }, {}, class: 'form-control' %>
-    <% else %>
-      <%= f.select :algorithm, [Algorithm.find(params[:algorithm_id]).name], {}, class: 'form-control' %>
-    <% end %>
+    <%= f.select :algorithm_id, current_user.algorithms.all.collect { |s| [s.name, s.id] }, { selected: params[:algorithm_id] }, class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= f.label :choose_benchmark %>
-      <% if params[:bench_id] == nil %>
-      <%= f.select :bench, current_user.generated_benches.all.collect { |s| [s.name] }, {}, class: 'form-control' %>
-    <% else %>
-      <%= f.select :bench, [Bench.find(params[:bench_id]).name], {}, class: 'form-control' %>
-    <% end %>
+    <%= f.select :bench_id, current_user.generated_benches.all.collect { |s| [s.name, s.id] }, { selected: params[:bench_id] }, class: 'form-control' %>
   </div>
 
   <%= f.submit "Run", class: "btn btn-primary" %>&nbsp;
