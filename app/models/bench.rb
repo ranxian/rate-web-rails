@@ -73,8 +73,7 @@ class Bench
                         strategy: options[:strategy],
                         num_of_genuine: ratebench['genuine_count'],
                         num_of_imposter: ratebench['imposter_count'],
-                        uuid: ratebench['uuid'],
-                        file: options[:file]
+                        uuid: ratebench['uuid']
                         )
       bench.generator = user
       bench.view = view

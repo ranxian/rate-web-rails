@@ -4,7 +4,7 @@ class BenchesController < ApplicationController
   # GET /benches
   # GET /benches.json
   def index
-    @benches = current_user.generated_benches.all.page(params[:page])
+    @benches = Bench.all.desc(:created_at).page(params[:page])
   end
 
   # GET /benches/1

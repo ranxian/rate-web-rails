@@ -23,7 +23,7 @@
 
   <div class="form-group">
     <%= f.label :choose_benchmark %>
-    <%= f.select :bench_id, current_user.generated_benches.all.collect { |s| [s.name, s.id] }, { selected: params[:bench_id] }, class: 'form-control' %>
+    <%= f.select :bench_id, Bench.all.collect { |s| [s.name, s.id] }, { selected: params[:bench_id] }, class: 'form-control' %>
   </div>
 
   <%= f.submit "Run", class: "btn btn-primary" %>&nbsp;

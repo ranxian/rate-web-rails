@@ -71,4 +71,4 @@ gem 'kaminari'
 gem 'thin'
 
 gem 'font-awesome-less'
-gem 'rubyzip', '>= 1.0.0'
+
