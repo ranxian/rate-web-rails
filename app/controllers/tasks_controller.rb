@@ -23,6 +23,10 @@ class TasksController < ApplicationController
     render json: { progress: @task.progress.to_f, score: @task.score }
   end
 
+  def download
+    
+  end
+
   # GET /tasks/1
   # GET /tasks/1.json
   def show

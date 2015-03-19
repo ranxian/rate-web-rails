@@ -15,6 +15,17 @@ class RateClient
   attr_reader :host, :port, :progress, :running, :result
 
   ##
+  # Get the url on the RATE static server, use this to fetch task results
+  #
+  def self.static_file_url(arg)
+    if arg.is_a?(Array)
+      arg = arg.join('/')
+    end
+    config = YAML.load_file(Rails.root.join('config', 'rate.yml'))
+    return "http://#{config['static_host']}/#{arg}"
+  end
+
+  ##
   # Initialize a client object from the rate.yml config file.
   #
   def initialize(options = {})
