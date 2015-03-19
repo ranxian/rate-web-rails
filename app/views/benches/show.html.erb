@@ -3,12 +3,14 @@
 <table class="table">
   <tr>
     <th>Description</th>
-    <th># Genuines</th>
-    <th># Imposters</th>
+    <th># Genuine</th>
+    <th># Imposter</th>
     <% if @bench.strategy == :file %>
       <th>File</th>
     <% end %>
     <th>View</th>
+    <th>Created</th>
+    <th>UUID</th>
   </tr>
   <tr>
     <td><%= @bench.description %></td>
@@ -18,6 +20,8 @@
       <td><%= link_to File.basename(@bench.file.path), @bench.file.url %></td>
     <% end %>
     <td><%= link_to @bench.view.name, @bench.view %></td>
+    <td><%= simplify_time @bench.created_at %></td>
+    <td><%= @bench.short_uuid %></td>
   </tr>
 </table>
 
@@ -37,7 +41,7 @@
       <td><%= link_to task.name, task %></td>
       <td><%= task.score %></td>
       <td><%= task.progress %></td>
-      <td><%= task.finished %></td>
+      <td><%= simplify_time task.finished %></td>
       <td><%= task.created_at.strftime("%y' %b %d - %H:%M") %></td>
       <td><%= task.runner.name %></td>
     </tr>

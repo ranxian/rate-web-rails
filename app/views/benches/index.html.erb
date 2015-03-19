@@ -5,10 +5,11 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Num of genuine</th>
-      <th>Num of imposter</th>
+      <th># genuine</th>
+      <th># imposter</th>
       <th>Strategy</th>
       <th>View</th>
+      <th>Created</th>
       <th>UUID</th>
     </tr>
   </thead>
@@ -22,6 +23,7 @@
         <td><%= bench.num_of_imposter %></td>
         <td><%= bench.verbose_strategy %></td>
         <td><%= link_to bench.view.name, bench.view %></td>
+        <td><%= simplify_time bench.created_at %></td>
         <td><%= bench.short_uuid %></td>
       </tr>
     <% end %>

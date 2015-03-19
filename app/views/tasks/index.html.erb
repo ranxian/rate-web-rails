@@ -6,7 +6,7 @@
       <th>Name</th>
       <th>Benchmark</th>
       <th>Algorithm</th>
-      <th>Progress</th>
+      <th>Finished</th>
       <th>Score</th>
       <th>UUID</th>
     </tr>
@@ -20,9 +20,11 @@
         <td><%= link_to task.algorithm.name, task.algorithm %></td>
         <td>
           <% if task.finished %>
-            <%= task.finished %>
+            <%= simplify_time task.finished %>
           <% else %>
-            <div class="progress-bar active" id="task-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= @task.progress * 100 %>%">
+            <div class="progress" style="width: 200px">
+              <div class="progress-bar active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= task.progress * 100 %>%"><%= task.progress.round(2) %>%
+              </div>  
             </div>
           <% end %>
         </td>
