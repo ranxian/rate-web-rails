@@ -9,7 +9,6 @@ class Bench
   VALID_STRATEGIES = [:general, :all, :allN, :file, :allinter, :allinner, :allInnerOneInter]
   field :uuid, type: String
 
-  mount_uploader :file, FileUploader, ignore_integrity_errors: true
   field :class_count, type: Integer
   field :sample_count, type: Integer
 
@@ -66,8 +65,6 @@ class Bench
     client.create('benchmark', options)
     client.wait
     ratebench = client.result
-    # Copy bench file
-    filepath = client.download('benchmark', ratebench[:uuid], Rails.root.join('tmp'))['file']
     client.destroy
     # Store RATE-web benchmark
     if ratebench.success?
@@ -81,12 +78,19 @@ class Bench
                         )
       bench.generator = user
       bench.view = view
-      bench.file = File.new(filepath)
       bench.save!
       return bench
     else
       raise ratebench.message
     end
+  end
+
+  def benchmark_file_url
+    RateClient.static_file_url ['benchmarks', self.uuid, 'benchmark_bxx.txt']
+  end
+
+  def uuid_table_file_url
+    RateClient.static_file_url ['benchmarks', self.uuid, 'uuid_table.txt']
   end
 
   before_destroy do

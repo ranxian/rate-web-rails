@@ -16,7 +16,6 @@ class View
   VALID_STRATEGIES = [:all, :file, :import_tag]
   # 策略相关字段
   field :import_tag, type: String
-  mount_uploader :file, FileUploader, ignore_integrity_errors: true
   # 生成用户
   belongs_to :generator, class_name: 'User', inverse_of: 'generated_views'
   # 在 View 上建立的 benchmark
@@ -48,7 +47,6 @@ class View
     client.wait
     rateview = client.result
     # Copy view file
-    filepath = client.download('view', rateview[:uuid], Rails.root.join('tmp'))['file']
     client.destroy
     # Store view in RATE-web
     if rateview.success?
@@ -61,7 +59,6 @@ class View
                       num_of_samples: rateview['sample_count'],
                       num_of_classes: rateview['class_count'])
       view.generator = user
-      view.file = File.new(filepath)
       view.save!
       return view
     else

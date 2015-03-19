@@ -32,6 +32,7 @@
 <% if not @task.finished %>
   Task is running
 <% else %>
+  <h4>Graphs</h4>
   <div class="row">
     <div class="col-md-6">
       <%= image_tag(@task.fmr_fnmr_graph_url) %>    
@@ -40,13 +41,17 @@
       <%= image_tag(@task.score_graph_url) %>    
     </div>
   </div>
-  
 <% end %>
 
 <% content_for :sidebar do %>
   <%= link_to 'Run Again', rerun_task_path, class: 'btn btn-primary' %>
   <%= link_to 'Stop', stop_task_path, class: 'btn btn-warning', disabled: @task.finished %>
   <%= link_to 'Delete Task', @task, method: :delete, data: { confirm: 'are you sure?' }, class: 'btn btn-danger' %>  
+  <hr>
+  <h4>Downloads</h4>
+  <%= link_to 'match_result.txt', @task.result_file_url, class: 'btn btn-default' %>      
+  <%= link_to 'uuid_table.txt', @task.uuid_table_file_url, class: 'btn btn-default' %>
+  <%= link_to 'enroll_result.txt', @task.enroll_result_file_url, class: 'btn btn-default' %>
 <% end %>
 
 

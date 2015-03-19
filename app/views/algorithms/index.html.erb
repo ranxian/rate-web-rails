@@ -6,6 +6,7 @@
       <th>Name</th>
       <th>Description</th>
       <th># Tasks</th>
+      <th>Created</th>
       <th>UUID</th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
         <td><%= link_to algorithm.name, algorithm %></td>
         <td><%= algorithm.description %></td>
         <td><%= algorithm.tasks.count %></th>
+        <td><%= simplify_time algorithm.created_at %></td>
         <td><%= algorithm.short_uuid %></td>
       </tr>
     <% end %>

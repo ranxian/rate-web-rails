@@ -7,7 +7,6 @@ class Algorithm
   field :description, type: String, default: 'No description'
   field :uuid, type: String
 
-  mount_uploader :enroll_exe, FileUploader, ignore_integrity_errors: true
   mount_uploader :match_exe, FileUploader, ignore_integrity_errors: true
 
   belongs_to :author, class_name: 'User'
@@ -43,6 +42,14 @@ class Algorithm
     alg.author = user
     alg.save!
     return alg
+  end
+
+  def enroll_exe_url
+    RateClient.static_file_url ['algorithms', self.uuid, 'enroll.exe']
+  end
+
+  def match_exe_url
+    RateClient.static_file_url ['algorithms', self.uuid, 'match.exe']
   end
 
   before_destroy do

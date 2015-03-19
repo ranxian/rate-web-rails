@@ -11,42 +11,13 @@ class Task
   field :finished, type: DateTime
   # task 进度
   field :progress, type: Float, default: 0.0
-  field :downloaded, type: Boolean, default: false
-
-  mount_uploader :file, FileUploader, ignore_integrity_errors: true
-  mount_uploader :result_file, FileUploader
-  mount_uploader :roc_graph, ImageUploader
-  mount_uploader :score_graph, ImageUploader
-  mount_uploader :far_graph, ImageUploader
-
+  
   belongs_to :runner, class_name: 'User', inverse_of: 'tasks'
   belongs_to :algorithm
   belongs_to :bench
 
   def short_uuid
     self.uuid ? self.uuid.split('-')[0] : self.uuid
-  end
-
-  def roc_grapg_url
-    RateClient.static_file_url(['tasks', self.uuid, 'roc.png'])
-  end
-
-  def fmr_fnmr_graph_url
-    RateClient.static_file_url ['tasks', self.uuid, 'fmrFnmr.png']
-  end
-
-  def score_graph_url
-    RateClient.static_file_url ['tasks', self.uuid, 'score.png']
-  end
-
-  def download
-    client = RateClient.new
-    filepath = client.download('task', self.uuid, Rails.root.join('tmp'))['file']
-    self.file = File.new(filepath)
-    self.downloaded = true
-
-    self.save
-    client.destroy
   end
 
   def update_from_server
@@ -60,9 +31,6 @@ class Task
 
   def update_from_server!
     self.update_from_server
-    if self.finished && !self.downloaded
-      self.download
-    end
     self.save!
   end
 
@@ -101,6 +69,30 @@ class Task
     else
       raise ratetask.message
     end
+  end
+
+  def roc_grapg_url
+    RateClient.static_file_url(['tasks', self.uuid, 'roc.png'])
+  end
+
+  def fmr_fnmr_graph_url
+    RateClient.static_file_url ['tasks', self.uuid, 'fmrFnmr.png']
+  end
+
+  def score_graph_url
+    RateClient.static_file_url ['tasks', self.uuid, 'score.png']
+  end
+
+  def result_file_url
+    RateClient.static_file_url ['tasks', self.uuid, 'match_result_bxx.txt']
+  end
+
+  def uuid_table_file_url
+    self.bench.uuid_table_file_url
+  end
+
+  def enroll_result_file_url
+    RateClient.static_file_url ['tasks', self.uuid, 'enroll_result.txt']
   end
 
   before_destroy do
