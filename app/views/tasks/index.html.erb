@@ -1,39 +1,6 @@
 <h1>Tasks</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Benchmark</th>
-      <th>Algorithm</th>
-      <th>Finished</th>
-      <th>Score</th>
-      <th>UUID</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= link_to task.name, task %></td>
-        <td><%= link_to task.bench.name, task.bench %></td>
-        <td><%= link_to task.algorithm.name, task.algorithm %></td>
-        <td>
-          <% if task.finished %>
-            <%= simplify_time task.finished %>
-          <% else %>
-            <div class="progress" style="width: 200px">
-              <div class="progress-bar active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= task.progress * 100 %>%"><%= task.progress.round(2) %>%
-              </div>  
-            </div>
-          <% end %>
-        </td>
-        <td><%= task.score.round(2) %></td>
-        <td><%= task.short_uuid %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render partial: 'table', locals: { tasks: @tasks } %>
 
 <br>
 
