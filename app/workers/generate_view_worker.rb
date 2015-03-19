@@ -14,8 +14,6 @@ class GenerateViewWorker
 
     while client.running
       at client.progress, ""
-      sleep(0.1)
-      puts client.progress
     end
 
     rateview = client.result

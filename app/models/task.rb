@@ -95,6 +95,14 @@ class Task
     RateClient.static_file_url ['tasks', self.uuid, 'enroll_result.txt']
   end
 
+  def imposter_viewer_url
+    RateClient.viewer_url ['tasks', self.uuid, 'imposter', 0]
+  end
+
+  def genuine_viewer_url
+    RateClient.viewer_url ['tasks', self.uuid, 'genuine', 0]
+  end
+
   before_destroy do
     client = RateClient.new
     result = client.delete('task', self.uuid)
