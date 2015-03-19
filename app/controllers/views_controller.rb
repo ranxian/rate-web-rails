@@ -1,5 +1,5 @@
 class ViewsController < ApplicationController
-  before_action :set_view, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_view, only: [:show, :edit, :update, :destroy, :download, :progress]
 
   # GET /views
   # GET /views.json
@@ -49,6 +49,10 @@ class ViewsController < ApplicationController
         format.json { render json: @view.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def progress
+    render json: { progress: @view.progress }
   end
 
   # DELETE /views/1

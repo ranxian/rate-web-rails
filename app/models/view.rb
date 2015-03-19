@@ -16,6 +16,9 @@ class View
   VALID_STRATEGIES = [:all, :file, :import_tag]
   # 策略相关字段
   field :import_tag, type: String
+  # 后台任务 ID
+  field :job_id, type: String
+  field :done, type: Boolean, default: false
   # 生成用户
   belongs_to :generator, class_name: 'User', inverse_of: 'generated_views'
   # 在 View 上建立的 benchmark
@@ -38,34 +41,22 @@ class View
   # [View] a view created
   #
   def self.generate!(user, options)
-    # 如果使用文件创建 view
-    if options[:strategy] == 'file'
-      options[:path] = options[:file].tempfile.path
-    end
-    client = RateClient.new
-    client.create('view', options)
-    client.wait
-    rateview = client.result
-    # Copy view file
-    client.destroy
-    # Store view in RATE-web
-    if rateview.success?
-      view = View.new(name: options[:name], 
-                      description: options[:name],
-                      strategy: options[:strategy],
-                      import_tag: options[:import_tag],
-                      uuid: rateview['uuid'],
-                      num_of_samples: rateview['sample_count'],
-                      num_of_classes: rateview['class_count'])
-      view.generator = user
-      view.save!
-      return view
-    else
-      raise rateview.message
-    end
+    view = View.new(name: options[:name], strategy: options[:strategy], import_tag: options[:import_tag])
+    view.generator = user
+    view.job_id = GenerateViewWorker.perform_async(view.id.to_s, options)
+    view.save
+
+    return view
+  end
+
+  def progress
+    (Sidekiq::Status::get_all self.job_id)["at"].to_f
   end
 
   before_destroy do
+    self.benches.each do |b|
+      b.destroy
+    end
     client = RateClient.new
     result = client.delete('view', self.uuid)
     if not result.success?

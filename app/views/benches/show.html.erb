@@ -11,6 +11,9 @@
     <th>View</th>
     <th>Created</th>
     <th>UUID</th>
+    <% if not @bench.done %>
+      <th>Progress</th>
+    <% end %>
   </tr>
   <tr>
     <td><%= @bench.description %></td>
@@ -22,6 +25,14 @@
     <td><%= link_to @bench.view.name, @bench.view %></td>
     <td><%= simplify_time @bench.created_at %></td>
     <td><%= @bench.short_uuid %></td>
+    <% if not @bench.done %>
+      <td>
+        <div class="progress" style="width: 200px">
+          <div class="progress-bar active" id="bench-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= @bench.progress * 100 %>%">
+          </div>
+        </div>
+      </td>
+    <% end %>
   </tr>
 </table>
 
@@ -36,4 +47,22 @@
   <h4>Downloads</h4>
   <%= link_to 'benchmark.txt', @bench.benchmark_file_url, class: 'btn btn-default' %>
   <%= link_to 'uuid_table.txt', @bench.uuid_table_file_url, class: 'btn btn-default' %>
+<% end %>
+
+<% if not @bench.done %>
+<script>
+  $(document).ready(function() {
+    var progresspump = setInterval(function(){
+      $.get("/benches/<%= @bench.id.to_s %>/progress", function(data){
+        var progress = data['progress'] * 100;
+        $("#bench-progress").css('width', progress + '%');
+        $("#bench-progress").html(progress.toPrecision(2) + '%');
+
+        if(progress > 99.999) {
+          clearInterval(progresspump);
+          location.reload();
+        }
+      })
+    }, 1000);});
+</script>
 <% end %>

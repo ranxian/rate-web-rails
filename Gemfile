@@ -70,5 +70,8 @@ gem 'kaminari'
 
 gem 'thin'
 
+gem 'rubyzip'
 gem 'font-awesome-less'
-
+gem 'sidekiq'
+gem 'sinatra', :require => nil
+gem 'sidekiq-status'

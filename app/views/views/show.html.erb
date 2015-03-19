@@ -7,6 +7,9 @@
     <th># Classes</th>
     <th># Samples</th>
     <th>Strategy</th>
+    <% if not @view.done %>
+      <th>Progress</th>
+    <% end %>
   </tr>
   <tr>
     <td><%= @view.description %></td> 
@@ -14,6 +17,14 @@
     <td><%= @view.num_of_classes %></td>
     <td><%= @view.num_of_samples %></td>
     <td><%= view_verbose_strategy(@view) %></td>
+    <td>
+      <% if not @view.done %>
+        <div class="progress" style="width: 200px">
+          <div class="progress-bar active" id="view-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= @view.progress * 100 %>%">
+          </div>
+        </div>
+      <% end %>  
+    </td>
   </tr>
 </table>
 
@@ -41,8 +52,26 @@
 </table>
 
 <% content_for :sidebar do %>
-    <%= link_to 'Add Benchmark', new_bench_path(view_id: @view.id), class: 'btn btn-primary' %>
-    <%= link_to 'Delete View', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  
+    <%= link_to 'Add Benchmark', new_bench_path(view_id: @view.id), class: 'btn btn-primary', disable: !@view.done %>
+    <%= link_to 'Delete View', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger', disable: !@view.done %>  
     <%= link_to 'Create View', new_view_path, class: 'btn btn-success' %>
     <hr>
+<% end %>
+
+<% if not @view.done %>
+<script>
+  $(document).ready(function() {
+    var progresspump = setInterval(function(){
+      $.get("/views/<%= @view.id.to_s %>/progress", function(data){
+        var progress = data['progress'] * 100;
+        $("#view-progress").css('width', progress + '%');
+        $("#view-progress").html(progress.toPrecision(2) + '%');
+
+        if(progress > 99.999) {
+          clearInterval(progresspump);
+          location.reload();
+        }
+      })
+    }, 1000);});
+</script>
 <% end %>

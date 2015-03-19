@@ -54,7 +54,7 @@
   <%= link_to 'enroll_result.txt', @task.enroll_result_file_url, class: 'btn btn-default' %>
 <% end %>
 
-
+<% if not @task.finished %>
 <script>
   $(document).ready(function(){
     var progresspump = setInterval(function(){
@@ -65,10 +65,10 @@
 
         if(progress > 99.999) {
           clearInterval(progresspump);
-          $("#task-progress").removeClass("active");
           $("#task-progress").html("Done");
-          $(".score").html(data['score'].toPrecision(2));
+          location.reload();
         }
       })
     }, 1000);});
 </script>
+<% end %>

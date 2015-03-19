@@ -13,6 +13,7 @@ require 'thread'
 #
 class RateClient
   attr_reader :host, :port, :progress, :running, :result
+  attr_accessor :verbose
 
   ##
   # Get the url on the RATE static server, use this to fetch task results
@@ -35,7 +36,7 @@ class RateClient
     @port = @config['rate_port']
     @socket = TCPSocket.new(host, port)
     @verbose = false
-    @progress = 1
+    @progress = -0.1
     @thread = nil
     @result = nil
     @running = false
@@ -59,7 +60,6 @@ class RateClient
   def wait
     if @running
       @thread.join
-      @running = false
     end
   end
 
@@ -75,6 +75,7 @@ class RateClient
   # [RateResult] view, algorithm, and benchmark created.
   # 
   def create(target, options = {})
+    @running = true
     thrd = Thread.new {
       if target == 'algorithm'
         result = create_algorithm(options)
@@ -95,8 +96,8 @@ class RateClient
       end
 
       @result = result
+      @running = false
     }
-    @running = true
     @thread = thrd
   end
 
@@ -224,7 +225,6 @@ class RateClient
   #
   def receive
     msg = ""
-    progress = -1
     
     loop do
       line = @socket.gets.chomp

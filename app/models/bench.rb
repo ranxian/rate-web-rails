@@ -12,6 +12,9 @@ class Bench
   field :class_count, type: Integer
   field :sample_count, type: Integer
 
+  field :done, type: Boolean, default: false
+  field :job_id, type: String
+
   belongs_to :generator, class_name: 'User', inverse_of: 'generated_benches'
   belongs_to :view
   has_many :tasks
@@ -55,33 +58,19 @@ class Bench
   # and G means genuine, while I means imposter
   #
   def self.generate!(user, view, options)
-    # 如果使用文件创建 bench
-    if options[:strategy] == 'file'
-      options[:path] = options[:file].tempfile.path
-    end
+    benchmark = Bench.new(name: options[:name], description: options[:description], strategy: options[:strategy])
+    benchmark.generator = user
+    benchmark.view = view
+
     options[:view_uuid] = view.uuid
-    # Create RATE benchmark
-    client = RateClient.new
-    client.create('benchmark', options)
-    client.wait
-    ratebench = client.result
-    client.destroy
-    # Store RATE-web benchmark
-    if ratebench.success?
-      bench = Bench.new(name: options[:name],
-                        description: options[:description],
-                        strategy: options[:strategy],
-                        num_of_genuine: ratebench['genuine_count'],
-                        num_of_imposter: ratebench['imposter_count'],
-                        uuid: ratebench['uuid']
-                        )
-      bench.generator = user
-      bench.view = view
-      bench.save!
-      return bench
-    else
-      raise ratebench.message
-    end
+    benchmark.job_id = GenerateBenchmarkWorker.perform_async(benchmark.id.to_s, options)
+    benchmark.save
+    
+    return benchmark
+  end
+
+  def progress
+    (Sidekiq::Status::get_all self.job_id)["at"].to_f
   end
 
   def benchmark_file_url
@@ -93,6 +82,9 @@ class Bench
   end
 
   before_destroy do
+    self.tasks.each do |t|
+      t.destroy
+    end
     client = RateClient.new
     result = client.delete('benchmark', self.uuid)
     if not result.success?

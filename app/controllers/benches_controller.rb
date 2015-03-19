@@ -1,10 +1,14 @@
 class BenchesController < ApplicationController
-  before_action :set_bench, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_bench, only: [:show, :edit, :update, :destroy, :download, :progress]
 
   # GET /benches
   # GET /benches.json
   def index
     @benches = Bench.all.desc(:created_at).page(params[:page])
+  end
+
+  def progress
+    render json: { progress: @bench.progress }
   end
 
   # GET /benches/1

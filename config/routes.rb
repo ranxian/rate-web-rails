@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   get 'home/index'
   get 'home/show'
@@ -12,10 +14,20 @@ Rails.application.routes.draw do
   end
 
   resources :algorithms
-  resources :benches
-  resources :views
+  resources :benches do
+    member do
+      get 'progress'
+    end
+  end
+  resources :views do
+    member do
+      get 'progress'
+    end
+  end
   devise_for :users
   root to: "home#index"
+
+  mount Sidekiq::Web, at: "/sidekiq"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
