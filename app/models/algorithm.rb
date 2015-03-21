@@ -6,9 +6,6 @@ class Algorithm
   field :name, type: String
   field :description, type: String, default: 'No description'
   field :uuid, type: String
-
-  mount_uploader :match_exe, FileUploader, ignore_integrity_errors: true
-
   belongs_to :author, class_name: 'User'
   has_many :tasks
 
@@ -36,8 +33,6 @@ class Algorithm
     client.destroy
     alg = Algorithm.new(name: options[:name],
                         description: options[:description],
-                        enroll_exe: options[:enroll_exe],
-                        match_exe: options[:match_exe],
                         uuid: ratealg['uuid'])
     alg.author = user
     alg.save!
