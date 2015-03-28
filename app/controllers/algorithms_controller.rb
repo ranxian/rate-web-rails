@@ -4,7 +4,7 @@ class AlgorithmsController < ApplicationController
   # GET /algorithms
   # GET /algorithms.json
   def index
-    @algorithms = current_user.algorithms
+    @algorithms = Algorithm.all.desc(:created_at)
   end
 
   # GET /algorithms/1
