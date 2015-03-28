@@ -1,5 +1,6 @@
 class ViewsController < ApplicationController
-  before_action :set_view, only: [:show, :edit, :update, :destroy, :download, :progress]
+  before_action :set_view, only: [:show, :edit, :update, :destroy, :download, 
+                                  :progress, :stop_generate]
 
   # GET /views
   # GET /views.json

@@ -54,6 +54,10 @@ class View
   end
 
   before_destroy do
+    # Cancel job
+    if not self.done
+      Sidekiq::Status.cancel self.job_id
+    end
     self.benches.each do |b|
       b.destroy
     end

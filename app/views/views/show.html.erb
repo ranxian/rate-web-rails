@@ -53,7 +53,7 @@
 
 <% content_for :sidebar do %>
     <%= link_to 'Add Benchmark', new_bench_path(view_id: @view.id), class: 'btn btn-primary', disabled: !@view.done %>
-    <%= link_to 'Delete View', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger', disabled: !@view.done %>  
+    <%= link_to 'Delete View', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  
     <%= link_to 'Create View', new_view_path, class: 'btn btn-success' %>
     <hr>
 <% end %>
