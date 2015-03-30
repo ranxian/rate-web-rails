@@ -18,7 +18,7 @@
 
   <div class="form-group">
     <%= f.label :choose_algorithm %>
-    <%= f.select :algorithm_id, current_user.algorithms.all.collect { |s| [s.name, s.id] }, { selected: params[:algorithm_id] }, class: 'form-control' %>
+    <%= f.select :algorithm_id, Algorithm.all.collect { |s| [s.name, s.id] }, { selected: params[:algorithm_id] }, class: 'form-control' %>
   </div>
 
   <div class="form-group">
