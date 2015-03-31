@@ -295,7 +295,7 @@ class RateClient
     else
       @socket.puts cmd.join(' ')
     end
-    result = self.receive
+    @result = self.receive
   end
 
   ##
@@ -325,7 +325,7 @@ class RateClient
       @socket.puts cmd.join(' ')
     end
       
-    result = receive
+    @result = receive
   end
 
   ##
@@ -384,7 +384,7 @@ class RateClient
       have_read += to_read
 
       el = Time.now - b
-      speed = have_read / Float(el)
+      @speed = have_read / Float(el)
     end
   end
 end
