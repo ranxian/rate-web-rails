@@ -4,6 +4,7 @@ class GenerateBenchmarkWorker
 
   def perform(bench_id, options)
     total 1
+    options = options.symbolize_keys
 
    # 如果使用文件创建 bench
     if options[:strategy] == 'file'
@@ -12,10 +13,11 @@ class GenerateBenchmarkWorker
 
     # Create RATE benchmark
     client = RateClient.new
-    client.create('benchmark', options.symbolize_keys)
+    client.create('benchmark', options)
 
     while client.running
       at client.progress, ""
+      sleep 0.5
     end
 
     ratebench = client.result
