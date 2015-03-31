@@ -6,11 +6,6 @@ class GenerateBenchmarkWorker
     total 1
     options = options.symbolize_keys
 
-   # 如果使用文件创建 bench
-    if options[:strategy] == 'file'
-      options[:path] = options[:file].tempfile.path
-    end
-
     # Create RATE benchmark
     client = RateClient.new
     client.create('benchmark', options)

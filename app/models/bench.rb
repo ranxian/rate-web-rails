@@ -61,7 +61,10 @@ class Bench
     benchmark = Bench.new(name: options[:name], description: options[:description], strategy: options[:strategy])
     benchmark.generator = user
     benchmark.view = view
-
+    # 如果使用文件创建 bench
+    if options[:strategy] == 'file'
+      options[:path] = options[:file].tempfile.path
+    end
     options[:view_uuid] = view.uuid
     benchmark.job_id = GenerateBenchmarkWorker.perform_async(benchmark.id.to_s, options)
     benchmark.save

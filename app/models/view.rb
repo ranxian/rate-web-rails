@@ -43,6 +43,9 @@ class View
   def self.generate!(user, options)
     view = View.new(name: options[:name], strategy: options[:strategy], import_tag: options[:import_tag])
     view.generator = user
+    if options[:strategy] == 'file'
+      options[:path] = options[:file].tempfile.path
+    end
     view.job_id = GenerateViewWorker.perform_async(view.id.to_s, options)
     view.save
 

@@ -5,10 +5,6 @@ class GenerateViewWorker
   def perform(view_id, options)
     total 1
     options = options.symbolize_keys
-     # 如果使用文件创建 view
-    if options[:strategy] == 'file'
-      options[:path] = options[:file].tempfile.path
-    end
     client = RateClient.new
     client.create('view', options)
 
