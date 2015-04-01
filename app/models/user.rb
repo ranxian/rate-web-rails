@@ -9,6 +9,11 @@ class User
   has_many :algorithms, inverse_of: 'author'
   has_many :tasks, inverse_of: 'runner'
 
+  has_and_belongs_to_many :reading_benches, class_name: 'Bench', inverse_of: 'readers'
+  has_and_belongs_to_many :writing_benches, class_name: 'Bench', inverse_of: 'writers'
+  has_and_belongs_to_many :reading_views, class_name: 'View', inverse_of: 'readers'
+  has_and_belongs_to_many :writing_views, class_name: 'View', inverse_of: 'writers'
+
   ################
   #### Devise ####
   ################

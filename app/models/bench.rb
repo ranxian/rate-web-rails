@@ -19,6 +19,9 @@ class Bench
   belongs_to :view
   has_many :tasks
 
+  has_and_belongs_to_many :readers, class_name: 'User', inverse_of: 'reading_benches'
+  has_and_belongs_to_many :writers, class_name: 'User', inverse_of: 'writing_benches'
+
   def verbose_strategy
     return self.strategy.to_s
   end
@@ -82,6 +85,10 @@ class Bench
 
   def uuid_table_file_url
     RateClient.static_file_url ['benchmarks', self.uuid, 'uuid_table.txt']
+  end
+
+  before_create do
+    self.writers.push self.generator
   end
 
   before_destroy do

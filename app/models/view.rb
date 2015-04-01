@@ -23,6 +23,17 @@ class View
   belongs_to :generator, class_name: 'User', inverse_of: 'generated_views'
   # 在 View 上建立的 benchmark
   has_many :benches
+  # Reader & Writer
+  has_and_belongs_to_many :readers, class_name: 'User', inverse_of: 'reading_views'
+  has_and_belongs_to_many :writers, class_name: 'User', inverse_of: 'writing_views'
+
+  def readable?(user)
+    readers.include?(user)
+  end
+
+  def writable?(user)
+    writers.include?(user)
+  end
 
   def short_uuid
     self.uuid ? self.uuid.split('-')[0] : self.uuid

@@ -1,6 +1,7 @@
 class ViewsController < ApplicationController
   before_action :set_view, only: [:show, :edit, :update, :destroy, :download, 
-                                  :progress, :stop_generate]
+                                  :progress, :stop_generate, :add_reader, :add_writer,
+                                  :remove_writer, :remove_reader]
 
   # GET /views
   # GET /views.json
@@ -64,6 +65,33 @@ class ViewsController < ApplicationController
       format.html { redirect_to views_url, notice: 'View was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def remove_reader
+    user = User.find(params[:user_id])
+    @view.readers.delete user
+    redirect_to :back
+  end
+
+  def remove_writer
+    user = User.find(params[:user_id])
+    @view.writers.delete user
+    redirect_to :back
+  end
+
+  def add_reader
+    user = Usre.find_by(email: params[:email])
+    if not @view.readable?(user)
+      @view.readers.push user
+    end
+    redirect_to :back
+  end
+
+  def add_writer
+    user = User.find_by(email: params[:email])
+    @view.readers.delete(user)
+    @view.writers.push(user)
+    redirect_to :back
   end
 
   private

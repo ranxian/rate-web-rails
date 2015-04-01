@@ -1,0 +1,26 @@
+<% ['writer', 'reader'].each do |role| %>
+  <% rolep = role + 's' %>
+  <% rolesym = rolep.to_sym %>
+  <h5><%= role.pluralize.upcase %> (<%= resource.send(rolesym).count %>)</h5>
+  <ul class="reader-writer">
+    <% resource.send(rolesym).each do |user| %>
+      <li>
+        <span class="name"><%= user.name %></span>
+        <span class="delete pull-right">
+        <span><%= user.email %></span>
+        <%= link_to eval("remove_#{role}_view_path(user_id: user.id)") do %>
+          <i class="fa fa-times"></i>
+        <% end %>
+        </span>
+      </li>
+    <% end %>  
+  </ul>
+  <%= form_tag eval("add_#{role}_view_path"), class: 'form-horizontal row add', method: :get do %>
+    <div class="form-group-sm col-xs-8">
+      <%= text_field_tag :email, '', class: 'form-control', placeholder: 'input email' %>  
+    </div>
+    <div class="col-xs-4">
+      <%= submit_tag 'Add', class: 'btn btn-primary btn-sm' %>  
+    </div>
+  <% end %>
+<% end %>

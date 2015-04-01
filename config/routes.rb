@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   resources :views do
     member do
       get 'progress'
+      get 'remove_writer'
+      get 'remove_reader'
+      get 'add_writer'
+      get 'add_reader'
     end
   end
   devise_for :users

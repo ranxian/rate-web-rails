@@ -1,61 +1,68 @@
 <h3><I><%= @view.name %></I> <small><%= link_to 'Edit', edit_view_path(@view) %></small></h3>
 
-<table class="table">
-  <tr>
-    <th>Description</th>
-    <th>UUID</th>
-    <th># Classes</th>
-    <th># Samples</th>
-    <th>Strategy</th>
-    <% if not @view.done %>
-      <th>Progress</th>
-    <% end %>
-  </tr>
-  <tr>
-    <td><%= @view.description %></td> 
-    <td><%= @view.short_uuid %></td>     
-    <td><%= @view.num_of_classes %></td>
-    <td><%= @view.num_of_samples %></td>
-    <td><%= view_verbose_strategy(@view) %></td>
-    <td>
-      <% if not @view.done %>
-        <div class="progress" style="width: 200px">
-          <div class="progress-bar active" id="view-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= @view.progress * 100 %>%">
-          </div>
-        </div>
-      <% end %>  
-    </td>
-  </tr>
-</table>
-
-<h4>Benchmarks under <I><%= @view.name %></I></h4>
-<table class="table">
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Strategy</th>
-    <th>Created</th>
-    <th># Tasks</th>
-    <th>Generator</th>
-  </tr>
-
-  <% @view.benches.each do |bench| %>
+<div class="table-responsive">
+  <table class="table">
     <tr>
-      <td><%= link_to bench.name, bench %></td>
-      <td><%= bench.description %></td>
-      <td><%= bench.verbose_strategy %></td>
-      <td><%= simplify_time bench.created_at %></td>
-      <td><%= bench.tasks.count %></td>
-      <td><%= bench.generator.name %></td>
+      <th>Description</th>
+      <th>UUID</th>
+      <th># Classes</th>
+      <th># Samples</th>
+      <th>Strategy</th>
+      <% if not @view.done %>
+        <th>Progress</th>
+      <% end %>
     </tr>
-  <% end %>
-</table>
+    <tr>
+      <td><%= @view.description %></td> 
+      <td><%= @view.short_uuid %></td>     
+      <td><%= @view.num_of_classes %></td>
+      <td><%= @view.num_of_samples %></td>
+      <td><%= view_verbose_strategy(@view) %></td>
+      <td>
+        <% if not @view.done %>
+          <div class="progress" style="width: 200px">
+            <div class="progress-bar active" id="view-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= @view.progress * 100 %>%">
+            </div>
+          </div>
+        <% end %>  
+      </td>
+    </tr>
+  </table>
+
+  <h4>Benchmarks under <I><%= @view.name %></I></h4>
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Strategy</th>
+      <th>Created</th>
+      <th># Tasks</th>
+      <th>Generator</th>
+    </tr>
+
+    <% @view.benches.each do |bench| %>
+      <tr>
+        <td><%= link_to bench.name, bench %></td>
+        <td><%= bench.description %></td>
+        <td><%= bench.verbose_strategy %></td>
+        <td><%= simplify_time bench.created_at %></td>
+        <td><%= bench.tasks.count %></td>
+        <td><%= bench.generator.name %></td>
+      </tr>
+    <% end %>
+  </table>  
+</div>
+
 
 <% content_for :sidebar do %>
+  <% if @view.writable?(current_user) %>
     <%= link_to 'Add Benchmark', new_bench_path(view_id: @view.id), class: 'btn btn-primary', disabled: !@view.done %>
     <%= link_to 'Delete View', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  
-    <%= link_to 'Create View', new_view_path, class: 'btn btn-success' %>
     <hr>
+    <%= render partial: 'shared/reader_writer_list', locals: { resource: @view } %>
+  <% else %>
+  
+  <% end %>
 <% end %>
 
 <% if not @view.done %>
