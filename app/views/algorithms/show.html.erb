@@ -17,8 +17,12 @@
 <%= render partial: 'tasks/table', locals: { tasks: @algorithm.tasks } %>
 
 <% content_for :sidebar do %>
-  <%= link_to 'Run Task', new_task_path(algorithm_id: @algorithm.id), class: 'btn btn-primary' %>
-  <%= link_to 'Delete Algorithm', @algorithm, method: :delete, data: { confirm: 'Delete this algorithm will also delete all tasks, are you sure?' }, class: 'btn btn-danger' %>  
-  <%= link_to 'Create Algorithm', new_algorithm_path, class: 'btn btn-success' %>
+  <% if @algorithm.readable?(current_user) %>
+    <%= link_to 'Run Task', new_task_path(algorithm_id: @algorithm.id), class: 'btn btn-primary' %>
+  <% end %>
+  <% if @algorithm.writable?(current_user) %>
+    <%= link_to 'Delete Algorithm', @algorithm, method: :delete, data: { confirm: 'Delete this algorithm will also delete all tasks, are you sure?' }, class: 'btn btn-danger' %>
+    <%= render partial: 'shared/reader_writer_list', locals: { resource: @algorithm } %>
+  <% end %>
 <% end %>
 

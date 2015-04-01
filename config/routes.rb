@@ -13,10 +13,22 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :algorithms
+  resources :algorithms do
+    member do
+      get 'remove_writer'
+      get 'remove_reader'
+      get 'add_writer'
+      get 'add_reader'
+    end
+  end
+  
   resources :benches do
     member do
       get 'progress'
+      get 'remove_writer'
+      get 'remove_reader'
+      get 'add_writer'
+      get 'add_reader'
     end
   end
   resources :views do

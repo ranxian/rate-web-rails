@@ -40,13 +40,17 @@
 <%= render partial: 'tasks/table', locals: { tasks: @bench.tasks } %>
 
 <% content_for :sidebar do %>
-  <%= link_to 'Run Task', new_task_path(bench_id: @bench.id), class: 'btn btn-primary', disabled: !@bench.done %>
-  <%= link_to 'Delete Benchmark', @bench, method: :delete, data: { confirm: 'Delete this bench will also delete all tasks, are you sure?' }, class: 'btn btn-danger', disabled: !@bench.done %>  
-  <%= link_to 'Add Benchmark', new_bench_path(view_id: @bench.view.id), class: 'btn btn-success' %>  
-  <hr></hr>
+  <% if @bench.readable?(current_user) %>
+    <%= link_to 'Run Task', new_task_path(bench_id: @bench.id), class: 'btn btn-primary', disabled: !@bench.done %>
+  <% end %>
+  <% if @bench.writable?(current_user) %>
+    <%= link_to 'Delete Benchmark', @bench, method: :delete, data: { confirm: 'Delete this bench will also delete all tasks, are you sure?' }, class: 'btn btn-danger', disabled: !@bench.done %>  
+  <% end %>
+  <hr>
   <h4>Downloads</h4>
   <%= link_to 'benchmark.txt', @bench.benchmark_file_url, class: 'btn btn-default' %>
   <%= link_to 'uuid_table.txt', @bench.uuid_table_file_url, class: 'btn btn-default' %>
+  <%= render partial: 'shared/reader_writer_list', locals: { resource: @bench } %>
 <% end %>
 
 <% if not @bench.done %>

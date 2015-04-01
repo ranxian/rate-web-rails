@@ -1,5 +1,6 @@
 class BenchesController < ApplicationController
-  before_action :set_bench, only: [:show, :edit, :update, :destroy, :download, :progress]
+  before_action :set_bench, only: [:show, :edit, :update, :destroy, :download, :progress, :add_reader, :add_writer,
+                                  :remove_writer, :remove_reader]
 
   # GET /benches
   # GET /benches.json
@@ -65,6 +66,33 @@ class BenchesController < ApplicationController
       format.html { redirect_to benches_url, notice: 'Benchmark was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def remove_reader
+    user = User.find(params[:user_id])
+    @bench.readers.delete user
+    redirect_to :back
+  end
+
+  def remove_writer
+    user = User.find(params[:user_id])
+    @bench.writers.delete user
+    redirect_to :back
+  end
+
+  def add_reader
+    user = Usre.find_by(email: params[:email])
+    if not @bench.readable?(user)
+      @bench.readers.push user
+    end
+    redirect_to :back
+  end
+
+  def add_writer
+    user = User.find_by(email: params[:email])
+    @bench.readers.delete(user)
+    @bench.writers.push(user)
+    redirect_to :back
   end
 
   private

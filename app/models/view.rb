@@ -28,7 +28,7 @@ class View
   has_and_belongs_to_many :writers, class_name: 'User', inverse_of: 'writing_views'
 
   def readable?(user)
-    readers.include?(user)
+    readers.include?(user) || writers.include?(user)
   end
 
   def writable?(user)
@@ -65,6 +65,10 @@ class View
 
   def progress
     (Sidekiq::Status::get_all self.job_id)["at"].to_f
+  end
+
+  before_create do
+    self.writers.push self.generator
   end
 
   before_destroy do

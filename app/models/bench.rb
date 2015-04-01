@@ -30,6 +30,14 @@ class Bench
     self.uuid ? self.uuid.split('-')[0] : self.uuid
   end
 
+  def readable?(user)
+    readers.include?(user) || writers.include?(user)
+  end
+
+  def writable?(user)
+    writers.include?(user)
+  end
+
   ##
   # Create benchmarks on @view by @options.
   # Valid strategies: general, all, allN, file, allinter, allinner, allInnerOneInter

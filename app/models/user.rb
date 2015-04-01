@@ -13,6 +13,8 @@ class User
   has_and_belongs_to_many :writing_benches, class_name: 'Bench', inverse_of: 'writers'
   has_and_belongs_to_many :reading_views, class_name: 'View', inverse_of: 'readers'
   has_and_belongs_to_many :writing_views, class_name: 'View', inverse_of: 'writers'
+  has_and_belongs_to_many :reading_algorithms, class_name: 'Algorithm', inverse_of: 'readers'
+  has_and_belongs_to_many :writing_algorithms, class_name: 'Algorithm', inverse_of: 'writers'
 
   ################
   #### Devise ####

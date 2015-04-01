@@ -1,5 +1,6 @@
 class AlgorithmsController < ApplicationController
-  before_action :set_algorithm, only: [:show, :edit, :update, :destroy]
+  before_action :set_algorithm, only: [:show, :edit, :update, :destroy, :add_reader, :add_writer,
+                                  :remove_writer, :remove_reader]
 
   # GET /algorithms
   # GET /algorithms.json
@@ -59,6 +60,33 @@ class AlgorithmsController < ApplicationController
       format.html { redirect_to algorithms_url, notice: 'Algorithm was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def remove_reader
+    user = User.find(params[:user_id])
+    @algorithm.readers.delete user
+    redirect_to :back
+  end
+
+  def remove_writer
+    user = User.find(params[:user_id])
+    @algorithm.writers.delete user
+    redirect_to :back
+  end
+
+  def add_reader
+    user = Usre.find_by(email: params[:email])
+    if not @algorithm.readable?(user)
+      @algorithm.readers.push user
+    end
+    redirect_to :back
+  end
+
+  def add_writer
+    user = User.find_by(email: params[:email])
+    @algorithm.readers.delete(user)
+    @algorithm.writers.push(user)
+    redirect_to :back
   end
 
   private

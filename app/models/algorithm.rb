@@ -9,6 +9,21 @@ class Algorithm
   belongs_to :author, class_name: 'User'
   has_many :tasks
 
+  has_and_belongs_to_many :readers, class_name: 'User', inverse_of: 'reading_benches'
+  has_and_belongs_to_many :writers, class_name: 'User', inverse_of: 'writing_benches'
+
+  def short_uuid
+    self.uuid ? self.uuid.split('-')[0] : self.uuid
+  end
+
+  def readable?(user)
+    readers.include?(user) || writers.include?(user)
+  end
+
+  def writable?(user)
+    writers.include?(user)
+  end
+
   def short_uuid
     self.uuid ? self.uuid.split('-')[0] : self.uuid
   end
@@ -45,6 +60,10 @@ class Algorithm
 
   def match_exe_url
     RateClient.static_file_url ['algorithms', self.uuid, 'match.exe']
+  end
+
+  before_create do
+    self.writers.push self.author
   end
 
   before_destroy do
