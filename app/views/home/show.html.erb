@@ -1,3 +1,18 @@
+<h2>Problems</h2>
+<p>Finger vein verification has become a promising biometric verification technology - it’s hard to be counterfeited, yet achieves outstanding recognition performance. Typical finger vein verification process consists of two main steps, template enrollment and template matching. Template enrollment is to obtain useful information from a raw sample and output a template for match. Template matching is to compare two templates and calculate the similarity between them. This similarity measurement can then be used for verification tasks.</p>
+<p>The problem in this competition is to write algorithm for the enrollment and matching step. The algorithm, specifically, given two image samples of finger vein, first enroll the samples and create two templates, then match these two templates to answer how similar the original samples are.</p>
+<h2>Data Sets</h2>
+<ul>
+    <li><b>DS0</b>. 10 fingers in total, with 5 samples for each finger (10*5), randomly chosen from the database. This data set is for participants to test and debug their algorithms, might be used as a start point to develop algorithms.</li>
+    <li><b>DS1 & DS1-</b>. DS1 contains 1000*5 samples, all of which were captured in indoor environment from 250 volunteers. The capturing process was well guided by us. In general, the quality of the database should be very high, and participants are expected to obtain good performance in this data set. DS1- is a subset of DS1, with a size of 100*5.</li>
+    <li><b>DS2 & DS2-</b>. DS2 contains 1000*5 samples, all of which were captured for real usage, with a relatively longer time span, great population variety, and an outdoor environment for no-guidance capture. This data set is supposed to be relatively more difficult to achieve high performance compared to DS1. DS2- is a subset of DS2, with a size of 100*5.</li>
+    <li><b>DS3 & DS3-</b>. DS3 is a synthetic data set based on DS1 and DS2, with a size of 1000*5. DS3- is a subset of DS3, with a size of 100*5.</li>
+    <li>The image format is bmp, 256 gray scale, and 512*843 pixel resolution.</li>
+    <li>Devices manufactured by YANNAN Tech capture all the images. Since all images are captured by the same device, samples from the same finger may have the same size and orientation, but this is not guaranteed.</li>
+    <li>DS0, DS1-, DS2-, DS3- are provided for download. See section <b>Downloads</b> below</li>
+</ul>
+
+<h2>Submission Procedure</h2>
 <p>A submission consists of two Win32 executables, enroll.exe and match.exe, for the enrollment step and the matching step. The two executables should read input from the command line arguments and output results to the standard output or a designated file with the right exit value. They must obey the following rules:</p>
 <table class="table">
     <tr>
@@ -46,4 +61,49 @@
     <li>If you would like to use other libraries, make sure that they can work well on a machine with just the same previous environment. Static build might be a good option.</li>
     <li>A code framework and example executables are be prepared for the participants. See <b>Downloads</b> section below</li>
     <li>Details of the final submission by email will be posted later</li>
+</ul>
+
+<h2>Evaluation</h2>
+<p class="ratered">The final result only depends on the performance of the final submission by participants on data set DS1, DS2 and DS3. The following performance metrics will be evaluated.</p>
+<table class="table">
+    <tr>
+        <th>False None Match Rate (FNMR)</th>
+        <td>Each sample in the data set is matched against all the other the remaining samples of the same finger to compute FNMR. For a data set of size m*n, the total number of genuine tests is (n*(n-1))*m.</td>
+    </tr>
+    <tr>
+        <th>False Match Rate (FMR)</th>
+        <td>The first sample of one finger is matched against the first sample of all the other remaining fingers in the same data set to compute FMR. For a data set of size m*n, the total number of false acceptance tests is m*(m-1)/2.</td>
+    </tr>
+    <tr>
+        <th>Failure to Enroll Number</th>
+        <td>Number of failure during enrollment for each data set</td>
+    </tr>
+    <tr>
+        <th>Failure to Match Number</th>
+        <td>Number of failure during matching for each data set</td>
+    </tr>
+    <tr>
+        <th>FMR-FNMR graph</th>
+        <td>For each algorithm with each data set</td>
+    </tr>
+    <tr>
+        <th>ROC curve</th>
+        <td>For each algorithm with each data set</td>
+    </tr>
+    <tr>
+        <th>EER</th>
+        <td>for each algorithm with each data set</td>
+    </tr>
+</table>
+
+<h2>Downloads</h2>
+<ul>
+    <li><a class="ratered" href="/static/DS0.zip">DS0.zip</a></li>
+    <li><a class="ratered" href="/static/sampleCode.tar">Example code</a></li>
+</ul>
+
+<h2>Papers</h2>
+<ul>
+    <li><a href="ratered" href="/static/paper1.pdf">paper1.pdf</a></li>
+    <li><a href="ratered" href="/static/paper2.pdf">paper2.pdf</a></li>
 </ul>
