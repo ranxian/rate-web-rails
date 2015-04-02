@@ -49,7 +49,6 @@
           <ul class="nav navbar-left">
             <%= link_to image_tag(asset_path("Logo.png"), alt: "Brand", class: "brand"), root_path %>
           </ul>
-          <% if user_signed_in? %>
           <ul class="nav navbar-nav" style="margin-left: 18px">
             <li><%= link_to "Home", home_show_path %></li>
             <li class="<%= params[:controller] == 'views' ? 'active' : '' %>"><%= link_to "View", views_path %></li>
@@ -57,7 +56,6 @@
             <li class="<%= params[:controller] == 'algorithms' ? 'active' : '' %>"><%= link_to "Algorithm", algorithms_path %></li>
             <li class="<%= params[:controller] == 'tasks' ? 'active' : '' %>"><%= link_to "Task", tasks_path  %></li>
           </ul>
-          <% end %>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <% if user_signed_in? %>
