@@ -67,7 +67,7 @@ class View
     (Sidekiq::Status::get_all self.job_id)["at"].to_f
   end
 
-  before_create do
+  after_create do
     self.writers.push self.generator
   end
 

@@ -6,7 +6,7 @@ class ViewsController < ApplicationController
   # GET /views
   # GET /views.json
   def index
-    @views = current_user.writing_views + current_user.reading_views
+    @views = current_user.writing_views.desc(:created_at) + current_user.reading_views.desc(:created_at)
     @views = Kaminari.paginate_array(@views).page(params[:page]).per(20)
   end
 

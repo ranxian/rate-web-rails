@@ -95,7 +95,7 @@ class Bench
     RateClient.static_file_url ['benchmarks', self.uuid, 'uuid_table.txt']
   end
 
-  before_create do
+  after_create do
     self.writers.push self.generator
   end
 

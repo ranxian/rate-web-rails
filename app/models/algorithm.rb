@@ -62,7 +62,7 @@ class Algorithm
     RateClient.static_file_url ['algorithms', self.uuid, 'match.exe']
   end
 
-  before_create do
+  after_create do
     self.writers.push self.author
   end
 

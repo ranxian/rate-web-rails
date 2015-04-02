@@ -5,7 +5,7 @@ class BenchesController < ApplicationController
   # GET /benches
   # GET /benches.json
   def index
-    @benchs = current_user.writing_benches + current_user.reading_benches
+    @benchs = current_user.writing_benches.desc(:created_at) + current_user.reading_benches.desc(:created_at)
     @benches = Kaminari.paginate_array(@benchs).page(params[:page]).per(20)
   end
 
