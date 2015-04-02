@@ -3,7 +3,6 @@ class ViewsController < ApplicationController
                                   :progress, :stop_generate, :add_reader, :add_writer,
                                   :remove_writer, :remove_reader]
 
-
   # GET /views
   # GET /views.json
   def index
