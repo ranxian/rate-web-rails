@@ -28,11 +28,11 @@ class View
   has_and_belongs_to_many :writers, class_name: 'User', inverse_of: 'writing_views'
 
   def readable?(user)
-    readers.include?(user) || writers.include?(user)
+    readers.include?(user) || writers.include?(user) || user.vip
   end
 
   def writable?(user)
-    writers.include?(user)
+    writers.include?(user) || user.vip
   end
 
   def short_uuid

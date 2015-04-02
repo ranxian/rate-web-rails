@@ -47,7 +47,7 @@
 <% end %>
 
 <% content_for :sidebar do %>
-  <% if @task.runner == current_user %>
+  <% if @task.runner == current_user || current_user.vip %>
     <%= link_to 'Run Again', rerun_task_path, class: 'btn btn-primary' %>
     <%= link_to 'Stop', stop_task_path, class: 'btn btn-warning', disabled: @task.finished %>
     <%= link_to 'Browse Imposter', @task.imposter_viewer_url, target: '_blank', class: 'btn btn-primary' %>

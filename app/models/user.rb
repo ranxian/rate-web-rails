@@ -3,6 +3,7 @@ class User
 
   # 用户名
   field :name, type: String
+  field :vip, type: Boolean, default: false
 
   has_many :generated_views, class_name: 'View', inverse_of: 'generator'
   has_many :generated_benches, class_name: 'Bench', inverse_of: 'generator'

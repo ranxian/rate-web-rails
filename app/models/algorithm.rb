@@ -17,11 +17,11 @@ class Algorithm
   end
 
   def readable?(user)
-    readers.include?(user) || writers.include?(user)
+    readers.include?(user) || writers.include?(user) || user.vip
   end
 
   def writable?(user)
-    writers.include?(user)
+    writers.include?(user) || user.vip
   end
 
   def short_uuid

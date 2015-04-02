@@ -16,6 +16,7 @@ class BenchesController < ApplicationController
   # GET /benches/1
   # GET /benches/1.json
   def show
+    @tasks = @bench.tasks.asc(:order)
   end
 
   # GET /benches/new
