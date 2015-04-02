@@ -2,7 +2,7 @@
   <table class="table">
     <tr>
       <th>Name</th>
-      <th>Score</th>
+      <th>EER</th>
       <th>Benchmark</th>
       <th>Algorithm</th>
       <th>Created</th>
@@ -13,7 +13,7 @@
     <% tasks.each do |task| %>
       <tr>
         <td><%= link_to task.name, task %></td> 
-        <td class="score highlighted"><%= task.score.round(2) if task.score %></td>
+        <td class="score highlighted"><%= (task.score * 100).round(2) if task.score %>%</td>
         <td><%= link_to task.bench.name, task.bench %></td>
         <td><%= link_to task.algorithm.name, task.algorithm %></td>
         <td><%= simplify_time task.created_at %></td>
