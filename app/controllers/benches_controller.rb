@@ -16,6 +16,11 @@ class BenchesController < ApplicationController
   # GET /benches/1
   # GET /benches/1.json
   def show
+    if !@bench.readable?(current_user)
+      flash[:error] = 'You are not reader of this benchmark'
+      redirect_to :back and return
+    end
+
     @tasks = @bench.tasks.asc(:order)
   end
 

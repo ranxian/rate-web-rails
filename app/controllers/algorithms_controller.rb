@@ -12,6 +12,10 @@ class AlgorithmsController < ApplicationController
   # GET /algorithms/1
   # GET /algorithms/1.json
   def show
+    if !@algorithm.readable?(current_user)
+      flash[:error] = 'You are not reader of this algorithm'
+      redirect_to :back and return
+    end
   end
 
   # GET /algorithms/new

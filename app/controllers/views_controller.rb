@@ -13,6 +13,10 @@ class ViewsController < ApplicationController
   # GET /views/1
   # GET /views/1.json
   def show
+    if !@view.readable?(current_user)
+      flash[:error] = 'You are not reader of this view'
+      redirect_to :back and return
+    end
   end
 
   # GET /views/new
