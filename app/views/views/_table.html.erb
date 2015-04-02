@@ -1,0 +1,32 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th># Classes</th>
+        <th># Samples</th>
+        <th># Bchs</th>
+        <th>Strategy</th>
+        <th>UUID</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% views.each do |view| %>
+        <tr>
+          <td class="<%= view.writable?(current_user) ? 'highlighted' : '' %>"><%= link_to view.name, view %></td>
+          <td><%= view.num_of_classes %></td>
+          <td><%= view.num_of_samples %></td>
+          <td><%= view.benches.count %></td>
+          <td><%= view_verbose_strategy(view) %></td>
+          <td><%= view.short_uuid %></td>
+          <td><%= view.created_at.strftime("%y' %b %d - %H:%M") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+</div>
+
+<br>
+<%= paginate views %>

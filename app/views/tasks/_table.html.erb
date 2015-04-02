@@ -1,31 +1,33 @@
-<table class="table">
-  <tr>
-    <th>Name</th>
-    <th>Score</th>
-    <th>Benchmark</th>
-    <th>Algorithm</th>
-    <th>Finished</th>
-    <th>UUID</th>
-    <th>Runner</th>
-  </tr>
-  <% tasks.each do |task| %>
+<div class="table-responsive">
+  <table class="table">
     <tr>
-      <td><%= link_to task.name, task %></td> 
-      <td class="score"><%= task.score.round(2) if task.score %></td>
-      <td><%= link_to task.bench.name, task.bench %></td>
-      <td><%= link_to task.algorithm.name, task.algorithm %></td>
-      <td class="progress-td">
-        <% if task.finished %>
-          <%= simplify_time task.finished %>
-        <% else %>
-          <div class="progress" style="width: 300px">
-            <div class="progress-bar active" id="task-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= task.progress * 100 %>%">
-            </div>
-          </div>
-        <% end %>
-      </td>
-      <td><%= task.short_uuid %></td>
-      <td><%= task.runner.name %></td>
+      <th>Name</th>
+      <th>Score</th>
+      <th>Benchmark</th>
+      <th>Algorithm</th>
+      <th>Finished</th>
+      <th>UUID</th>
+      <th>Runner</th>
     </tr>
-  <% end %>
-</table>
+    <% tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.name, task %></td> 
+        <td class="score"><%= task.score.round(2) if task.score %></td>
+        <td><%= link_to task.bench.name, task.bench %></td>
+        <td><%= link_to task.algorithm.name, task.algorithm %></td>
+        <td class="progress-td">
+          <% if task.finished %>
+            <%= simplify_time task.finished %>
+          <% else %>
+            <div class="progress" style="width: 300px">
+              <div class="progress-bar active" id="task-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= task.progress * 100 %>%">
+              </div>
+            </div>
+          <% end %>
+        </td>
+        <td><%= task.short_uuid %></td>
+        <td><%= task.runner.name %></td>
+      </tr>
+    <% end %>
+  </table>  
+</div>

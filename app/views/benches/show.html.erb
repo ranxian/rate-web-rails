@@ -48,8 +48,10 @@
   <% end %>
   <hr>
   <h4>Downloads</h4>
-  <%= link_to 'benchmark.txt', @bench.benchmark_file_url, class: 'btn btn-default' %>
-  <%= link_to 'uuid_table.txt', @bench.uuid_table_file_url, class: 'btn btn-default' %>
+  <% if @bench.view.writable?(current_user) %>
+    <%= link_to 'benchmark.txt', @bench.benchmark_file_url, class: 'btn btn-default' %>
+    <%= link_to 'uuid_table.txt', @bench.uuid_table_file_url, class: 'btn btn-default' %>
+  <% end %>
   <%= render partial: 'shared/reader_writer_list', locals: { resource: @bench } %>
 <% end %>
 

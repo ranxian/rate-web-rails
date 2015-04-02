@@ -14,7 +14,7 @@
   <tbody>
     <% @algorithms.each do |algorithm| %>
       <tr>
-        <td><%= link_to algorithm.name, algorithm %></td>
+        <td class="<%= algorithm.writable?(current_user) ? 'highlighted' : '' %>"><%= link_to algorithm.name, algorithm %></td>
         <td><%= algorithm.description %></td>
         <td><%= algorithm.tasks.count %></th>
         <td><%= simplify_time algorithm.created_at %></td>

@@ -17,7 +17,7 @@
   <tbody>
     <% @benches.each do |bench| %>
       <tr>
-        <td><%= link_to bench.name, bench %></td>
+        <td class="<%= bench.writable?(current_user) ? 'highlighted' : '' %>"><%= link_to bench.name, bench %></td>
         <td><%= bench.description %></td>
         <td><%= bench.num_of_genuine %></td>
         <td><%= bench.num_of_imposter %></td>
