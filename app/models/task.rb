@@ -69,8 +69,7 @@ class Task
     client.destroy
     
     if ratetask.success?
-      task = Task.new(name: options[:name],
-                      score: ratetask['score'],
+      task = Task.new(score: ratetask['score'],
                       finished: ratetask['finished'],
                       uuid: ratetask['uuid'])
       task.bench = bench
