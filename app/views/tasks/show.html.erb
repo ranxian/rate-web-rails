@@ -1,10 +1,28 @@
-<h3><I><%= @task.name %></I> <small><%= link_to 'Edit', edit_task_path(@task) %></small></h3>
+<h3><I>Task <%= @task.short_uuid %></I></h3>
 
 <%= render partial: 'table', locals: { tasks: [@task] } %>
 
 <% if not @task.finished %>
   Task is running
 <% else %>
+  <table class="table">
+    <tr>
+      <th>FMR100</th>
+      <th>FMR1000</th>
+      <th>zeroFNMR</th>
+      <th>zeroFMR</th>
+      <th>FTE</th>
+      <th>FTM</th>
+    </tr>
+    <tr>
+      <td><%= (@task.fmr100 * 100).round(2) %>%</td>
+      <td><%= (@task.fmr1000 * 100).round(2) %>%</td>
+      <td><%= (@task.zeroFNMR * 100).round(2) %>%</td>
+      <td><%= (@task.zeroFMR * 100).round(2) %>%</td>
+      <td><%= @task.fte %></td>
+      <td><%= @task.ftm %></td>
+    </tr>
+  </table>
   <h4>Graphs</h4>
   <div class="row">
     <div class="col-md-6">

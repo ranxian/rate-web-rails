@@ -1,8 +1,6 @@
 class Task
   include Mongoid::Document
   include Mongoid::Timestamps
-  # task 名
-  field :name, type: String
   # 得分
   field :score, type: Float
   # uuid
@@ -36,7 +34,7 @@ class Task
       self.zeroFNMR = ratetask['zeroFNMR'] if ratetask['zeroFNMR']
       self.zeroFMR = ratetask['zeroFMR'] if ratetask['zeroFMR']
       self.fmr100 = ratetask['FMR100'] if ratetask['FMR100']
-      self.fmr1000 = ratetask['FMR1000'] if ratetask['fmr1000']
+      self.fmr1000 = ratetask['FMR1000'] if ratetask['FMR1000']
       self.fte = ratetask['FTE'] if ratetask['FTE']
       self.ftm = ratetask['FTM'] if ratetask['FTM']
     end

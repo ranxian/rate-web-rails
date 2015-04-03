@@ -1,21 +1,20 @@
 <div class="table-responsive">
   <table class="table">
     <tr>
-      <th>Name</th>
-      <th>EER</th>
-      <th>Benchmark</th>
+      <th>UUID</th>
       <th>Algorithm</th>
+      <th>Benchmark</th>
+      <th>EER</th>
       <th>Created</th>
       <th>Finished</th>
-      <th>UUID</th>
       <th>Runner</th>
     </tr>
     <% tasks.each do |task| %>
       <tr>
-        <td><%= link_to task.name, task %></td> 
-        <td class="score highlighted"><%= (task.score * 100).round(3).to_s + '%' if task.score %></td>
-        <td width="100px"><%= link_to task.bench.name, task.bench %></td>
+        <td><%= link_to task.short_uuid, task %></td>
         <td><%= link_to task.algorithm.name, task.algorithm %></td>
+        <td width="100px"><%= link_to task.bench.name, task.bench %></td>
+        <td class="score highlighted"><%= (task.score * 100).round(3).to_s + '%' if task.score %></td>
         <td><%= simplify_time task.created_at %></td>
         <td class="progress-td">
           <% if task.finished %>
@@ -27,7 +26,6 @@
             </div>
           <% end %>
         </td>
-        <td><%= task.short_uuid %></td>
         <td><%= task.runner.name %></td>
       </tr>
     <% end %>
