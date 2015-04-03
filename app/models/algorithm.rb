@@ -11,8 +11,8 @@ class Algorithm
   belongs_to :author, class_name: 'User'
   has_many :tasks
 
-  has_and_belongs_to_many :readers, class_name: 'User', inverse_of: 'reading_benches'
-  has_and_belongs_to_many :writers, class_name: 'User', inverse_of: 'writing_benches'
+  has_and_belongs_to_many :readers, class_name: 'User', inverse_of: 'reading_algorithms'
+  has_and_belongs_to_many :writers, class_name: 'User', inverse_of: 'writing_algorithms'
 
   def short_uuid
     self.uuid ? self.uuid.split('-')[0] : self.uuid
