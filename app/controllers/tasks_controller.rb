@@ -4,6 +4,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    Task.where(finished: nil).each do |task|
+      task.update_from_server!
+    end
     @tasks = Task.all.desc(:created_at).page(params[:page]).per(20)
   end
 
