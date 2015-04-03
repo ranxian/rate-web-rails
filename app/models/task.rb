@@ -25,7 +25,9 @@ class Task
     ratetask = client.info('task', self.uuid)
     client.destroy
     self.finished = ratetask['finished'] if ratetask['finished']
-    self.score = ratetask['score']
+    if self.finished
+      self.score = ratetask['score'] if ratetask['score']
+    end
     self.progress = ratetask['progress'] if ratetask['progress']
   end
 

@@ -100,12 +100,12 @@ class ViewsController < ApplicationController
   end
 
   def publish
-    @bench.update_attributes(ispublic: true)
+    @view.update_attributes(ispublic: true)
     redirect_to :back
   end
 
   def unpublish
-    @bench.update_attributes(ispublic: false)
+    @view.update_attributes(ispublic: false)
     redirect_to :back
   end
 
