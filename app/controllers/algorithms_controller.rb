@@ -34,6 +34,7 @@ class AlgorithmsController < ApplicationController
   # POST /algorithms.json
   def create
     @algorithm = Algorithm.generate!(current_user, algorithm_params)
+    @algorithm.writers.push current_user
 
     respond_to do |format|
       if @algorithm.save

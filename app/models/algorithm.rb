@@ -56,10 +56,6 @@ class Algorithm
     RateClient.static_file_url ['algorithms', self.uuid, 'match.exe']
   end
 
-  after_create do
-    self.writers.push self.author
-  end
-
   before_destroy do
     client = RateClient.new
     result = client.delete('algorithm', self.uuid)
