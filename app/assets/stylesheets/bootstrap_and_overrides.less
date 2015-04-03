@@ -59,19 +59,68 @@ ul.reader-writer {
 body {
   color: @dark-blue;
 }
+
 .btn {
   border: none;
+}
+
+.btn-default {
+  background-color: @white;
+  border: 1px solid darken(@white, 10%);
+  box-shadow: 0 3px 0 0 darken(@white, 10%);
+  &:hover {
+    background-color: lighten(@white, 10%);
+  }
+  &:visited {
+    background-color: @white;
+  }
 }
 
 .btn-primary {
   background-color: @blue;
   border-color: @blue;
   box-shadow: 0 3px 0 0 darken(@blue, 10%);
-  &:hover{
+  &:hover {
     background-color: lighten(@blue, 10%);
   }
   &:visited {
     background-color: @blue;
+  }
+}
+
+.btn-warning {
+  background-color: @yellow;
+  border-color: @yellow;
+  box-shadow: 0 3px 0 0 darken(@yellow, 10%);
+  &:hover {
+    background-color: lighten(@yellow, 10%);
+  }
+  &:visited {
+    background-color: @yellow;
+  }
+}
+
+.btn-danger {
+  background-color: @red;
+  border-color: @red;
+  box-shadow: 0 3px 0 0 darken(@red, 10%);
+  &:hover {
+    background-color: lighten(@red, 10%);
+  }
+  &:visited {
+    background-color: @red;
+  }
+}
+
+.btn-success {
+  background-color: @orange;
+  border-color: @orange;
+  box-shadow: 0 3px 0 0 darken(@orange, 10%);
+  &:hover {
+    background-color: lighten(@orange, 10%);
+  }
+  &:visited {
+    background-color: @orange;
   }
 }
 

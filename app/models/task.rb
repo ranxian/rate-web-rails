@@ -11,6 +11,12 @@ class Task
   field :finished, type: DateTime
   # task 进度
   field :progress, type: Float, default: 0.0
+  field :zeroFNMR, type: Float
+  field :zeroFMR, type: Float
+  field :fmr100, type: Float
+  field :fmr1000, type: Float
+  field :fte, type: Integer
+  field :ftm, type: Integer
   
   belongs_to :runner, class_name: 'User', inverse_of: 'tasks'
   belongs_to :algorithm
@@ -27,6 +33,12 @@ class Task
     self.finished = ratetask['finished'] if ratetask['finished']
     if self.finished
       self.score = ratetask['score'] if ratetask['score']
+      self.zeroFNMR = ratetask['zeroFNMR'] if ratetask['zeroFNMR']
+      self.zeroFMR = ratetask['zeroFMR'] if ratetask['zeroFMR']
+      self.fmr100 = ratetask['FMR100'] if ratetask['FMR100']
+      self.fmr1000 = ratetask['FMR1000'] if ratetask['fmr1000']
+      self.fte = ratetask['FTE'] if ratetask['FTE']
+      self.ftm = ratetask['FTM'] if ratetask['FTM']
     end
     self.progress = ratetask['progress'] if ratetask['progress']
   end
