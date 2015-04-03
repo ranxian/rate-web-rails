@@ -39,6 +39,14 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @algorithms = current_user.writing_algorithms.desc(:created_at) + current_user.reading_algorithms.desc(:created_at)
+    Algorithm.published.each do |a|
+      @algorithms << a if not @algorithms.include?(a)
+    end
+    @benchs = current_user.writing_benches.desc(:created_at) + current_user.reading_benches.desc(:created_at)
+    Bench.published.each do |b|
+      @benchs << b if not @benchs.include?(b)
+    end
   end
 
   # GET /tasks/1/edit
