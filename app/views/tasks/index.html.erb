@@ -1,7 +1,7 @@
 <h1>Tasks</h1>
 
 <%= render partial: 'table', locals: { tasks: @tasks } %>
-
+<%= paginate @tasks %>
 <br>
 
 <% content_for :sidebar do %>

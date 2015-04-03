@@ -4,10 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    Task.where(finished_at: nil).each do |t|
-      t.update_from_server!
-    end
-    @tasks = Task.all.desc(:created_at)
+    @tasks = Task.all.desc(:created_at).page(params[:page]).per(20)
   end
 
   def rerun

@@ -6,6 +6,9 @@ class BenchesController < ApplicationController
   # GET /benches.json
   def index
     @benchs = current_user.writing_benches.desc(:created_at) + current_user.reading_benches.desc(:created_at)
+    Bench.published.each do |b|
+      @benchs << b if not @benchs.include?(b)
+    end
     @benches = Kaminari.paginate_array(@benchs).page(params[:page]).per(20)
   end
 

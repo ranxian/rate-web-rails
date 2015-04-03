@@ -6,6 +6,9 @@ class AlgorithmsController < ApplicationController
   # GET /algorithms.json
   def index
     @algorithms = current_user.writing_algorithms.desc(:created_at) + current_user.reading_algorithms.desc(:created_at)
+    Algorithm.published.each do |a|
+      @algorithms << a if not @algorithms.include?(a)
+    end
     @algorithms = Kaminari.paginate_array(@algorithms).page(params[:page]).per(20)
   end
 
