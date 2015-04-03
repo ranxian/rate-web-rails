@@ -1,6 +1,7 @@
 class View
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ReaderWriter
   # 名字
   field :name, type: String
   # 描述
@@ -26,14 +27,6 @@ class View
   # Reader & Writer
   has_and_belongs_to_many :readers, class_name: 'User', inverse_of: 'reading_views'
   has_and_belongs_to_many :writers, class_name: 'User', inverse_of: 'writing_views'
-
-  def readable?(user)
-    readers.include?(user) || writers.include?(user) || user.vip
-  end
-
-  def writable?(user)
-    writers.include?(user) || user.vip
-  end
 
   def short_uuid
     self.uuid ? self.uuid.split('-')[0] : self.uuid

@@ -1,6 +1,6 @@
 class AlgorithmsController < ApplicationController
   before_action :set_algorithm, only: [:show, :edit, :update, :destroy, :add_reader, :add_writer,
-                                  :remove_writer, :remove_reader]
+                                  :remove_writer, :remove_reader, :publish, :unpublish]
 
   # GET /algorithms
   # GET /algorithms.json
@@ -91,6 +91,16 @@ class AlgorithmsController < ApplicationController
     user = User.find_by(email: params[:email])
     @algorithm.readers.delete(user)
     @algorithm.writers.push(user)
+    redirect_to :back
+  end
+
+  def publish
+    @bench.update_attributes(ispublic: true)
+    redirect_to :back
+  end
+
+  def unpublish
+    @bench.update_attributes(ispublic: false)
     redirect_to :back
   end
 

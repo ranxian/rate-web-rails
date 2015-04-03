@@ -1,6 +1,8 @@
 class Bench
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ReaderWriter
+
   field :name, type: String
   field :description, type: String, default: 'No description'
   field :num_of_genuine, type: Integer
@@ -28,14 +30,6 @@ class Bench
 
   def short_uuid
     self.uuid ? self.uuid.split('-')[0] : self.uuid
-  end
-
-  def readable?(user)
-    readers.include?(user) || writers.include?(user) || user.vip
-  end
-
-  def writable?(user)
-    writers.include?(user) || user.vip
   end
 
   ##

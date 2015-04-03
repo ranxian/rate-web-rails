@@ -3,6 +3,8 @@ require 'zip'
 class Algorithm
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ReaderWriter
+  
   field :name, type: String
   field :description, type: String, default: 'No description'
   field :uuid, type: String
@@ -14,14 +16,6 @@ class Algorithm
 
   def short_uuid
     self.uuid ? self.uuid.split('-')[0] : self.uuid
-  end
-
-  def readable?(user)
-    readers.include?(user) || writers.include?(user) || user.vip
-  end
-
-  def writable?(user)
-    writers.include?(user) || user.vip
   end
 
   def short_uuid

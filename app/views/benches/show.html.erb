@@ -44,6 +44,8 @@
     <%= link_to 'Run Task', new_task_path(bench_id: @bench.id), class: 'btn btn-primary', disabled: !@bench.done %>
   <% end %>
   <% if @bench.writable?(current_user) %>
+    <%= link_to 'Make Public', publish_bench_path, class: 'btn btn-success' if not @bench.ispublic %>
+    <%= link_to 'Make Priave', unpublish_bench_path, class: 'btn btn-warning' if @bench.ispublic %>
     <%= link_to 'Delete Benchmark', @bench, method: :delete, data: { confirm: 'Delete this bench will also delete all tasks, are you sure?' }, class: 'btn btn-danger', disabled: !@bench.done %>  
   <% end %>
   <hr>

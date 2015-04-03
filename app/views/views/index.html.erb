@@ -3,7 +3,7 @@
 <%= render partial: 'table', locals: { views: @views } %>
 
 <% content_for :sidebar do %>
-<%= link_to 'Create View', new_view_path, class: 'btn btn-primary' %>
+<%= link_to 'New View', new_view_path, class: 'btn btn-primary' if current_user.vip %>
 <div class="panel panel-default">
   <div class="panel-body">
     You have <%= current_user.generated_views.count %> views in total

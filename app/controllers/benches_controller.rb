@@ -1,6 +1,6 @@
 class BenchesController < ApplicationController
   before_action :set_bench, only: [:show, :edit, :update, :destroy, :download, :progress, :add_reader, :add_writer,
-                                  :remove_writer, :remove_reader]
+                                  :remove_writer, :remove_reader, :publish, :unpublish]
 
   # GET /benches
   # GET /benches.json
@@ -99,6 +99,16 @@ class BenchesController < ApplicationController
     user = User.find_by(email: params[:email])
     @bench.readers.delete(user)
     @bench.writers.push(user)
+    redirect_to :back
+  end
+
+  def publish
+    @bench.update_attributes(ispublic: true)
+    redirect_to :back
+  end
+
+  def unpublish
+    @bench.update_attributes(ispublic: false)
     redirect_to :back
   end
 

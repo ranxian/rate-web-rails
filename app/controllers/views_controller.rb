@@ -1,7 +1,7 @@
 class ViewsController < ApplicationController
   before_action :set_view, only: [:show, :edit, :update, :destroy, :download, 
                                   :progress, :stop_generate, :add_reader, :add_writer,
-                                  :remove_writer, :remove_reader]
+                                  :remove_writer, :remove_reader, :publish, :unpublish]
 
   # GET /views
   # GET /views.json
@@ -96,6 +96,16 @@ class ViewsController < ApplicationController
     user = User.find_by(email: params[:email])
     @view.readers.delete(user)
     @view.writers.push(user)
+    redirect_to :back
+  end
+
+  def publish
+    @bench.update_attributes(ispublic: true)
+    redirect_to :back
+  end
+
+  def unpublish
+    @bench.update_attributes(ispublic: false)
     redirect_to :back
   end
 

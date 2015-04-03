@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       get 'remove_reader'
       get 'add_writer'
       get 'add_reader'
+      get 'publish'
+      get 'unpublish'
     end
   end
   
@@ -29,6 +31,8 @@ Rails.application.routes.draw do
       get 'remove_reader'
       get 'add_writer'
       get 'add_reader'
+      get 'publish'
+      get 'unpublish'
     end
   end
   resources :views do
@@ -38,6 +42,8 @@ Rails.application.routes.draw do
       get 'remove_reader'
       get 'add_writer'
       get 'add_reader'
+      get 'publish'
+      get 'unpublish'
     end
   end
   devise_for :users

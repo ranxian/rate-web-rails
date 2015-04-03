@@ -57,6 +57,8 @@
 <% content_for :sidebar do %>
   <% if @view.writable?(current_user) %>
     <%= link_to 'Add Benchmark', new_bench_path(view_id: @view.id), class: 'btn btn-primary', disabled: !@view.done %>
+    <%= link_to 'Make Public', publish_view_path, class: 'btn btn-success' if not @view.ispublic %>
+    <%= link_to 'Make Priave', unpublish_view_path, class: 'btn btn-warning' if @view.ispublic %>
     <%= link_to 'Delete View', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  
     <hr>
     <%= render partial: 'shared/reader_writer_list', locals: { resource: @view } %>
