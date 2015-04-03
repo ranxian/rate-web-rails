@@ -31,7 +31,9 @@ class RateClient
       arg = arg.join('/')
     end
     config = YAML.load_file(Rails.root.join('config', 'rate.yml'))
-    return "http://#{config['static_host']}:4567/#{arg}"
+    sp = config['static_host'].split("/")
+
+    return "http://#{sp[0]}:4567/#{sp[1..-1].join('/')}/#{arg}"
   end
 
   ##
