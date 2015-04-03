@@ -8,7 +8,7 @@ class Algorithm
   field :name, type: String
   field :description, type: String, default: 'No description'
   field :uuid, type: String
-  belongs_to :author, class_name: 'User'
+  belongs_to :author, class_name: 'User', inverse_of: 'algorithms'
   has_many :tasks
 
   has_and_belongs_to_many :readers, class_name: 'User', inverse_of: 'reading_algorithms'
