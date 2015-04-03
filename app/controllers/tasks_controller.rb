@@ -66,7 +66,7 @@ class TasksController < ApplicationController
     else
       bench = Bench.find(params[:task][:bench_id])
       algorithm = Algorithm.find(params[:task][:algorithm_id])
-      @task = Task.run!(current_user, bench, algorithm, { name: params[:task][:name] })
+      @task = Task.run!(current_user, bench, algorithm)
       redirect_to @task, notice: 'Task was successfully created.'
     end
   end
@@ -103,7 +103,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, 
-                                   :score)
+      params.require(:task)
     end
 end
