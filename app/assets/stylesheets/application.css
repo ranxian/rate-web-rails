@@ -4,8 +4,8 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
  *= require bootstrap_and_overrides
+ *= require sites
  *= require navbar
- *= require_tree .
 */
 
 div.sidebar-nav .btn {
@@ -103,3 +103,4 @@ div.sidebar-nav .btn {
 .alert-block p + p {
     margin-top: 5px;
 }
+
