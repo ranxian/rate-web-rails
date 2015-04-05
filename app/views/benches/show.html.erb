@@ -37,7 +37,7 @@
 </table>
 
 <h4>Tasks under <I><%= @bench.name %></I></h4>
-<%= render partial: 'tasks/table', locals: { tasks: @tasks } %>
+<%= render partial: 'tasks/table', locals: { tasks: @tasks, ranking: true } %>
 
 <% content_for :sidebar do %>
   <% if @bench.readable?(current_user) %>
