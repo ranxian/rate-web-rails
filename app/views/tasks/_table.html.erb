@@ -12,7 +12,7 @@
       <th>Runner</th>
     </tr>
     <% tasks.each_with_index do |task, index| %>
-      <tr class="<%= index < 3 ? "rank rank-#{index+1}" : '' %>">
+      <tr class="<%= ranking ? (index < 3 ? "rank rank-#{index+1}" : '') : false %>">
         <td><%= link_to task.short_uuid, task %></td>
         <td><%= link_to task.algorithm.name, task.algorithm %></td>
         <td width="100px"><%= link_to task.bench.name, task.bench %></td>
