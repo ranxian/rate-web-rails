@@ -64,64 +64,33 @@ body {
   border: none;
 }
 
+.btn-factory(@color) {
+  background-color: @color;
+  border-color: @color;
+  box-shadow: 0 3px 0 0 darken(@color, 10%);
+  &:hover, &:visited, &:active {
+    background-color: lighten(@color, 10%);
+  }
+}
+
 .btn-default {
-  background-color: @white;
-  border: 1px solid darken(@white, 10%);
-  box-shadow: 0 3px 0 0 darken(@white, 10%);
-  &:hover {
-    background-color: lighten(@white, 10%);
-  }
-  &:visited {
-    background-color: @white;
-  }
+  .btn-factory(@white);
 }
 
 .btn-primary {
-  background-color: @blue;
-  border-color: @blue;
-  box-shadow: 0 3px 0 0 darken(@blue, 10%);
-  &:hover {
-    background-color: lighten(@blue, 10%);
-  }
-  &:visited {
-    background-color: @blue;
-  }
+  .btn-factory(@blue);
 }
 
 .btn-warning {
-  background-color: @yellow;
-  border-color: @yellow;
-  box-shadow: 0 3px 0 0 darken(@yellow, 10%);
-  &:hover {
-    background-color: lighten(@yellow, 10%);
-  }
-  &:visited {
-    background-color: @yellow;
-  }
+  .btn-factory(@yellow);
 }
 
 .btn-danger {
-  background-color: @red;
-  border-color: @red;
-  box-shadow: 0 3px 0 0 darken(@red, 10%);
-  &:hover {
-    background-color: lighten(@red, 10%);
-  }
-  &:visited {
-    background-color: @red;
-  }
+  .btn-factory(@red);
 }
 
 .btn-success {
-  background-color: @orange;
-  border-color: @orange;
-  box-shadow: 0 3px 0 0 darken(@orange, 10%);
-  &:hover {
-    background-color: lighten(@orange, 10%);
-  }
-  &:visited {
-    background-color: @orange;
-  }
+  .btn-factory(@orange);
 }
 
 a {
