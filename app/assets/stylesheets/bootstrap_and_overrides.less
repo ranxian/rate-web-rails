@@ -50,12 +50,6 @@ ul.reader-writer {
     list-style-type: none;
   }
 }
-
-.highlighted {
-  font-weight: bold;
-  color: @red;
-}
-
 body {
   color: @dark-blue;
 }
@@ -68,8 +62,11 @@ body {
   background-color: @color;
   border-color: @color;
   box-shadow: 0 3px 0 0 darken(@color, 10%);
-  &:hover, &:visited, &:active {
+  &:hover{
     background-color: lighten(@color, 10%);
+  }
+  &:visited, &:active {
+    background-color: @color;
   }
 }
 

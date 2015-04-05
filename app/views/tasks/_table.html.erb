@@ -1,3 +1,5 @@
+<% ranking ||= false %>
+
 <div class="table-responsive">
   <table class="table">
     <tr>
@@ -9,8 +11,8 @@
       <th>Finished</th>
       <th>Runner</th>
     </tr>
-    <% tasks.each do |task| %>
-      <tr>
+    <% tasks.each_with_index do |task, index| %>
+      <tr class="<%= index < 3 ? "rank rank-#{index+1}" : '' %>">
         <td><%= link_to task.short_uuid, task %></td>
         <td><%= link_to task.algorithm.name, task.algorithm %></td>
         <td width="100px"><%= link_to task.bench.name, task.bench %></td>

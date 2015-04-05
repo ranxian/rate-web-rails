@@ -24,7 +24,7 @@ class BenchesController < ApplicationController
       redirect_to :back and return
     end
 
-    @tasks = @bench.tasks.asc(:order)
+    @tasks = @bench.tasks.asc(:score)
   end
 
   # GET /benches/new
