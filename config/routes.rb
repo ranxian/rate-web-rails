@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/show'
   get 'users/show'
+  get '/icb2015' => 'icb#show', as: :icb
 
   resources :tasks do
     member do

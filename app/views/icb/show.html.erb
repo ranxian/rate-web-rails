@@ -1,0 +1,260 @@
+
+<h2>Welcome To ICFVR2015 - The ICB-2015 Competition on Finger Vein Recognition!</h2>
+<div class="ratehr"></div>
+<div id="logos" class="text-center">
+    <a href="http://icb2015.org/"><%= image_tag "ICB2015_logo.png", height: '200px', style: 'display: inline;' %></a>
+    <a href="http://ailab.pku.edu.cn"><%= image_tag "ailab_logo.png", height: '200px', style: 'display: inline;' %></a>
+    <a href="http://www.pku.edu.cn"><%= image_tag "pku_logo.jpg", height: '200px', style: 'display: inline;' %></a>
+</div>
+
+<h3>NEW: Data Sets Download</h3>
+<p>3 data sets are used in this competition, summarized in the below table. Refer to <a href="#datasets">Data sets section</a> for details.</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>Size</th>
+        <th>Released</th>
+        <th>Description</th>
+        <th>Download</th>
+    </tr>
+    <tr>
+        <td>DS0</td>
+        <td>10x5</td>
+        <td>Yes</td>
+        <td>For quick debug</td>
+        <td><a href="https://s3.amazonaws.com/ICB-downloads/DS0_samples.zip">download</a></td>
+    </tr>
+    <tr>
+        <td>DS1</td>
+        <td>944x5</td>
+        <td>No</td>
+        <td>Collected from volunteers, with guidance, indoor, captured within one day</td>
+        <td><a href="https://s3.amazonaws.com/ICB-downloads/DS1_samples.zip">download</a></td>
+    </tr>
+    <tr>
+        <td>DS1-</td>
+        <td>100x5</td>
+        <td>Yes</td>
+        <td>Subset of DS1</td>
+        <td><a href="https://s3.amazonaws.com/ICB-downloads/DS1-_samples.zip">download</a></td>
+    </tr>
+    <tr>
+        <td>DS2</td>
+        <td>1000x5</td>
+        <td>No</td>
+        <td>Collected from real application, without guidance, outdoor, long time-span</td>
+        <td><a href="https://s3.amazonaws.com/ICB-downloads/DS2_samples.zip">download</a></td>
+    </tr>
+    <tr>
+        <td>DS2-</td>
+        <td>100x5</td>
+        <td>Yes</td>
+        <td>Subset of DS2</td>
+        <td><a href="https://s3.amazonaws.com/ICB-downloads/DS2-_samples.zip">download</a></td>
+    </tr>
+    <tr>
+        <td>DS3</td>
+        <td>1000x5</td>
+        <td>No</td>
+        <td>Synthetic data set of DS1 and DS2</td>
+        <td><a href="https://s3.amazonaws.com/ICB-downloads/DS3_samples.zip">download</a></td>
+    </tr>
+    <tr>
+        <td>DS3-</td>
+        <td>100x5</td>
+        <td>Yes</td>
+        <td>Subset of DS3</td>
+        <td><a href="https://s3.amazonaws.com/ICB-downloads/DS3-_samples.zip">download</a></td>
+    </tr>
+</table>
+<h3>NEW: Competition Results</h3>
+
+<p>Competiton results are fully discussed in this paper: <a class="ratered" href="/static/icb.pdf">The ICB-2015 Competition on Finger Vein Recognition</a>.</p>
+
+<h2>Call for Participants</h2>
+<p>We are AILAB of Peking University. We are glad to host the ICB-2015 Competition on Finger Vein Recognition!
+This is the first international competition for finger vein recognition. In this competition, we are going to track the state of the
+art finger vein recognition algorithms, and introduce a platform and data sets for the evaluation of finger vein recognition algorithms.</p>
+<p>The results will be presented at ICB-2015, participants from academia and industry are welcomed. Submit your algorithms!</p>
+<h3>Organizers</h3>
+<ul>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Organization</th>
+            <th>M a i l</th>
+        </tr>
+        <tr>
+            <td>Prof. Wenxin Li</td>
+            <td>AILAB, Peking University</td>
+            <td>lwx AT pku DOT edu DOT cn</td>
+        </tr>
+        <tr>
+            <td>Ran Xian</td>
+            <td>AILAB, Peking University</td>
+            <td>xianran AT pku DOT edu DOT cn</td>
+        </tr>
+        <tr>
+            <td>Shilei Liu</td>
+            <td>AILAB, Peking University</td>
+            <td>cs_lsl AT pku DOT edu DOT cn</td>
+        </tr>
+        <tr>
+            <td>He Zheng</td>
+            <td>AILAB, Peking University</td>
+            <td>zhenghe AT pku DOT edu DOT cn</td>
+        </tr>
+        <tr>
+            <td>Liao Ni</td>
+            <td>AILAB, Peking University</td>
+            <td>niliao AT pku DOT edu DOT cn</td>
+        </tr>
+        <tr>
+            <td>Qingjian Zhang</td>
+            <td>AILAB, Peking University</td>
+            <td>zqj AT pku DOT edu DOT cn</td>
+        </tr>
+    </table>
+</ul>
+
+<h3>Problems</h3>
+<p>Finger vein verification has become a promising biometric verification technology - it’s hard to be counterfeited, yet achieves outstanding recognition performance. Typical finger vein verification process consists of two main steps, template enrollment and template matching. Template enrollment is to obtain useful information from a raw sample and output a template for match. Template matching is to compare two templates and calculate the similarity between them. This similarity measurement can then be used for verification tasks.</p>
+<p>The problem in this competition is to write algorithm for the enrollment and matching step. The algorithm, specifically, given two image samples of finger vein, first enroll the samples and create two templates, then match these two templates to answer how similar the original samples are.</p>
+<h3 id="datasets">Data Sets</h3>
+<ul>
+    <li><b>DS0</b>. 10 fingers in total, with 5 samples for each finger (10*5), randomly chosen from the database. This data set is for participants to test and debug their algorithms, might be used as a start point to develop algorithms.</li>
+    <li><b>DS1 & DS1-</b>. DS1 contains 1000*5 samples, all of which were captured in indoor environment from 250 volunteers. The capturing process was well guided by us. In general, the quality of the database should be very high, and participants are expected to obtain good performance in this data set. DS1- is a subset of DS1, with a size of 100*5.</li>
+    <li><b>DS2 & DS2-</b>. DS2 contains 1000*5 samples, all of which were captured for real usage, with a relatively longer time span, great population variety, and an outdoor environment for no-guidance capture. This data set is supposed to be relatively more difficult to achieve high performance compared to DS1. DS2- is a subset of DS2, with a size of 100*5.</li>
+    <li><b>DS3 & DS3-</b>. DS3 is a synthetic data set based on DS1 and DS2, with a size of 1000*5. DS3- is a subset of DS3, with a size of 100*5.</li>
+    <li>The image format is bmp, 256 gray scale, and 512*843 pixel resolution.</li>
+    <li>Devices manufactured by YANNAN Tech capture all the images. Since all images are captured by the same device, samples from the same finger may have the same size and orientation, but this is not guaranteed.</li>
+    <li>DS0, DS1-, DS2-, DS3- are provided for download. See section <b>Downloads</b> below</li>
+</ul>
+
+<h3>Submission Procedure</h3>
+<p>A submission consists of two Win32 executables, enroll.exe and match.exe, for the enrollment step and the matching step. The two executables should read input from the command line arguments and output results to the standard output or a designated file with the right exit value. They must obey the following rules:</p>
+<table class="table">
+    <tr>
+        <th>Executable</th>
+        <th>Decription</th>
+        <th>Command line args</th>
+        <th>Standard output</th>
+        <th>Exit value</th>
+    </tr>
+    <tr>
+        <td>Enroll.exe</td>
+        <td>Extract feature and create template</td>
+        <td>Path of the input image and path of the output template file</td>
+        <td>None</td>
+        <td>0: success;
+            Else: failed</td>
+    </tr>
+    <tr>
+        <td>Match.exe</td>
+        <td>Paths of two templates for matching</td>
+        <td>Match two templates Paths of two templates for matching</td>
+        <td>Similarity degree is indicated by a float number between [0-1. 0], with 0 meaning not similar at all, and 1 meaning exact the same</td>
+        <td>0: success; Else: failed</td>
+    </tr>
+</table>
+<p class="ratered">Keep in mind that the right exit value is very important, and you may fail the evaluation if you don’t care about it.</p>
+<p>The executables will be used in a command line like follows:</p>
+<pre>
+    > Enroll.exe /path/to/read/image.bmp /path/to/write/template.t
+    > Match.exe /path/to/template1.t /path/to/template2.t
+</pre>
+<ul>
+    <li>There are also time and space limit for each executable. Time requirement for Enroll.exe is within 3 seconds. Time requirement for Match.exe is within 100ms. Memory requirement for both .exe is within 128M. The evaluation platform will be very strict on these constraints.</li>
+    <li>The evaluation platform is a distributed system running on 32-bit Windows system. So all the executables must be 32-bit Windows executables. Runtime libraries provided are:</li>
+    <ul>
+        <li>Microsoft Visual C++ 2005 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2005 SP1 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2008 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2008 SP1 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2010 Redistributable Package (x86)</li>
+        <li>Microsoft Visual C++ 2010 SP1 Redistributable Package (x86)</li>
+        <li>Visual C++ Redistributable for Visual Studio 2012 Update 4</li>
+        <li>Visual C++ Redistributable Packages for Visual Studio 2013</li>
+        <li>OpenCV 2.4.9</li>
+    </ul>
+    <li>If you would like to use other libraries, make sure that they can work well on a machine with just the same previous environment. Static build might be a good option.</li>
+    <li>A code framework and example executables are be prepared for the participants. See <b>Downloads</b> section below</li>
+    <li>Details of the final submission by email will be posted later</li>
+</ul>
+
+<h3>Evaluation</h3>
+<p class="ratered">The final result only depends on the performance of the final submission by participants on data set DS1, DS2 and DS3. The following performance metrics will be evaluated. Refer to this <a href="/static/fvc.pdf">paper</a> for details of these metrics</p>
+<table class="table">
+    <tr>
+        <th>False None Match Rate (FNMR)</th>
+        <td>Each sample in the data set is matched against all the other the remaining samples of the same finger to compute FNMR. For a data set of size m*n, the total number of genuine tests is (n*(n-1))*m.</td>
+    </tr>
+    <tr>
+        <th>False Match Rate (FMR)</th>
+        <td>The first sample of one finger is matched against the first sample of all the other remaining fingers in the same data set to compute FMR. For a data set of size m*n, the total number of false acceptance tests is m*(m-1)/2.</td>
+    </tr>
+    <tr>
+        <th>Failure to Enroll Number</th>
+        <td>Number of failure during enrollment for each data set</td>
+    </tr>
+    <tr>
+        <th>Failure to Match Number</th>
+        <td>Number of failure during matching for each data set</td>
+    </tr>
+    <tr>
+        <th>FMR-FNMR graph</th>
+        <td>For each algorithm with each data set</td>
+    </tr>
+    <tr>
+        <th>ROC curve</th>
+        <td>For each algorithm with each data set</td>
+    </tr>
+    <tr>
+        <th>EER</th>
+        <td>for each algorithm with each data set</td>
+    </tr>
+</table>
+
+<h3>Use the RATE platform</h3>
+<p>As mentioned above, you could use this website to evaluate your algorithms on the fly. First notice that it is not required for
+ you to register into this website and submit your algorithms here, the final result will only depend on your submissions via email, and
+ register in this website does not mean register in this competition, the only way to register in the competition is by filling the form and send
+ it by email. But this the evaluation procedure behind the website is exactly the same what we do with your final submission, besides this
+ website provides a good way to develop and validate your algorithms, you are highly recommended to use it!</p>
+<p>
+The guides of how to use RATE is in <a href="/static/How-To-Use-Rate.pdf">this file</a>
+</p>
+
+<h3>Downloads (Not available until competition begins)</h3>
+<ul>
+    <li><a class="ratered" href="https://s3.amazonaws.com/ICB-downloads/DS0_samples.zip">DS0</a></li>
+    <li><a class="ratered" href="https://s3.amazonaws.com/ICB-downloads/DS1-_samples.zip">DS1-</a></li>
+    <li><a class="ratered" href="https://s3.amazonaws.com/ICB-downloads/DS2-_samples.zip
+">DS2-</a></li>
+    <li><a class="ratered" href="https://s3.amazonaws.com/ICB-downloads/DS3-_samples.zip">DS3-</a></li>
+    <li><a class="ratered" href="/static/sampleCode.tar">Code framework and example executables</a></li>
+</ul>
+
+<h3>Important Dates</h3>
+<table class="table">
+    <tr>
+        <th>Competition begins, All data sets, examples becoming available</th>
+        <td>September 8, 2014</td>
+    </tr>
+    <tr>
+        <th>Participant registration deadline</th>
+        <td>October 10, 2014</td>
+    </tr>
+    <tr>
+        <th>Final submission deadline</th>
+        <td>November 10, 2014</td>
+    </tr>
+    <tr>
+        <th>Evaluation report published online</th>
+        <td>November 30, 2014</td>
+    </tr>
+    <tr>
+        <th>Results publicly presented</th>
+        <td>During the ICB-2015 conference</td>
+    </tr>
+</table>
