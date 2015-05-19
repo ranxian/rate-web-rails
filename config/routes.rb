@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     end
   end
   devise_for :users
-  root to: "home#index"
+  root to: "home#show"
 
   mount Sidekiq::Web, at: "/sidekiq"
   

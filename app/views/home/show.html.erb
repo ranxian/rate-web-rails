@@ -1,22 +1,31 @@
-<h2>Welcome</h2>
-RATE is a general platform for evaluation of biometric verification algorithm and explore of biometric data.
-
-<h2>Problems</h2>
-<p>Finger vein verification has become a promising biometric verification technology - it’s hard to be counterfeited, yet achieves outstanding recognition performance. Typical finger vein verification process consists of two main steps, template enrollment and template matching. Template enrollment is to obtain useful information from a raw sample and output a template for match. Template matching is to compare two templates and calculate the similarity between them. This similarity measurement can then be used for verification tasks.</p>
-<p>The problem in this competition is to write algorithm for the enrollment and matching step. The algorithm, specifically, given two image samples of finger vein, first enroll the samples and create two templates, then match these two templates to answer how similar the original samples are.</p>
-<h2>Data Sets</h2>
+<h3>Welcome</h3>
+<p>RATE is a general platform for evaluation of biometric verification algorithm and explore of biometric data. It aims at providing a convenient tool for doing biometric research, it solves various problems in conducting biometric experiment - data and annotation management, benchmark description and distributed evluation, etc.</p>
+<p>There are 4 main concepts in RATE, they are described in the following sections.</p>
+<h3>View</h3>
+<p>View refers to collection of samples (e.g. a group of fingerprint images). View is useful when researchers want to group samples with specific research propose. For example, finger vein verificaion researchers may want to know the general performance on different fingers, they could then create 3 views for index finger, middle finger, and ring finger (finger vein verification just don't like thumb or little finger). </p>
+<h3>Benchmark</h3>
+<p>Basically, you upload an algorithm, and RATE runs it for you. There should be a place that you describe the detail of which sample is going to match with which another one - this is called <strong>benchmark</strong> in RATE. Benchmark is created upon view, all samples referred in a benchmark should be in one specific view. There are many ways to automatically generate a benchmark:
+</p>
 <ul>
-    <li><b>DS0</b>. 10 fingers in total, with 5 samples for each finger (10*5), randomly chosen from the database. This data set is for participants to test and debug their algorithms, might be used as a start point to develop algorithms.</li>
-    <li><b>DS1 & DS1-</b>. DS1 contains 1000*5 samples, all of which were captured in indoor environment from 250 volunteers. The capturing process was well guided by us. In general, the quality of the database should be very high, and participants are expected to obtain good performance in this data set. DS1- is a subset of DS1, with a size of 100*5.</li>
-    <li><b>DS2 & DS2-</b>. DS2 contains 1000*5 samples, all of which were captured for real usage, with a relatively longer time span, great population variety, and an outdoor environment for no-guidance capture. This data set is supposed to be relatively more difficult to achieve high performance compared to DS1. DS2- is a subset of DS2, with a size of 100*5.</li>
-    <li><b>DS3 & DS3-</b>. DS3 is a synthetic data set based on DS1 and DS2, with a size of 1000*5. DS3- is a subset of DS3, with a size of 100*5.</li>
-    <li>The image format is bmp, 256 gray scale, and 512*843 pixel resolution.</li>
-    <li>Devices manufactured by YANNAN Tech capture all the images. Since all images are captured by the same device, samples from the same finger may have the same size and orientation, but this is not guaranteed.</li>
-    <li>DS0, DS1-, DS2-, DS3- are provided for download. See section <b>Downloads</b> below</li>
+    <li>
+        General benchmark. General benchmark is used for evaluation of an algorithm, because this is the most usual case for one to use RATE, we call them <strong>"general"</strong>. It ramdonly choose classes and samples from a view and generate inner matches and inter matches between samples.
+    </li>
+    <li>
+        All inner benchmark. Generate matches so that all samples from a view are matched against all samples in the sample class.
+    </li>
+    <li>
+        All inter benchmark. Generate matches so that all samples from a view a re matches against all samples in other classes.
+    </li>
+    <li>
+        All benchmark. Generate all possible matches in a view.
+    </li>
+    <li>
+        File benchmark. Upload a file filled with wanted matches between samples. Samples are referred by its UUID.
+    </li>
 </ul>
+<h3>Algorithm</h3>
+<p>Algorithm is two Win32 excutables in RATE: enroll.exe and match.exe, for the enrollment step and the matching step. The two executables should read input from the command line arguments and output results to the standard output or a designated file with the right exit value. They must obey the following rules</p>
 
-<h2>Submission Procedure</h2>
-<p>A submission consists of two Win32 executables, enroll.exe and match.exe, for the enrollment step and the matching step. The two executables should read input from the command line arguments and output results to the standard output or a designated file with the right exit value. They must obey the following rules:</p>
 <table class="table">
     <tr>
         <th>Executable</th>
@@ -48,7 +57,8 @@ RATE is a general platform for evaluation of biometric verification algorithm an
     > Match.exe /path/to/template1.t /path/to/template2.t
 </pre>
 <ul>
-    <li>There are also time and space limit for each executable. Time requirement for Enroll.exe is within 3 seconds. Time requirement for Match.exe is within 100ms. Memory requirement for both .exe is within 128M. The evaluation platform will be very strict on these constraints.</li>
+    <li><a class="ratered" href="/static/ExampleCode.zip">Example code</a></li>
+    <li>There are also time and space limit for each executable. Time requirement for Enroll.exe is within 3 seconds. Time requirement for Match.exe is within 100ms. Memory requirement for both excutables is within 128M. RATE will be strict on these constraints.</li>
     <li>The evaluation platform is a distributed system running on 32-bit Windows system. So all the executables must be 32-bit Windows executables. Runtime libraries provided are:</li>
     <ul>
         <li>Microsoft Visual C++ 2005 Redistributable Package (x86)</li>
@@ -62,50 +72,12 @@ RATE is a general platform for evaluation of biometric verification algorithm an
         <li>OpenCV 2.4.9</li>
     </ul>
     <li>If you would like to use other libraries, make sure that they can work well on a machine with just the same previous environment. Static build might be a good option.</li>
-    <li>A code framework and example executables are be prepared for the participants. See <b>Downloads</b> section below</li>
-    <li>Details of the final submission by email will be posted later</li>
+    <li>Example code</li>
 </ul>
+<h3>Task</h3>
+<p>Task is the result of running an algorithm on a benchmark. RATE's distributed system will run the task for you on a given benchmark, when done, it will run an automatic analysis process.</p>
 
-<h2>Evaluation</h2>
-<p class="ratered">The final result only depends on the performance of the final submission by participants on data set DS1, DS2 and DS3. The following performance metrics will be evaluated. Refer to this <a href="/static/fvc.pdf">paper</a> for details of these metrics</p>
-<table class="table">
-    <tr>
-        <th>False None Match Rate (FNMR)</th>
-        <td>Each sample in the data set is matched against all the other the remaining samples of the same finger to compute FNMR. For a data set of size m*n, the total number of genuine tests is (n*(n-1))*m.</td>
-    </tr>
-    <tr>
-        <th>False Match Rate (FMR)</th>
-        <td>The first sample of one finger is matched against the first sample of all the other remaining fingers in the same data set to compute FMR. For a data set of size m*n, the total number of false acceptance tests is m*(m-1)/2.</td>
-    </tr>
-    <tr>
-        <th>Failure to Enroll Number</th>
-        <td>Number of failure during enrollment for each data set</td>
-    </tr>
-    <tr>
-        <th>Failure to Match Number</th>
-        <td>Number of failure during matching for each data set</td>
-    </tr>
-    <tr>
-        <th>FMR-FNMR graph</th>
-        <td>For each algorithm with each data set</td>
-    </tr>
-    <tr>
-        <th>ROC curve</th>
-        <td>For each algorithm with each data set</td>
-    </tr>
-    <tr>
-        <th>EER</th>
-        <td>for each algorithm with each data set</td>
-    </tr>
-</table>
-
-<h2>Downloads</h2>
-<ul>
-    <li><a class="ratered" href="/static/DS0.zip">DS0.zip</a></li>
-    <li><a class="ratered" href="/static/ExampleCode.zip">Example code</a></li>
-</ul>
-
-<h2>Papers</h2>
+<h3>Papers</h3>
 <ul>
     <li><a class="ratered" href="/static/wideline.pdf">Finger-vein Authentication Based on Wide Line Detector and Pattern Normalization</a></li>
     <li><a class="ratered" href="/static/posture-correct.pdf">A Finger Posture Change Correction Method for Finger-vein Recognition</a></li>
