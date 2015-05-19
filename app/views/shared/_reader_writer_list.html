@@ -2,7 +2,7 @@
   <% rolep = role + 's' %>
   <% rolesym = rolep.to_sym %>
   <% resource_name = resource.class.to_s.downcase %>
-  <h5><%= role.pluralize.upcase %> (<%= resource.send(rolesym).count %>)</h5>
+  <h5><%= role == 'reader' ? 'User' : 'Owner' %> (<%= resource.send(rolesym).count %>)</h5>
   <ul class="reader-writer">
     <% resource.send(rolesym).each do |user| %>
       <li>
