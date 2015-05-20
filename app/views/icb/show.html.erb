@@ -8,7 +8,7 @@
 </div>
 
 <h3>NEW: Data Sets Download</h3>
-<p>3 data sets are used in this competition, summarized in the below table. Refer to <a href="#datasets">Data sets section</a> for details.</p>
+<p>3 data sets are used in this competition, summarized in the table below. Refer to <a href="#datasets">Data sets section</a> for details.</p>
 <table class="table">
     <tr>
         <th></th>
@@ -218,14 +218,14 @@ art finger vein recognition algorithms, and introduce a platform and data sets f
 
 <h3>Problems</h3>
 <p>Finger vein verification has become a promising biometric verification technology - it’s hard to be counterfeited, yet achieves outstanding recognition performance. Typical finger vein verification process consists of two main steps, template enrollment and template matching. Template enrollment is to obtain useful information from a raw sample and output a template for match. Template matching is to compare two templates and calculate the similarity between them. This similarity measurement can then be used for verification tasks.</p>
-<p>The problem in this competition is to write algorithm for the enrollment and matching step. The algorithm, specifically, given two image samples of finger vein, first enroll the samples and create two templates, then match these two templates to answer how similar the original samples are.</p>
+<p>The problem in this competition is to write algorithm for the two step. The algorithm, specifically, given two image samples of finger vein, first enroll the samples and create two templates, then match these two templates to answer how similar the original samples are.</p>
 <h3 id="datasets">Data Sets</h3>
 <ul>
     <li><b>DS0</b>. 10 fingers in total, with 5 samples for each finger (10*5), randomly chosen from the database. This data set is for participants to test and debug their algorithms, might be used as a start point to develop algorithms.</li>
     <li><b>DS1 & DS1-</b>. DS1 contains 1000*5 samples, all of which were captured in indoor environment from 250 volunteers. The capturing process was well guided by us. In general, the quality of the database should be very high, and participants are expected to obtain good performance in this data set. DS1- is a subset of DS1, with a size of 100*5.</li>
     <li><b>DS2 & DS2-</b>. DS2 contains 1000*5 samples, all of which were captured for real usage, with a relatively longer time span, great population variety, and an outdoor environment for no-guidance capture. This data set is supposed to be relatively more difficult to achieve high performance compared to DS1. DS2- is a subset of DS2, with a size of 100*5.</li>
     <li><b>DS3 & DS3-</b>. DS3 is a synthetic data set based on DS1 and DS2, with a size of 1000*5. DS3- is a subset of DS3, with a size of 100*5.</li>
-    <li>The image format is bmp, 256 gray scale, and 512*843 pixel resolution.</li>
+    <li>The image format is bmp, 256 gray scale, 512*843 pixel resolution.</li>
     <li>Devices manufactured by YANNAN Tech capture all the images. Since all images are captured by the same device, samples from the same finger may have the same size and orientation, but this is not guaranteed.</li>
     <li>DS0, DS1-, DS2-, DS3- are provided for download. See section <b>Downloads</b> below</li>
 </ul>
@@ -239,21 +239,27 @@ art finger vein recognition algorithms, and introduce a platform and data sets f
         <th>Command line args</th>
         <th>Standard output</th>
         <th>Exit value</th>
+        <th>Time Limit</th>
+        <th>Memory limit</th>
     </tr>
     <tr>
         <td>Enroll.exe</td>
-        <td>Extract feature and create template</td>
-        <td>Path of the input image and path of the output template file</td>
+        <td>Create template</td>
+        <td>Paths of the input images and output template file</td>
         <td>None</td>
         <td>0: success;
-            Else: failed</td>
+            Else: fail</td>
+        <td>3s</td>
+        <td>64M</td>
     </tr>
     <tr>
         <td>Match.exe</td>
+        <td>Match two templates</td>
         <td>Paths of two templates for matching</td>
-        <td>Match two templates Paths of two templates for matching</td>
-        <td>Similarity degree is indicated by a float number between [0-1. 0], with 0 meaning not similar at all, and 1 meaning exact the same</td>
-        <td>0: success; Else: failed</td>
+        <td>Similarity degree is indicated by a float number between [0-1.0], with 0 meaning not similar at all, and 1 meaning exact the same</td>
+        <td>0: success; Else: fail</td>
+        <td>1s</td>
+        <td>64M</td>
     </tr>
 </table>
 <p class="ratered">Keep in mind that the right exit value is very important, and you may fail the evaluation if you don’t care about it.</p>
@@ -315,11 +321,7 @@ art finger vein recognition algorithms, and introduce a platform and data sets f
 </table>
 
 <h3>Use the RATE platform</h3>
-<p>As mentioned above, you could use this website to evaluate your algorithms on the fly. First notice that it is not required for
- you to register into this website and submit your algorithms here, the final result will only depend on your submissions via email, and
- register in this website does not mean register in this competition, the only way to register in the competition is by filling the form and send
- it by email. But this the evaluation procedure behind the website is exactly the same what we do with your final submission, besides this
- website provides a good way to develop and validate your algorithms, you are highly recommended to use it!</p>
+<p>While you could use RATE to evaluate your algorithms, it is not required. The final result will only depend on your submissions via email. However the evaluation procedure of RATE is exactly the same as how we evaluate your algorithms, besides RATE provides a good way to validate and develop your algorithms, you are highly recommended to use it.</p>
 <p>
 The guides of how to use RATE is in <a href="/static/How-To-Use-Rate.pdf">this file</a>
 </p>
@@ -337,7 +339,7 @@ The guides of how to use RATE is in <a href="/static/How-To-Use-Rate.pdf">this f
 <h3>Important Dates</h3>
 <table class="table">
     <tr>
-        <th>Competition begins, All data sets, examples becoming available</th>
+        <th>Competition begins, all data sets, examples available</th>
         <td>September 8, 2014</td>
     </tr>
     <tr>
