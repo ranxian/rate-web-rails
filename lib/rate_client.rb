@@ -171,6 +171,11 @@ class RateClient
     @result = self.issue cmd
   end
 
+  def rerun(uuid)
+    cmd = "rerun uuid:#{uuid}"
+    @result = self.issue cmd
+  end
+
   ##
   # Kill a RATE task.
   #

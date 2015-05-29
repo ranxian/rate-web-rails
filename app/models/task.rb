@@ -56,9 +56,9 @@ class Task
     self.progress = 0
     self.finished = nil
     self.score = nil
-    self.save
+    self.save!
     client = RateClient.new
-    client.run(self.algorithm.uuid, self.bench.uuid)
+    client.rerun(self.uuid)
     client.destroy
   end
 
