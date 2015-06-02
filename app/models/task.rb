@@ -82,6 +82,14 @@ class Task
     end
   end
 
+  def genuine_result_file_url
+    RateClient.static_file_url(['tasks', self.uuid, 'genuine.txt'])
+  end
+
+  def imposter_result_file_url
+    RateClient.static_file_url(['tasks', self.uuid, 'imposter.txt.rev'])
+  end
+
   def roc_graph_url
     RateClient.static_file_url(['tasks', self.uuid, 'roc.png'])
   end

@@ -196,6 +196,17 @@ class RateClient
   end
 
   ##
+  # Query RATE task state (from log.json file)
+  # 
+  # === Parameters
+  #
+  # [uuid (String)] uuid of task to be queryed
+  def query_state(uuid)
+    cmd = "query_state uuid:#{uuid}"
+    self.issue cmd
+  end
+
+  ##
   # List RATE resource.
   #
   def list(target)
