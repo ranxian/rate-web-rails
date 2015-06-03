@@ -7,7 +7,7 @@
       <th>Algorithm</th>
       <th>Benchmark</th>
       <th>EER</th>
-      <th>Created</th>
+      <th>Started</th>
       <th>Finished</th>
       <th>Runner</th>
     </tr>
@@ -17,7 +17,7 @@
         <td><%= link_to task.algorithm.name, task.algorithm %></td>
         <td width="100px"><%= link_to task.bench.name, task.bench %></td>
         <td class="score highlighted"><%= (task.score * 100).round(3).to_s + '%' if task.score %></td>
-        <td><%= simplify_time task.created_at %></td>
+        <td><%= simplify_time task.started_at %></td>
         <td class="progress-td">
           <% if task.finished %>
             <%= simplify_time task.finished %>

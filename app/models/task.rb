@@ -7,6 +7,8 @@ class Task
   field :uuid, type: String
   # 是否已经完成
   field :finished, type: DateTime
+  # 开始任务时间
+  field :started_at, type: DateTime
   # task 进度
   field :progress, type: Float, default: 0.0
   field :zeroFNMR, type: Float
@@ -55,6 +57,7 @@ class Task
   def rerun
     self.progress = 0
     self.finished = nil
+    self.started = Time.now
     self.score = nil
     self.save!
     client = RateClient.new
@@ -120,6 +123,11 @@ class Task
 
   def genuine_viewer_url
     RateClient.viewer_url ['tasks', self.uuid, 'genuine', 0]
+  end
+
+  after_create do
+    self.started_at = Time.now
+    self.save
   end
 
   before_destroy do
