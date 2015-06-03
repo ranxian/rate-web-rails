@@ -1,6 +1,6 @@
 class AlgorithmsController < ApplicationController
   before_action :set_algorithm, only: [:show, :edit, :update, :destroy, :add_reader, :add_writer,
-                                  :remove_writer, :remove_reader, :publish, :unpublish]
+                                  :remove_writer, :remove_reader, :publish, :unpublish, :check_result]
 
   # GET /algorithms
   # GET /algorithms.json
@@ -18,6 +18,9 @@ class AlgorithmsController < ApplicationController
     if !@algorithm.readable?(current_user)
       flash[:error] = 'You are not reader of this algorithm'
       redirect_to :back and return
+    end
+    if not @algorithm.checked
+      @algorithm.try_check
     end
   end
 
@@ -106,6 +109,10 @@ class AlgorithmsController < ApplicationController
   def unpublish
     @algorithm.update_attributes(ispublic: false)
     redirect_to :back
+  end
+
+  def check_result
+    @task = @algorithm.checking_task
   end
 
   private

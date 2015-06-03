@@ -1,15 +1,29 @@
-<h3><I><%= @algorithm.name %></I> <small><%= link_to 'Edit', edit_algorithm_path(@algorithm) if @algorithm.writable?(current_user) %></small></h3>
+<h3>
+  <I><%= @algorithm.name %></I> 
+  <small><%= link_to 'Edit', edit_algorithm_path(@algorithm) if @algorithm.writable?(current_user) %></small>
+  <% if @algorithm.checked %>
+    <%= link_to check_result_algorithm_path do %>
+      <span class="label pull-right label-success">checked, click to see result</span>
+    <% end %>
+  <% else %>
+    <span class="label label-warning pull-right">checking</span>
+  <% end %>
+</h3>
 
 <table class="table">
   <tr>
     <th>Description</th>
     <th>Enroll.exe</th>
     <th>Match.exe</th>
+    <th>Match Speed</th>
+    <th>Enroll Speed</th>
   </tr>
   <tr>
     <td><%= @algorithm.description %></td>
     <td><%= link_to 'Download', @algorithm.enroll_exe_url if @algorithm.readable?(current_user) %></td>
     <td><%= link_to 'Download', @algorithm.match_exe_url if @algorithm.readable?(current_user) %></td>
+    <td><%= @algorithm.match_speed %></td>
+    <td><%= @algorithm.enroll_speed %></td>
   </tr>
 </table>
 

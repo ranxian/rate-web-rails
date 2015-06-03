@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get 'add_reader'
       get 'publish'
       get 'unpublish'
+      get 'check_result'
     end
   end
   

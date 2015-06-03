@@ -9,6 +9,9 @@ class Algorithm
   field :description, type: String, default: 'No description'
   field :uuid, type: String
   field :checked, type: Boolean, default: false
+  field :usable, type: Boolean, default: false
+  field :match_speed, type: Float
+  field :enroll_speed, type: Float
 
   belongs_to :author, class_name: 'User', inverse_of: 'algorithms'
   has_many :tasks, inverse_of: 'algorithms'
@@ -21,9 +24,31 @@ class Algorithm
     self.uuid ? self.uuid.split('-')[0] : self.uuid
   end
 
+  def try_check
+    if self.checking_task
+      task = self.checking_task
+      task.update_from_server!
+      if task.finished
+        self.update_attributes(checked: true)
+      end
+      if task.fte == 0 && task.ftm == 0
+        self.update_attributes(usable: true)
+      end
+    end
+  end
+
   # Check correctness of task
   def check
-    
+    benchmark = Bench.where(uuid: 'benchmark-to-check-algorithm').first
+    if benchmark == nil
+      self.checked = true
+      return
+    else
+      puts "going to check"
+      task = Task.run(self.author, benchmark, self)
+      self.checking_task = task
+      self.save!
+    end
   end
 
   def self.generate!(user, options)

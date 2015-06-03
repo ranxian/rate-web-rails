@@ -1,9 +1,9 @@
-<h3><I>Task <%= @task.short_uuid %></I></h3>
+<h3>Algorithm Check Result For <I><%= link_to @algorithm.name, @algorithm %></I></h3>
 
-<%= render partial: 'tasks/table', locals: { tasks: [@task] } %>
+<hr>
 
 <% if not @task.finished %>
-  Task is running
+  @task is running
 <% else %>
   <table class="table">
     <tr>
@@ -13,6 +13,8 @@
       <th>zeroFMR</th>
       <th>FTE</th>
       <th>FTM</th>
+      <th>Match Speed</th>
+      <th>Enroll Speed</th>
     </tr>
     <tr>
       <td><%= (@task.fmr100 * 100).round(2) %>%</td>
@@ -21,6 +23,8 @@
       <td><%= (@task.zeroFMR * 100).round(2) %>%</td>
       <td><%= @task.fte %></td>
       <td><%= @task.ftm %></td>
+      <td><%= @algorithm.match_speed %></td>
+      <td><%= @algorithm.enroll_speed %></td>
     </tr>
   </table>
   <h4>Graphs</h4>
@@ -47,7 +51,6 @@
     <%= link_to 'Browse Genuine', @task.genuine_viewer_url, target: '_blank', class: 'btn btn-primary' %>
   <% end %>
   <% if current_user.vip %>
-    <%= link_to 'Delete Task', @task, method: :delete, data: { confirm: 'are you sure?' }, class: 'btn btn-danger' %>  
     <hr>
     <h4>Downloads</h4>
     <%= link_to 'enroll_result.txt', @task.enroll_result_file_url, class: 'btn btn-default' %>
@@ -55,23 +58,4 @@
     <%= link_to 'imposter.txt', @task.imposter_result_file_url, class: 'btn btn-default' %>
     <%= link_to 'uuid_table.txt', @task.uuid_table_file_url, class: 'btn btn-default' %>
   <% end %>
-<% end %>
-
-<% if not @task.finished %>
-<script>
-  $(document).ready(function(){
-    var progresspump = setInterval(function(){
-      $.get("/tasks/<%= @task.id.to_s %>/update_from_server", function(data){
-        var progress = data['progress'] * 100;
-        $("#task-progress").css('width', progress + '%');
-        $("#task-progress").html(progress.toPrecision(2) + '%');
-
-        if(progress > 99.999) {
-          clearInterval(progresspump);
-          $("#task-progress").html("Done");
-          location.reload();
-        }
-      })
-    }, 1000);});
-</script>
 <% end %>
