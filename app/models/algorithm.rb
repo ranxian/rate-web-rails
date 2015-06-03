@@ -44,8 +44,7 @@ class Algorithm
       self.checked = true
       return
     else
-      puts "going to check"
-      task = Task.run(self.author, benchmark, self)
+      task = Task.run!(self.author, benchmark, self)
       self.checking_task = task
       self.save!
     end
@@ -73,7 +72,8 @@ class Algorithm
                         description: options[:description],
                         uuid: ratealg['uuid'])
     alg.author = user
-    alg.save!
+    alg.save
+    alg.check
     return alg
   end
 
@@ -83,10 +83,6 @@ class Algorithm
 
   def match_exe_url
     RateClient.static_file_url ['algorithms', self.uuid, 'match.exe']
-  end
-
-  after_create do
-    self.check
   end
 
   before_destroy do
