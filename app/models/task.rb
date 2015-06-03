@@ -17,9 +17,7 @@ class Task
   field :fmr1000, type: Float
   field :fte, type: Integer
   field :ftm, type: Integer
-  field :hidden, type: Boolean, default: false
-
-  default_scope ->{ where(hidden: false) }
+  field :secret, type: Boolean, default: false
   
   belongs_to :runner, class_name: 'User', inverse_of: 'tasks'
   belongs_to :algorithm, inverse_of: 'tasks'

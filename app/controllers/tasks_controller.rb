@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     Task.where(finished: nil).each do |task|
       task.update_from_server!
     end
-    @tasks = Task.all.desc(:created_at).page(params[:page]).per(20)
+    @tasks = Task.where(secret: false).desc(:created_at).page(params[:page]).per(20)
   end
 
   def rerun
