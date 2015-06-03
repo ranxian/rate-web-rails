@@ -8,8 +8,11 @@ class Algorithm
   field :name, type: String
   field :description, type: String, default: 'No description'
   field :uuid, type: String
+  field :checked, type: Boolean, default: false
+
   belongs_to :author, class_name: 'User', inverse_of: 'algorithms'
-  has_many :tasks
+  has_many :tasks, inverse_of: 'algorithms'
+  has_one :checking_task, class_name: 'Task', inverse_of: 'checked_algorithm'
 
   has_and_belongs_to_many :readers, class_name: 'User', inverse_of: 'reading_algorithms'
   has_and_belongs_to_many :writers, class_name: 'User', inverse_of: 'writing_algorithms'
@@ -18,8 +21,9 @@ class Algorithm
     self.uuid ? self.uuid.split('-')[0] : self.uuid
   end
 
-  def short_uuid
-    self.uuid ? self.uuid.split('-')[0] : self.uuid
+  # Check correctness of task
+  def check
+    
   end
 
   def self.generate!(user, options)
@@ -54,6 +58,10 @@ class Algorithm
 
   def match_exe_url
     RateClient.static_file_url ['algorithms', self.uuid, 'match.exe']
+  end
+
+  after_create do
+    self.check
   end
 
   before_destroy do

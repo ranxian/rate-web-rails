@@ -17,10 +17,14 @@ class Task
   field :fmr1000, type: Float
   field :fte, type: Integer
   field :ftm, type: Integer
+  field :hidden, type: Boolean, default: false
+
+  default_scope ->{ where(hidden: false) }
   
   belongs_to :runner, class_name: 'User', inverse_of: 'tasks'
-  belongs_to :algorithm
+  belongs_to :algorithm, inverse_of: 'tasks'
   belongs_to :bench
+  belongs_to :checked_algorithm, class_name: 'Algorithm', inverse_of: 'checking_task'
 
   def short_uuid
     self.uuid ? self.uuid.split('-')[0] : self.uuid
@@ -59,7 +63,7 @@ class Task
   def rerun
     self.progress = 0
     self.finished = nil
-    self.started = Time.now
+    self.started_at = Time.now
     self.score = nil
     self.save!
     client = RateClient.new
