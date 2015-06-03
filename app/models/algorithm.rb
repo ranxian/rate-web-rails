@@ -91,6 +91,9 @@ class Algorithm
     self.tasks.each do |t|
       t.destroy
     end
+    if self.checking_task
+      self.checking_task.destroy
+    end
     client = RateClient.new
     result = client.delete('algorithm', self.uuid)
     if not result.success?
