@@ -11,7 +11,7 @@ module ReaderWriter
     end
 
     def writable?(user)
-      writers.include?(user) || user.vip || self.ispublic
+      writers.include?(user) || user.vip
     end
   end
 end
