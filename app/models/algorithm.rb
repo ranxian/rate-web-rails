@@ -45,6 +45,8 @@ class Algorithm
       return
     else
       task = Task.run!(self.author, benchmark, self)
+      task.secret = true
+      task.save
       self.checking_task = task
       self.save!
     end
