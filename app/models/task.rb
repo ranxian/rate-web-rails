@@ -31,9 +31,9 @@ class Task
     ratetask = client.info('task', self.uuid)
     client.destroy
     self.finished = ratetask['finished'] if ratetask['finished']
-    # RATE-server is in GMT+8, so minus 8
-    self.finished -= 8.hours
     if self.finished
+      # RATE-server is in GMT+8, so minus 8
+      self.finished -= 8.hours
       self.score = ratetask['score'] if ratetask['score']
       self.zeroFNMR = ratetask['zeroFNMR'] if ratetask['zeroFNMR']
       self.zeroFMR = ratetask['zeroFMR'] if ratetask['zeroFMR']
