@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   root to: "home#show"
 
   controller :admin do
-    get 'task_list'
+    get 'admin/task_list' => 'task_list'
     get 'admin/add_task' => 'add_task'
     get 'admin/remove_task' => 'remove_task'
   end
