@@ -1,5 +1,7 @@
 class AdminController < ApplicationController
 
+  skip_before_filter :authenticate_user!
+
   def task_list
     render json: { task_uuids: Manager.instance.task_list }
   end
