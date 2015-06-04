@@ -9,11 +9,13 @@ class AdminController < ApplicationController
   def add_task
     uuid = params[:uuid]
     Manager.add_task(uuid)
+    render status: :ok
   end
 
   def remove_task
     uuid = params[:uuid]
     Manager.remove_task(uuid)
+    render status: :ok
   end
 
 end
