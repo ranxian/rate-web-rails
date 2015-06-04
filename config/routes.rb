@@ -51,6 +51,12 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "home#show"
 
+  controller :admin do
+    get 'task_list'
+    get 'admin/add_task' => 'add_task'
+    get 'admin/remove_task' => 'remove_task'
+  end
+
   mount Sidekiq::Web, at: "/sidekiq"
   
   # The priority is based upon order of creation: first created -> highest priority.

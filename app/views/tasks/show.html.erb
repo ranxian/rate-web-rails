@@ -42,7 +42,7 @@
     <%= link_to 'Run Again', rerun_task_path, class: 'btn btn-primary' %>
     <%= link_to 'Stop', stop_task_path, class: 'btn btn-warning', disabled: @task.finished %>
   <% end %>
-  <% if @task.benchmark.view.writers.include?(current_user) || current_user.vip %>
+  <% if @task.bench.view.writers.include?(current_user) || current_user.vip %>
     <%= link_to 'Browse Imposter', @task.imposter_viewer_url, target: '_blank', class: 'btn btn-primary' %>
     <%= link_to 'Browse Genuine', @task.genuine_viewer_url, target: '_blank', class: 'btn btn-primary' %>
   <% end %>
