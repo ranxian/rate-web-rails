@@ -94,7 +94,15 @@ class Task
   end
 
   def imposter_result_file_url
-    RateClient.static_file_url(['tasks', self.uuid, 'imposter.txt.rev'])
+    RateClient.static_file_url(['tasks', self.uuid, 'imposter.txt.rev.txt'])
+  end
+
+  def match_failed_file_url
+    RateClient.static_file_url(['tasks', self.uuid, 'match_failed.txt'])
+  end
+
+  def enroll_failed_file_url
+    RateClient.static_file_url(['tasks', self.uuid, 'enroll_failed.txt'])
   end
 
   def roc_graph_url
