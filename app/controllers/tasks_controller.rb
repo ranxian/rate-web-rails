@@ -42,13 +42,13 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    @algorithms = current_user.writing_algorithms.where(usable: true).desc(:created_at) + current_user.reading_algorithms.where(usable: true).desc(:created_at)
-    Algorithm.published.where(usable: true).each do |a|
-      @algorithms << a if not @algorithms.include?(a)
-    end
-    @benchs = current_user.writing_benches.desc(:created_at) + current_user.reading_benches.desc(:created_at)
-    Bench.published.each do |b|
-      @benchs << b if not @benchs.include?(b)
+
+    if current_user.vip
+      @algorithms = Algorithm.where(usable: true).desc(:created_at)
+      @benchs = Bench.all.desc(:created_at)
+    else
+      @algorithms = current_user.algorithms.where(usable: true).desc(:created_at)
+      @benchs = Bench.published.desc(:created_at)
     end
   end
 

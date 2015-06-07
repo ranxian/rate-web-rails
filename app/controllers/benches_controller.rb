@@ -5,11 +5,12 @@ class BenchesController < ApplicationController
   # GET /benches
   # GET /benches.json
   def index
-    @benchs = current_user.writing_benches.desc(:created_at) + current_user.reading_benches.desc(:created_at)
-    Bench.published.each do |b|
-      @benchs << b if not @benchs.include?(b)
+    if current_user.vip
+      @benchs = Bench.all.desc(:created_at)
+    else
+      @benchs = Bench.published.desc(:created_at)
     end
-    @benches = Kaminari.paginate_array(@benchs).page(params[:page]).per(20)
+    @benches = @benchs.page(params[:page]).per(20)
   end
 
   def progress

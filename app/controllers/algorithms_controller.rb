@@ -5,11 +5,12 @@ class AlgorithmsController < ApplicationController
   # GET /algorithms
   # GET /algorithms.json
   def index
-    @algorithms = current_user.writing_algorithms.desc(:created_at) + current_user.reading_algorithms.desc(:created_at)
-    Algorithm.published.each do |a|
-      @algorithms << a if not @algorithms.include?(a)
+    if current_user.vip
+      @algorithms = Algorithm.all.desc(:created_at)
+    else
+      @algorithm = Algorithm.published.desc(:created_at)
     end
-    @algorithms = Kaminari.paginate_array(@algorithms).page(params[:page]).per(20)
+    @algorithms = @algorithms.page(params[:page]).per(20)
   end
 
   # GET /algorithms/1

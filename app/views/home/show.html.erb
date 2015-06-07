@@ -26,36 +26,38 @@
 <h3>Algorithm</h3>
 <p>Algorithm is two Win32 excutables in RATE: enroll.exe and match.exe, for the enrollment step and the matching step. The two executables should read input from the command line arguments and output results to the standard output or a designated file with the right exit value. They must obey the following rules</p>
 
-<table class="table">
-    <tr>
-        <th>Executable</th>
-        <th>Decription</th>
-        <th>Command line args</th>
-        <th>Standard output</th>
-        <th>Exit value</th>
-        <th>Time Limit</th>
-        <th>Memory limit</th>
-    </tr>
-    <tr>
-        <td>Enroll.exe</td>
-        <td>Create template</td>
-        <td>Paths of the input images and output template file</td>
-        <td>None</td>
-        <td>0: success;
-            Else: fail</td>
-        <td>3s</td>
-        <td>64M</td>
-    </tr>
-    <tr>
-        <td>Match.exe</td>
-        <td>Match two templates</td>
-        <td>Paths of two templates for matching</td>
-        <td>Similarity degree is indicated by a float number between [0-1.0], with 0 meaning not similar at all, and 1 meaning exact the same</td>
-        <td>0: success; Else: fail</td>
-        <td>1s</td>
-        <td>64M</td>
-    </tr>
-</table>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>Executable</th>
+            <th>Decription</th>
+            <th>Command line args</th>
+            <th>Standard output</th>
+            <th>Exit value</th>
+            <th>Time Limit</th>
+            <th>Memory limit</th>
+        </tr>
+        <tr>
+            <td>Enroll.exe</td>
+            <td>Create template</td>
+            <td>Paths of the input images and output template file</td>
+            <td>None</td>
+            <td>0: success;
+                Else: fail</td>
+            <td>3s</td>
+            <td>64M</td>
+        </tr>
+        <tr>
+            <td>Match.exe</td>
+            <td>Match two templates</td>
+            <td>Paths of two templates for matching</td>
+            <td>Similarity degree is indicated by a float number between [0-1.0], with 0 meaning not similar at all, and 1 meaning exact the same</td>
+            <td>0: success; Else: fail</td>
+            <td>1s</td>
+            <td>64M</td>
+        </tr>
+    </table>
+</div>
 
 <p class="ratered">Keep in mind that the right exit value is very important, and you may fail the evaluation if you don’t care about it.</p>
 <p>The executables will be used in a command line like follows:</p>

@@ -6,7 +6,7 @@
 <%= link_to 'New View', new_view_path, class: 'btn btn-primary' if current_user.vip %>
 <div class="panel panel-default">
   <div class="panel-body">
-    You have <%= current_user.generated_views.count %> views in total
+    You have <%= @views.count %> views in total
   </div>
 </div>
 <% end %>

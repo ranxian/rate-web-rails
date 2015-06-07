@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
       <th># G</th>
       <th># I</th>
       <th>Strategy</th>
@@ -18,7 +17,6 @@
     <% @benches.each do |bench| %>
       <tr>
         <td class="<%= bench.writable?(current_user) ? 'highlighted' : '' %>" style="width: 150px;"><%= link_to bench.name.truncate(20), bench %></td>
-        <td style="width: 200px;"><%= bench.description.truncate(25) %></td>
         <td><%= bench.num_of_genuine %></td>
         <td><%= bench.num_of_imposter %></td>
         <td><%= bench.verbose_strategy %></td>
