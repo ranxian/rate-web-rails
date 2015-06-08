@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'home/show'
   get 'users/show'
   get '/icb2015' => 'icb#show', as: :icb
+  get '/worker_heartbeat' => 'admin#worker_heartbeat'
 
   resources :tasks do
     member do
@@ -55,6 +56,7 @@ Rails.application.routes.draw do
     get 'admin/task_list' => 'task_list'
     get 'admin/add_task' => 'add_task'
     get 'admin/remove_task' => 'remove_task'
+    get 'admin/machines' => 'machines'
   end
 
   mount Sidekiq::Web, at: "/sidekiq"

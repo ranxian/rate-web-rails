@@ -18,4 +18,18 @@ class AdminController < ApplicationController
     render json: { result: 'success' }
   end
 
+  def worker_heartbeat
+    ip = request.remote_ip
+    machine = Machine.find_or_create_by(ip: ip)
+    machine.update_attributes params.permit(:cpupercent, :memtotal, :memavailable, :mempercent)
+    machine.last_heartbeat = DateTime.now
+    machine.save!
+
+    render json: { result: 'success' }
+  end
+
+  def machines
+    @machines = Machine.all.asc(:ip)
+  end
+
 end
