@@ -13,6 +13,8 @@
       <th>zeroFMR</th>
       <th>FTE</th>
       <th>FTM</th>
+      <th>Avg.E.T</th>
+      <th>Avg.M.T</th>
     </tr>
     <tr>
       <td><%= (@task.fmr100 * 100).round(2) %>%</td>
@@ -21,6 +23,8 @@
       <td><%= (@task.zeroFMR * 100).round(2) %>%</td>
       <td><%= @task.fte %></td>
       <td><%= @task.ftm %></td>
+      <td><%= @task.ave_enroll_time.round(2) %>ms</td>
+      <td><%= @task.ave_match_time.round(2) %>ms</td>
     </tr>
   </table>
   <h4>Graphs</h4>

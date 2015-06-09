@@ -30,6 +30,7 @@ class Algorithm
       task.update_from_server!
       if task.finished
         self.update_attributes(checked: true)
+        self.update_attributes(match_speed: task.ave_match_time, enroll_speed: task.ave_enroll_time)
       end
       if task.fte == 0 && task.ftm == 0 && task.ave_enroll_time <= 1000 && task.ave_match_time <= 500
         self.update_attributes(usable: true)
