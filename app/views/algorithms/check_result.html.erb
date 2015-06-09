@@ -23,8 +23,8 @@
       <td><%= (@task.zeroFMR * 100).round(2) %>%</td>
       <td><%= @task.fte %></td>
       <td><%= @task.ftm %></td>
-      <td><%= @algorithm.match_speed %></td>
-      <td><%= @algorithm.enroll_speed %></td>
+      <td><%= @algorithm.match_speed.round(2) if @algorithm.match_speed %>ms</td>
+      <td><%= @algorithm.enroll_speed.round(2) if @algorithm.enroll_speed %>ms</td>
     </tr>
   </table>
   <h4>Graphs</h4>

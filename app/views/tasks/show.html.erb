@@ -23,8 +23,8 @@
       <td><%= (@task.zeroFMR * 100).round(2) %>%</td>
       <td><%= @task.fte %></td>
       <td><%= @task.ftm %></td>
-      <td><%= @task.ave_enroll_time.round(2) %>ms</td>
-      <td><%= @task.ave_match_time.round(2) %>ms</td>
+      <td><%= @task.ave_enroll_time.round(2) if @task.ave_enroll_time %>ms</td>
+      <td><%= @task.ave_match_time.round(2) if @task.ave_match_time %>ms</td>
     </tr>
   </table>
   <h4>Graphs</h4>
