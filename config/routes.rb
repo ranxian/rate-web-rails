@@ -53,10 +53,13 @@ Rails.application.routes.draw do
   root to: "home#show"
 
   controller :admin do
+    get 'admin' => 'admin#index'
     get 'admin/task_list' => 'task_list'
     get 'admin/add_task' => 'add_task'
     get 'admin/remove_task' => 'remove_task'
     get 'admin/machines' => 'machines'
+    get 'admin/shutdown_all_machines' => 'shutdown_all_machines'
+    post 'admin/upload_worker' => 'upload_worker'
   end
 
   mount Sidekiq::Web, at: "/sidekiq"

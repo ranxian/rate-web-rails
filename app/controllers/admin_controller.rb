@@ -1,6 +1,28 @@
 class AdminController < ApplicationController
 
   skip_before_filter :authenticate_user!
+  before_filter :set_manager
+
+  def index
+    
+  end
+
+  def upload_worker
+    @manager.workerzip = params[:zipfile]
+    @manager.last_update_worker_at = Time.now
+    @manager.save!
+    Machine.each do |m|
+      m.pull_worker
+    end
+    redirect_to :back    
+  end
+
+  def shutdown_all_machines
+    Machine.each do |m|
+      m.shutdown
+    end
+    redirect_to :back
+  end
 
   def task_list
     render json: { task_uuids: Manager.instance.task_list }
@@ -29,7 +51,14 @@ class AdminController < ApplicationController
   end
 
   def machines
-    @machines = Machine.all.asc(:ip)
+    Machine.remove_offline
+    @machines = Machine.all.desc(:last_heartbeat, :ip)
+  end
+
+  private
+
+  def set_manager
+    @manager = Manager.instance
   end
 
 end

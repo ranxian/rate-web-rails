@@ -1,1 +1,37 @@
+<h3>Controls</h3>
+
+<%= link_to("Shutdown All", admin_shutdown_all_machines_path, class: 'btn btn-danger', data: { confirm: 'are you sure?' }) %>
+<hr>
+
+<h3>Upload worker</h3>
+Last update worker at: <%= @manager.last_update_worker_at ||= 'Never' %>, <%= link_to 'download worker', @manager.workerzip.url %>
+<%= form_tag admin_upload_worker_path, multipart: true, class: 'form' do %>
+  <div class="form-group">
+    <%= file_field_tag 'zipfile' %>  
+  </div>
+  <%= submit_tag 'Upload', class: 'btn btn-primary' %>
+<% end %>
+
+<hr>
+
 You have <%= @machines.count %> machines
+<table class="table">
+  <tr>
+    <th>IP</th>
+    <th>Update</th>
+    <th>CPU</th>
+    <th>MEM%</th>
+    <th>MEM</th>
+    <th>Op</th>
+  </tr>
+  <% @machines.each do |machine| %>
+    <tr>
+      <td><%= machine.ip %></td>
+      <td><%= machine.last_heartbeat.strftime('%D-%H:%M:%S') %></td>
+      <td><%= machine.cpupercent %>%</td>
+      <td><%= machine.mempercent %>%</td>
+      <td><%= (machine.memtotal / 1024.0 / 1024 / 1024).round(2) if machine.memtotal %></td>
+      <td></td>
+    </tr>
+  <% end %>  
+</table>

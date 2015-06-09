@@ -30,6 +30,8 @@ gem 'twitter-bootstrap-rails'
 # gem 'capistrano-rails', group: :development
 gem 'pry-rails'
 
+gem 'curb'
+
 group :development do
   gem 'rack-mini-profiler'  
   gem 'quiet_assets'
