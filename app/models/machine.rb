@@ -13,9 +13,12 @@ class Machine
   end
 
   def self.notify_task
-    Machine.each do |m|
-      url = "http://#{m.ip}:8080/update_task"
-      http = Curl.get(url)
+    begin
+      Machine.each do |m|
+        url = "http://#{m.ip}:8080/update_task?uuids=" + Manager.instance.task_list.join(',')
+        http = Curl.get(url)
+      end
+    rescue
     end
   end
 
