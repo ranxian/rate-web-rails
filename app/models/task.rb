@@ -17,6 +17,8 @@ class Task
   field :fmr1000, type: Float
   field :fte, type: Integer
   field :ftm, type: Integer
+  field :ave_enroll_time, type: Float
+  field :ave_match_time, type: Float
   field :secret, type: Boolean, default: false
   
   belongs_to :runner, class_name: 'User', inverse_of: 'tasks'
@@ -43,6 +45,8 @@ class Task
       self.fmr1000 = ratetask['FMR1000'] if ratetask['FMR1000']
       self.fte = ratetask['FTE'] if ratetask['FTE']
       self.ftm = ratetask['FTM'] if ratetask['FTM']
+      self.ave_match_time = ratetask['aveMatchTime'] if ratetask['aveMatchTime']
+      self.ave_enroll_time = ratetask['aveEnrollTime'] if ratetask['aveEnrollTime']
     end
     self.progress = ratetask['progress'] if ratetask['progress']
   end

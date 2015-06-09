@@ -31,7 +31,7 @@ class Algorithm
       if task.finished
         self.update_attributes(checked: true)
       end
-      if task.fte == 0 && task.ftm == 0
+      if task.fte == 0 && task.ftm == 0 && task.ave_enroll_time <= 1000 && task.ave_match_time <= 500
         self.update_attributes(usable: true)
       end
     end
