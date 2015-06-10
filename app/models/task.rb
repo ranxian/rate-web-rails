@@ -37,7 +37,6 @@ class Task
     self.finished = ratetask['finished'] if ratetask['finished']
     if self.finished
       # RATE-server is in GMT+8, so minus 8
-      self.finished -= 8.hours
       self.score = ratetask['score'] if ratetask['score']
       self.zeroFNMR = ratetask['zeroFNMR'] if ratetask['zeroFNMR']
       self.zeroFMR = ratetask['zeroFMR'] if ratetask['zeroFMR']
@@ -70,6 +69,15 @@ class Task
     self.save!
     client = RateClient.new
     client.rerun(self.uuid)
+    client.destroy
+  end
+
+  def continue_task
+    self.finished = nil
+    self.score = nil
+    self.save!
+    client = RateClient.new
+    client.continue_task(self.uuid)
     client.destroy
   end
 

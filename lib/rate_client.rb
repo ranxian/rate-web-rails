@@ -176,6 +176,11 @@ class RateClient
     @result = self.issue cmd
   end
 
+  def continue_task(uuid)
+    cmd = "continue uuid:#{uuid}"
+    @result = self.issue cmd
+  end
+
   ##
   # Kill a RATE task.
   #

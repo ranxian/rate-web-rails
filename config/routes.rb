@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :tasks do
     member do
       get 'rerun'
+      get 'continue_task'
       get 'update_from_server'
       get 'stop'
     end

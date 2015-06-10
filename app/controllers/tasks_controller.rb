@@ -15,6 +15,11 @@ class TasksController < ApplicationController
     redirect_to :back
   end
 
+  def continue_task
+    @task.continue_task
+    redirect_to :back
+  end
+
   def stop
     @task.kill
     redirect_to :back

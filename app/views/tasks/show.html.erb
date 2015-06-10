@@ -44,6 +44,7 @@
 <% content_for :sidebar do %>
   <% if current_user.vip %>
     <%= link_to 'Run Again', rerun_task_path, class: 'btn btn-primary' %>
+    <%= link_to 'Continue', continue_task_task_path, class: 'btn btn-primary' %>
     <%= link_to 'Stop', stop_task_path, class: 'btn btn-warning', disabled: @task.finished %>
   <% end %>
   <% if @task.bench.view.writers.include?(current_user) || current_user.vip %>
