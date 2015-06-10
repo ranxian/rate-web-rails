@@ -12,7 +12,7 @@ class AdminController < ApplicationController
     @manager.last_update_worker_at = Time.now
     @manager.save!
     Machine.each do |m|
-      m.pull_worker
+      m.pull_worker(@manager.workerzip.url)
     end
     redirect_to :back    
   end
