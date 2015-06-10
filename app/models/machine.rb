@@ -13,28 +13,36 @@ class Machine
   end
 
   def self.notify_task
-    begin
-      Machine.each do |m|
-        url = "http://#{m.ip}:8080/update_task?uuids=" + Manager.instance.task_list.join(',')
-        http = Curl.get(url)
+    Machine.each do |m|
+      url = "http://#{m.ip}:8080/update_task?uuids=" + Manager.instance.task_list.join(',')
+      begin
+        Curl.get(url)
+      rescue
       end
-    rescue
     end
   end
 
   def shutdown
     url = "http://#{self.ip}:8080/shutdown"
-    puts url
-    http = Curl.get(url)
+    begin
+      Curl.get(url)
+    rescue
+    end
   end
 
   def start
     url = "http://#{self.ip}:8080/restart"
-    http = Curl.get(url)
+    begin
+      Curl.get(url)
+    rescue
+    end
   end
 
   def pull_worker(worker_path)
     url = "http://#{self.ip}:8080/pull_worker?worker_path=#{worker_path}"
-    http = Curl.get(url)
+    begin
+      Curl.get(url)
+    rescue
+    end
   end
 end
