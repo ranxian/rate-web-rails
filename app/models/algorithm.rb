@@ -42,6 +42,9 @@ class Algorithm
 
   # Check correctness of task
   def check
+    if self.checked
+      return
+    end
     benchmark = Bench.where(uuid: 'benchmark-to-check-algorithm').first
     if benchmark == nil
       self.checked = true

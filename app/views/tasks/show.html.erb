@@ -5,38 +5,41 @@
 <% if not @task.finished %>
   Task is running
 <% else %>
-  <table class="table">
-    <tr>
-      <th>FMR100</th>
-      <th>FMR1000</th>
-      <th>zeroFNMR</th>
-      <th>zeroFMR</th>
-      <th>FTE</th>
-      <th>FTM</th>
-      <th>Avg.E.T</th>
-      <th>Avg.M.T</th>
-    </tr>
-    <tr>
-      <td><%= (@task.fmr100 * 100).round(2) %>%</td>
-      <td><%= (@task.fmr1000 * 100).round(2) %>%</td>
-      <td><%= (@task.zeroFNMR * 100).round(2) %>%</td>
-      <td><%= (@task.zeroFMR * 100).round(2) %>%</td>
-      <td><%= @task.fte %></td>
-      <td><%= @task.ftm %></td>
-      <td><%= @task.ave_enroll_time.round(2) if @task.ave_enroll_time %>ms</td>
-      <td><%= @task.ave_match_time.round(2) if @task.ave_match_time %>ms</td>
-    </tr>
-  </table>
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>FMR100</th>
+        <th>FMR1000</th>
+        <th>zeroFNMR</th>
+        <th>zeroFMR</th>
+        <th>FTE</th>
+        <th>FTM</th>
+        <th>Avg.E.T</th>
+        <th>Avg.M.T</th>
+      </tr>
+      <tr>
+        <td><%= (@task.fmr100 * 100).round(2) %>%</td>
+        <td><%= (@task.fmr1000 * 100).round(2) %>%</td>
+        <td><%= (@task.zeroFNMR * 100).round(2) %>%</td>
+        <td><%= (@task.zeroFMR * 100).round(2) %>%</td>
+        <td><%= @task.fte %></td>
+        <td><%= @task.ftm %></td>
+        <td><%= @task.ave_enroll_time.round(2) if @task.ave_enroll_time %>ms</td>
+        <td><%= @task.ave_match_time.round(2) if @task.ave_match_time %>ms</td>
+      </tr>
+    </table>
+  </div>
+  
   <h4>Graphs</h4>
   <div class="row">
     <div class="col-md-6">
-      <%= image_tag(@task.fmr_fnmr_graph_url) %>    
+      <%= image_tag(@task.fmr_fnmr_graph_url, width: '100%', height: '100%') %>    
     </div>
     <div class="col-md-6">
-      <%= image_tag(@task.score_graph_url) %>    
+      <%= image_tag(@task.score_graph_url, width: '100%', height: '100%') %>    
     </div>
-    <div class="col-md-12">
-      <%= image_tag(@task.roc_graph_url) %>    
+    <div class="col-md-6">
+      <%= image_tag(@task.roc_graph_url, width: '100%', height: '100%') %>    
     </div>
   </div>
 <% end %>
