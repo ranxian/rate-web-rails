@@ -233,6 +233,6 @@ class Task
       client.destroy
     rescue
     end
-    return true
+    true
   end
 end
