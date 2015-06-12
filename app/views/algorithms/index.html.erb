@@ -1,4 +1,4 @@
-<h1>Algorithms</h1>
+<h1>Algorithms <%= link_to 'New Algorithm', new_algorithm_path, class: 'btn btn-primary' %></h1>
 
 <div class="table-responsive">
   <table class="table">
@@ -30,9 +30,3 @@
     </tbody>
   </table>
 </div>
-
-<br>
-
-<% content_for :sidebar do %>
-<%= link_to 'New Algorithm', new_algorithm_path, class: 'btn btn-primary' %>
-<% end %>
