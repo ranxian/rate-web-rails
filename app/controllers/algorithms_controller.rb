@@ -8,7 +8,7 @@ class AlgorithmsController < ApplicationController
     if current_user.vip
       @algorithms = Algorithm.all.desc(:created_at)
     else
-      @algorithm = Algorithm.published.desc(:created_at)
+      @algorithms = Algorithm.published.desc(:created_at)
     end
     @algorithms = @algorithms.page(params[:page]).per(20)
   end

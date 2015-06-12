@@ -39,7 +39,7 @@ class Machine
   end
 
   def pull_worker(worker_path)
-    url = "http://#{self.ip}:8080/pull_worker?worker_path=#{worker_path}"
+    url = "http://#{self.ip}:8080/pull_worker?worker_url=#{worker_path}"
     begin
       Curl.get(url)
     rescue
