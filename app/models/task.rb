@@ -224,11 +224,15 @@ class Task
   end
 
   before_destroy do
-    client = RateClient.new
-    result = client.delete('task', self.uuid)
-    if not result.success?
-      logger.debug(result)
+    begin
+      client = RateClient.new
+      result = client.delete('task', self.uuid)
+      if not result.success?
+        logger.debug(result)
+      end
+      client.destroy
+    rescue
     end
-    client.destroy
+    return true
   end
 end
