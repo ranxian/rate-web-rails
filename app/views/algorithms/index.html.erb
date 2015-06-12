@@ -1,32 +1,35 @@
 <h1>Algorithms</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th># Tasks</th>
-      <th>Created</th>
-      <th>UUID</th>
-      <th>Check</th>
-      <th>Usable</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @algorithms.each do |algorithm| %>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
       <tr>
-        <td class="<%= algorithm.writable?(current_user) ? 'highlighted' : '' %>"><%= link_to algorithm.name, algorithm %></td>
-        <td><%= algorithm.description %></td>
-        <td><%= algorithm.tasks.count %></th>
-        <td><%= simplify_time algorithm.created_at %></td>
-        <td><%= algorithm.short_uuid %></td>
-        <td><%= algorithm.checked ? 'checked' : 'chcking' %></td>
-        <td><%= algorithm.usable? ? 'YES' : 'NO' %></td>
+        <th>Name</th>
+        <th>Description</th>
+        <th># Tasks</th>
+        <th>Created</th>
+        <th>UUID</th>
+        <th>Check</th>
+        <th>Usable</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @algorithms.each do |algorithm| %>
+        <tr>
+          <td class="<%= algorithm.writable?(current_user) ? 'highlighted' : '' %>"><%= link_to algorithm.name, algorithm %></td>
+          <td><%= algorithm.description %></td>
+          <td><%= algorithm.tasks.count %></th>
+          <td><%= simplify_time algorithm.created_at %></td>
+          <td><%= algorithm.short_uuid %></td>
+          <td><%= algorithm.checked ? 'checked' : 'chcking' %></td>
+          <td style="<%= algorithm.usable ? 'color: #E64A45' : '' %> "><%= algorithm.usable ? 'YES' : 'NO' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 

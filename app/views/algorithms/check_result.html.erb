@@ -3,7 +3,8 @@
 <hr>
 
 <% if not @task.finished %>
-  @task is running
+  Task is running
+  <%= @task.id %>
 <% else %>
   <table class="table">
     <tr>

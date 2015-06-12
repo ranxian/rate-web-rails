@@ -1,7 +1,20 @@
+<% if not @algorithm.check %>
+  <div class="alert alert-warning">
+    Your algorithm is being tested for correctness and basic performance, just wait for a sec...
+  </div>
+<% else %>
+  <% if not @algorithm.usable %>
+    <div class="alert alert-error">
+      Your algorithm is not usable, click checked buttom below to see if there are failed enrollments or matches, and without exceeding the time and mem limit.
+    </div>
+  <% end %>
+<% end %>
+
+
 <h3>
   <I><%= @algorithm.name %></I> 
   <small><%= link_to 'Edit', edit_algorithm_path(@algorithm) if @algorithm.writable?(current_user) %></small>
-  <div class="pull-right">
+  <div class="pull-right" style="font-size: 16px;">
     <% if @algorithm.checked %>
       <span class="label label-success">
         <%= link_to check_result_algorithm_path, style: 'color: white; text-decoration: none;' do %>
@@ -16,29 +29,31 @@
       <% end %>
     <% else %>
       <span class="label label-warning">CHECKING</span>
-    <% end %>
+    <% end %>  
   </div>
 </h3>
 
-<table class="table">
-  <tr>
-    <th>Description</th>
-    <th>Enroll.exe</th>
-    <th>Match.exe</th>
-    <th>Match Speed</th>
-    <th>Enroll Speed</th>
-  </tr>
-  <tr>
-    <td><%= @algorithm.description %></td>
-    <td><%= link_to 'Download', @algorithm.enroll_exe_url if @algorithm.readable?(current_user) %></td>
-    <td><%= link_to 'Download', @algorithm.match_exe_url if @algorithm.readable?(current_user) %></td>
-    <td><%= @algorithm.match_speed %></td>
-    <td><%= @algorithm.enroll_speed %></td>
-  </tr>
-</table>
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>Description</th>
+      <th>Enroll.exe</th>
+      <th>Match.exe</th>
+      <th>Avg.M.T</th>
+      <th>Avg.E.T</th>
+    </tr>
+    <tr>
+      <td><%= @algorithm.description %></td>
+      <td><%= link_to 'Download', @algorithm.enroll_exe_url if @algorithm.readable?(current_user) %></td>
+      <td><%= link_to 'Download', @algorithm.match_exe_url if @algorithm.readable?(current_user) %></td>
+      <td><%= @algorithm.match_speed.round(2) %></td>
+      <td><%= @algorithm.enroll_speed.round(2) %></td>
+    </tr>
+  </table>
+</div>
 
 <h4>Tasks under <I><%= @algorithm.name %></I></h4>
-<%= render partial: 'tasks/table', locals: { tasks: @algorithm.tasks } %>
+<%= render partial: 'tasks/table', locals: { tasks: @algorithm.tasks.where(secret: false) } %>
 
 <% content_for :sidebar do %>
   <% if @algorithm.readable?(current_user) %>

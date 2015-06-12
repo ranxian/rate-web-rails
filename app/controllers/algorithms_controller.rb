@@ -11,6 +11,8 @@ class AlgorithmsController < ApplicationController
       @algorithms = Algorithm.published.desc(:created_at)
     end
     @algorithms = @algorithms.page(params[:page]).per(20)
+
+    render layout: 'no_sidebar'
   end
 
   # GET /algorithms/1
