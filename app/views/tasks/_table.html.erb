@@ -14,7 +14,7 @@
     <% tasks.each_with_index do |task, index| %>
       <tr class="<%= ranking ? (index < 3 ? "rank rank-#{index+1}" : '') : false %>">
         <td><%= link_to task.short_uuid, task %></td>
-        <td><%= link_to task.algorithm.name, task.algorithm %></td>
+        <td><%= link_to task.algorithm.name, task.algorithm if task.algorithm %></td>
         <td width="100px"><%= link_to task.bench.name, task.bench %></td>
         <td class="score highlighted"><%= (task.score * 100).round(3).to_s + '%' if task.score %></td>
         <td><%= simplify_time task.started_at %></td>

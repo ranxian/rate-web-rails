@@ -96,3 +96,20 @@ a {
     color: lighter(@blue 10%);
   }
 }
+
+
+.image img {
+    -webkit-transition: all 0.5s ease; /* Safari and Chrome */
+    -moz-transition: all 0.5s ease; /* Firefox */
+    -ms-transition: all 0.5s ease; /* IE 9 */
+    -o-transition: all 0.5s ease; /* Opera */
+    transition: all 0.5s ease;
+}
+
+.image:hover img {
+    -webkit-transform:scale(3); /* Safari and Chrome */
+    -moz-transform:scale(3); /* Firefox */
+    -ms-transform:scale(3); /* IE 9 */
+    -o-transform:scale(3); /* Opera */
+     transform:scale(3);
+}

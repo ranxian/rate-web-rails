@@ -5,7 +5,12 @@
 <% else %>
   <% if not @algorithm.usable %>
     <div class="alert alert-error">
-      Your algorithm is not usable, click checked buttom below to see if there are failed enrollments or matches, and without exceeding the time and mem limit.
+      Your algorithm is not usable. Click CHECKED buttom below to see why.
+    </div>
+  <% else %>
+    <div class="alert alert-success">
+      Congradulations! Your algorithm passed the test!<br>
+      We recommend you to click <strong>CHECKED</strong> buttom to have a detail sight into your submission.
     </div>
   <% end %>
 <% end %>

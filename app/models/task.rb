@@ -129,10 +129,6 @@ class Task
     RateClient.static_file_url ['tasks', self.uuid, 'score.png']
   end
 
-  def result_file_url
-    RateClient.static_file_url ['tasks', self.uuid, 'match_result_bxx.txt']
-  end
-
   def uuid_table_file_url
     self.bench.uuid_table_file_url
   end
@@ -147,6 +143,79 @@ class Task
 
   def genuine_viewer_url
     RateClient.viewer_url ['tasks', self.uuid, 'genuine', 0]
+  end
+
+  def uuid_dictionary
+    dict1 = {}
+    dict2 = {}
+    Curl.get(self.uuid_table_file_url).body_str.each_line do |line|
+      sp = line.split(' ')
+      dict1[sp[0]] = sp[2]
+      dict2[sp[1]] = sp[2]
+    end
+
+    return dict1, dict2
+  end
+
+  def enroll_results
+    _, uuid_table = self.uuid_dictionary
+    results = Curl.get(self.enroll_result_file_url).body_str.each_line.map do |line|
+      sp = line.split(" ")
+      [uuid_table[sp[0]], sp[1]]
+    end
+
+    return results
+  end
+
+  def failed_match_results
+    uuid_table, _ = self.uuid_dictionary
+
+    http = Curl.get(self.match_failed_file_url)
+    if http.response_code != 200
+      return []
+    end
+
+    results = http.body_str.each_line.map do |line|
+      sp = line.split(" ")
+      [uuid_table[sp[0]], uuid_table[sp[1]], 'FAIL']
+    end
+
+    results
+  end
+
+  def failed_enroll_results
+    _, uuid_table = self.uuid_dictionary
+
+    http = Curl.get(self.enroll_failed_file_url)
+
+    if http.response_code != 200
+      return []
+    end
+
+    results = http.body_str.each_line.map do |line|
+      sp = line.split(" ")
+      [uuid_table[sp[0]], 'FAIL']
+    end
+
+    results
+  end
+
+  def match_results
+    genuine_results = []
+    imposter_results = []
+    uuid_table, _ = self.uuid_dictionary
+
+    genuine_results = Curl.get(self.genuine_result_file_url).body_str.each_line.map do |line|
+      sp = line.split(" ")
+      [uuid_table[sp[0]], uuid_table[sp[1]], sp[5]]
+    end
+
+    imposter_results = Curl.get(self.imposter_result_file_url).body_str.each_line.map do |line|
+      sp = line.split(" ")
+      [uuid_table[sp[0]], uuid_table[sp[1]], sp[5]]
+    end
+
+    return genuine_results, imposter_results
   end
 
   after_create do

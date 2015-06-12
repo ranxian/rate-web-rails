@@ -1,5 +1,21 @@
 <h3>Algorithm Check Result For <I><%= link_to @algorithm.name, @algorithm %></I></h3>
 
+<% if not @algorithm.usable %>
+  <div class="alert alert-error">
+    This algorithm is not usable because: <br>
+    <% if @task.fte != 0 %>
+    - It has failed enrolments.
+    <% end %>
+    <% if @task.ftm != 0 %>
+    - It has failed matches.
+    <% end %>
+    <% if @task.fte == 0 && @task.ftm == 0 && 
+        (@algorithm.match_speed < 9999 && @algorithm.match_speed > 500 || 
+         @algorithm.enroll_speed < 9999 && @algorithm.enroll_speed > 1000) %>
+    - Enroll is slower than 1000ms or Match is slower than 500ms.
+    <% end %>
+  </div>
+<% end %>
 <hr>
 
 <% if not @task.finished %>
@@ -9,6 +25,7 @@
   <div class="table-responsive">
     <table class="table">
       <tr>
+        <th>EER</th>
         <th>FMR100</th>
         <th>FMR1000</th>
         <th>zeroFNMR</th>
@@ -19,6 +36,7 @@
         <th>Avg.M.T</th>
       </tr>
       <tr>
+        <td><%= (@task.score * 100).round(2) %>%</td>
         <td><%= (@task.fmr100 * 100).round(2) %>%</td>
         <td><%= (@task.fmr1000 * 100).round(2) %>%</td>
         <td><%= (@task.zeroFNMR * 100).round(2) %>%</td>
@@ -42,6 +60,123 @@
     <div class="col-md-6">
       <%= image_tag(@task.roc_graph_url, width: '100%', height: '100%') %>
     </div>
+  </div>
+
+  <h4>Enroll Results</h4>
+
+  <div class="table-responsive text-center">
+    <table class="table table-bordered">
+      <% @task.enroll_results.each_slice(5).each do |slice| %>
+        <tr>
+          <% slice.each do |result| %>
+            <td>
+              <div class="image">
+                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
+              </div>
+            </td>
+            <td>
+              <br>
+              <%= result[1].upcase %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+      <% @task.failed_enroll_results.each_slice(5).each do |slice| %>
+        <tr>
+          <% slice.each do |result| %>
+            <td>
+              <div class="image">
+                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
+              </div>  
+            </td>
+            <td>
+              FAIL
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <h4>Failed Matches</h4>
+
+  <div class="table-responsive text-center">
+    <table class="table table-bordered">
+      <% @task.failed_match_results.each_slice(3).each do |slice| %>
+        <tr>
+          <% slice.each do |result| %>
+            <td>
+              <div class="image">
+                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
+              </div>
+            </td>
+            <td>
+              <div class="image">
+                <%= image_tag RateClient.viewer_url('samples/' + result[1]), style: "width: 100px;" %>  
+              </div>
+            </td>
+            <td>
+              <%= result[2].to_f.round(3) %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>  
+    </table>
+  </div>
+  
+
+  <h4>Genuine Results</h4>
+
+  <% genuine_results, imposter_results = @task.match_results %>
+
+  <div class="table-responsive text-center">
+    <table class="table table-bordered">
+      <% genuine_results.each_slice(3).each do |slice| %>
+        <tr>
+          <% slice.each do |result| %>
+            <td>
+              <div class="image">
+                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
+              </div>
+            </td>
+            <td>
+              <div class="image">
+                <%= image_tag RateClient.viewer_url('samples/' + result[1]), style: "width: 100px;" %>  
+              </div>
+            </td>
+            <td>
+              <%= result[2].to_f.round(3) %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>  
+    </table>
+  </div>
+
+  <h4>Imposter Results</h4>
+
+  <div class="table-responsive text-center">
+    <table class="table table-bordered">
+      <% imposter_results.each_slice(3).each do |slice| %>
+        <tr>
+          <% slice.each do |result| %>
+            <td>
+              <div class="image">
+                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
+              </div>
+            </td>
+            <td>
+              <div class="image">
+                <%= image_tag RateClient.viewer_url('samples/' + result[1]), style: "width: 100px;" %>  
+              </div>
+            </td>
+            <td>
+              <%= result[2].to_f.round(3) %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>  
+    </table>
   </div>
 <% end %>
 
