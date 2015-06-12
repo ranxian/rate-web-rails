@@ -46,8 +46,8 @@
       <td><%= @algorithm.description %></td>
       <td><%= link_to 'Download', @algorithm.enroll_exe_url if @algorithm.readable?(current_user) %></td>
       <td><%= link_to 'Download', @algorithm.match_exe_url if @algorithm.readable?(current_user) %></td>
-      <td><%= @algorithm.match_speed.round(2) %></td>
-      <td><%= @algorithm.enroll_speed.round(2) %></td>
+      <td><%= @algorithm.match_speed.round(2) if @algorithm.match_speed %></td>
+      <td><%= @algorithm.enroll_speed.round(2) if @algorithm.enroll_speed %></td>
     </tr>
   </table>
 </div>
