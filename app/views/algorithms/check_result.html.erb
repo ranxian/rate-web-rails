@@ -62,22 +62,22 @@
     </div>
   </div>
 
-  <h4>Enroll Results</h4>
+  <h4>First 25 Enroll Results</h4>
 
   <%= render partial: 'tasks/enroll_results_table', locals: { results: @task.enroll_results } %>
   <%= render partial: 'tasks/enroll_results_table', locals: { results: @task.failed_enroll_results } %>
 
-  <h4>Failed Matches</h4>
+  <h4>First 10 Failed Matches</h4>
 
   <%= render partial: 'tasks/match_results_table', locals: { results: @task.failed_match_results } %>
 
-  <h4>Genuine Results</h4>
+  <h4>First 100 Genuine Results</h4>
 
   <% genuine_results, imposter_results = @task.match_results %>
 
   <%= render partial: 'tasks/match_results_table', locals: { results: genuine_results } %>
   
-  <h4>Imposter Results</h4>
+  <h4>First 100 Imposter Results</h4>
 
   <%= render partial: 'tasks/match_results_table', locals: { results: imposter_results } %>
 
