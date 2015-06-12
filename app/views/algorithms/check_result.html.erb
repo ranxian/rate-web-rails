@@ -64,120 +64,23 @@
 
   <h4>Enroll Results</h4>
 
-  <div class="table-responsive text-center">
-    <table class="table table-bordered">
-      <% @task.enroll_results.each_slice(5).each do |slice| %>
-        <tr>
-          <% slice.each do |result| %>
-            <td>
-              <div class="image">
-                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
-              </div>
-            </td>
-            <td>
-              <br>
-              <%= result[1].upcase %>
-            </td>
-          <% end %>
-        </tr>
-      <% end %>
-      <% @task.failed_enroll_results.each_slice(5).each do |slice| %>
-        <tr>
-          <% slice.each do |result| %>
-            <td>
-              <div class="image">
-                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
-              </div>  
-            </td>
-            <td>
-              FAIL
-            </td>
-          <% end %>
-        </tr>
-      <% end %>
-    </table>
-  </div>
+  <%= render partial: 'tasks/enroll_results_table', locals: { results: @task.enroll_results } %>
+  <%= render partial: 'tasks/enroll_results_table', locals: { results: @task.failed_enroll_results } %>
 
   <h4>Failed Matches</h4>
 
-  <div class="table-responsive text-center">
-    <table class="table table-bordered">
-      <% @task.failed_match_results.each_slice(3).each do |slice| %>
-        <tr>
-          <% slice.each do |result| %>
-            <td>
-              <div class="image">
-                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
-              </div>
-            </td>
-            <td>
-              <div class="image">
-                <%= image_tag RateClient.viewer_url('samples/' + result[1]), style: "width: 100px;" %>  
-              </div>
-            </td>
-            <td>
-              FAILED
-            </td>
-          <% end %>
-        </tr>
-      <% end %>  
-    </table>
-  </div>
-  
+  <%= render partial: 'tasks/match_results_table', locals: { results: @task.failed_match_results } %>
 
   <h4>Genuine Results</h4>
 
   <% genuine_results, imposter_results = @task.match_results %>
 
-  <div class="table-responsive text-center">
-    <table class="table table-bordered">
-      <% genuine_results.each_slice(3).each do |slice| %>
-        <tr>
-          <% slice.each do |result| %>
-            <td>
-              <div class="image">
-                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
-              </div>
-            </td>
-            <td>
-              <div class="image">
-                <%= image_tag RateClient.viewer_url('samples/' + result[1]), style: "width: 100px;" %>  
-              </div>
-            </td>
-            <td>
-              <%= result[2].to_f.round(3) %>
-            </td>
-          <% end %>
-        </tr>
-      <% end %>  
-    </table>
-  </div>
-
+  <%= render partial: 'tasks/match_results_table', locals: { results: genuine_results } %>
+  
   <h4>Imposter Results</h4>
 
-  <div class="table-responsive text-center">
-    <table class="table table-bordered">
-      <% imposter_results.each_slice(3).each do |slice| %>
-        <tr>
-          <% slice.each do |result| %>
-            <td>
-              <div class="image">
-                <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
-              </div>
-            </td>
-            <td>
-              <div class="image">
-                <%= image_tag RateClient.viewer_url('samples/' + result[1]), style: "width: 100px;" %>  
-              </div>
-            </td>
-            <td>
-              <%= result[2].to_f.round(3) %>
-            </td>
-          <% end %>
-        </tr>
-      <% end %>  
-    </table>
-  </div>
+  <%= render partial: 'tasks/match_results_table', locals: { results: imposter_results } %>
+
 <% end %>
 
 <% content_for :sidebar do %>

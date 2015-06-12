@@ -1,0 +1,23 @@
+<div class="table-responsive text-center">
+  <table class="table table-bordered">
+    <% results.each_slice(3).each do |slice| %>
+      <tr>
+        <% slice.each do |result| %>
+          <td>
+            <div class="image">
+              <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
+            </div>
+          </td>
+          <td>
+            <div class="image">
+              <%= image_tag RateClient.viewer_url('samples/' + result[1]), style: "width: 100px;" %>  
+            </div>
+          </td>
+          <td>
+            <%= result[2] %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>  
+  </table>
+</div>

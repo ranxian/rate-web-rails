@@ -1,0 +1,19 @@
+<div class="table-responsive text-center">
+  <table class="table table-bordered">
+    <% results.each_slice(5).each do |slice| %>
+      <tr>
+        <% slice.each do |result| %>
+          <td>
+            <div class="image">
+              <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 100px;" %>  
+            </div>
+          </td>
+          <td>
+            <br>
+            <%= result[1].upcase %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>
