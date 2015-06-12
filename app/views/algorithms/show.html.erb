@@ -60,8 +60,8 @@
     <%= link_to 'Run Task', new_task_path(algorithm_id: @algorithm.id), class: 'btn btn-primary' %>
   <% end %>
   <% if @algorithm.writable?(current_user) %>
-    <%= link_to 'Make Public', publish_algorithm_path, class: 'btn btn-success' if not @algorithm.ispublic %>
-    <%= link_to 'Make Priave', unpublish_algorithm_path, class: 'btn btn-warning' if @algorithm.ispublic %>
+    <% link_to 'Make Public', publish_algorithm_path, class: 'btn btn-success' if not @algorithm.ispublic %>
+    <% link_to 'Make Priave', unpublish_algorithm_path, class: 'btn btn-warning' if @algorithm.ispublic %>
   <% end %>
   <% if @algorithm.writable?(current_user) %>
     <%= link_to 'Delete Algorithm', @algorithm, method: :delete, data: { confirm: 'Delete this algorithm will also delete all tasks, are you sure?' }, class: 'btn btn-danger' %>
