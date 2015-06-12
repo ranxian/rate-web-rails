@@ -5,6 +5,10 @@ class AlgorithmsController < ApplicationController
   # GET /algorithms
   # GET /algorithms.json
   def index
+    Algorithm.where(checked: false).each do |algorithm|
+      algorithm.try_check
+    end
+
     if current_user.vip
       @algorithms = Algorithm.all.desc(:created_at)
     else

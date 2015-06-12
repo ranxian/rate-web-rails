@@ -11,6 +11,7 @@
         <th>UUID</th>
         <th>Check</th>
         <th>Usable</th>
+        <th>Author</th>
         <th></th>
       </tr>
     </thead>
@@ -25,6 +26,7 @@
           <td><%= algorithm.short_uuid %></td>
           <td><%= algorithm.checked ? 'checked' : 'chcking' %></td>
           <td style="<%= algorithm.usable ? 'color: #E64A45' : '' %> "><%= algorithm.usable ? 'YES' : 'NO' %></td>
+          <td><%= algorithm.author.name if algorithm.author %></td>
         </tr>
       <% end %>
     </tbody>
