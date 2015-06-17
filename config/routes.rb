@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   end
   resources :views do
     member do
+      get 'browse'
       get 'progress'
       get 'remove_writer'
       get 'remove_reader'

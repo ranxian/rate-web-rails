@@ -1,7 +1,8 @@
 class ViewsController < ApplicationController
   before_action :set_view, only: [:show, :edit, :update, :destroy, :download, 
                                   :progress, :stop_generate, :add_reader, :add_writer,
-                                  :remove_writer, :remove_reader, :publish, :unpublish]
+                                  :remove_writer, :remove_reader, :publish, :unpublish,
+                                  :browse]
 
   # GET /views
   # GET /views.json
@@ -112,6 +113,18 @@ class ViewsController < ApplicationController
   def unpublish
     @view.update_attributes(ispublic: false)
     redirect_to :back
+  end
+
+  def browse
+    if not params[:page].present?
+      @page = 1
+    else
+      @page = params[:page].to_i
+    end
+
+    @class_samples = @view.class_samples((@page-1) * 10, 10)
+
+    render layout: 'no_sidebar'
   end
 
   private

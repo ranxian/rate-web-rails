@@ -28,35 +28,35 @@
       </td>
     </tr>
   </table>
-
-  <h4>Benchmarks under <I><%= @view.name %></I></h4>
-  <table class="table">
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Strategy</th>
-      <th>Created</th>
-      <th># Tasks</th>
-      <th>Generator</th>
-    </tr>
-
-    <% @view.benches.each do |bench| %>
-      <tr>
-        <td><%= link_to bench.name, bench %></td>
-        <td><%= bench.description %></td>
-        <td><%= bench.verbose_strategy %></td>
-        <td><%= simplify_time bench.created_at %></td>
-        <td><%= bench.tasks.count %></td>
-        <td><%= bench.generator.name %></td>
-      </tr>
-    <% end %>
-  </table>  
 </div>
 
+<h4>Benchmarks under <I><%= @view.name %></I></h4>
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Strategy</th>
+    <th>Created</th>
+    <th># Tasks</th>
+    <th>Generator</th>
+  </tr>
+
+  <% @view.benches.each do |bench| %>
+    <tr>
+      <td><%= link_to bench.name, bench %></td>
+      <td><%= bench.description %></td>
+      <td><%= bench.verbose_strategy %></td>
+      <td><%= simplify_time bench.created_at %></td>
+      <td><%= bench.tasks.count %></td>
+      <td><%= bench.generator.name %></td>
+    </tr>
+  <% end %>
+</table>
 
 <% content_for :sidebar do %>
   <% if @view.writable?(current_user) %>
     <%= link_to 'Add Benchmark', new_bench_path(view_id: @view.id), class: 'btn btn-primary', disabled: !@view.done %>
+    <%= link_to 'Browse', browse_view_path(id: @view.id), class: 'btn btn-primary' %>
     <%= link_to 'Make Public', publish_view_path, class: 'btn btn-success' if not @view.ispublic %>
     <%= link_to 'Make Priave', unpublish_view_path, class: 'btn btn-warning' if @view.ispublic %>
     <%= link_to 'Delete View', @view, method: :delete, data: { confirm: 'Delete this view will also delete all benchmarks, are you sure?' }, class: 'btn btn-danger' %>  

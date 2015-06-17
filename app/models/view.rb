@@ -56,6 +56,31 @@ class View
     return view
   end
 
+  def class_uuids(skip=0, limit=10)
+    client = RateClient.get_mysql_client
+    results = client.query("SELECT distinct(class_uuid) FROM view_sample WHERE view_uuid='#{self.uuid}' LIMIT #{skip},#{limit}")
+                    .map { |r| r['class_uuid'] }
+    return results
+  end
+
+  # 返回 { class_uuid: [{uuid: UUID, filepath: filepath}], ... }
+  def class_samples(skip=0, limit=10)
+    class_samples = {}
+    client = RateClient.get_mysql_client
+    class_uuids = self.class_uuids(skip, limit)
+    class_uuids.each do |class_uuid|
+      sample_uuids = client.query("SELECT sample_uuid FROM view_sample WHERE view_uuid='#{self.uuid}' AND class_uuid='#{class_uuid}'")
+            .map { |r| r['sample_uuid'] }
+      sample_uuids.each do |uuid|
+        filepath = client.query("SELECT file FROM sample WHERE uuid='#{uuid}'").to_a[0]['file']
+        class_samples[class_uuid] ||= []
+        class_samples[class_uuid] << { uuid: uuid, filepath: filepath }
+      end
+    end
+
+    return class_samples
+  end
+
   def progress
     (Sidekiq::Status::get_all self.job_id)["at"].to_f
   end

@@ -77,3 +77,5 @@ gem 'font-awesome-less'
 gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'sidekiq-status'
+
+gem 'mysql2'

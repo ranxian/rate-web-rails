@@ -1,0 +1,65 @@
+<h3><I><%= @view.name %></I></h3>
+
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>Description</th>
+      <th>UUID</th>
+      <th># Classes</th>
+      <th># Samples</th>
+      <th>Strategy</th>
+      <% if not @view.done %>
+        <th>Progress</th>
+      <% end %>
+    </tr>
+    <tr>
+      <td><%= @view.description %></td> 
+      <td><%= @view.short_uuid %></td>     
+      <td><%= @view.num_of_classes %></td>
+      <td><%= @view.num_of_samples %></td>
+      <td><%= view_verbose_strategy(@view) %></td>
+      
+      <% if not @view.done %>
+        <td>
+          <div class="progress" style="width: 200px">
+            <div class="progress-bar active" id="view-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= @view.progress * 100 %>%">
+            </div>
+          </div>
+        </td>
+      <% end %>  
+    </tr>
+  </table>
+</div>
+
+<hr>
+
+<div class="table-responsive table-bordered">
+  <table class="table">
+    <% @class_samples.each do |class_uuid, samples| %>
+      <tr>
+        <td class="text-center" colspan="5"><strong>CLASS <%= class_uuid %></strong></td>
+      </tr>
+      
+      <% samples.each_slice(5).each do |ss| %>
+        <tr>
+          <% ss.each do |s| %>
+            <td>
+              <%= link_to RateClient.viewer_url('samples/' + s[:filepath]) do %>
+                <%= image_tag RateClient.viewer_url('samples/' + s[:filepath]), width: '200px', target: '_blank' %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>
+
+<div class="text-center">
+  <% if @page > 1 %>
+    <%= link_to 'Prev', browse_view_path(id: @view.id, page: @page - 1) %>
+  <% end %>
+  <% if @page < (@view.num_of_classes-1) / 10 + 1 %>
+    <%= link_to 'Next', browse_view_path(id: @view.id, page: @page + 1) %>
+  <% end %>
+</div>

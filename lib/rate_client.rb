@@ -15,6 +15,13 @@ class RateClient
   attr_reader :host, :port, :progress, :running, :result
   attr_accessor :verbose
 
+  def self.get_mysql_client
+    client = Mysql2::Client.new(host: 'rate.pku.edu.cn', username: 'root', 
+                                password: 'ailabBiometrics', database: 'rate')
+
+    return client
+  end
+
   ##
   # Get the url on the RATE static server, use this to fetch task results
   #
