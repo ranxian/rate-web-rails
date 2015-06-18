@@ -205,12 +205,12 @@ class Task
     imposter_results = []
     uuid_table, _ = self.uuid_dictionary
 
-    genuine_results = Curl.get(self.genuine_result_file_url).body_str.each_line.first(100).map do |line|
+    genuine_results = Curl.get(self.genuine_result_file_url).body_str.each_line.first(50).map do |line|
       sp = line.split(" ")
       [uuid_table[sp[0]], uuid_table[sp[1]], sp[5]]
     end
 
-    imposter_results = Curl.get(self.imposter_result_file_url).body_str.each_line.first(100).map do |line|
+    imposter_results = Curl.get(self.imposter_result_file_url).body_str.each_line.first(50).map do |line|
       sp = line.split(" ")
       [uuid_table[sp[0]], uuid_table[sp[1]], sp[5]]
     end
