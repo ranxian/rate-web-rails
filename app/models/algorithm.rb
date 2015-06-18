@@ -14,7 +14,7 @@ class Algorithm
   field :enroll_speed, type: Float
 
   belongs_to :author, class_name: 'User', inverse_of: 'algorithms'
-  has_many :tasks, inverse_of: 'algorithms'
+  has_many :tasks, inverse_of: 'algorithm'
   has_one :checking_task, class_name: 'Task', inverse_of: 'checked_algorithm'
 
   has_and_belongs_to_many :readers, class_name: 'User', inverse_of: 'reading_algorithms'
@@ -95,7 +95,7 @@ class Algorithm
 
   before_destroy do
     self.tasks.each do |t|
-      t.destroy
+      t.destroy!
     end
     if self.checking_task
       self.checking_task.destroy
