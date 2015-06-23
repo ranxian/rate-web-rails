@@ -13,4 +13,11 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :password_confirmation, :name, :organization) }
     devise_parameter_sanitizer.for(:account_update) << :name
   end
+
+  def anthenticate_vip!
+    if not (current_user && current_user.vip)
+      redirect_to :back, notice: 'You are not VIP'
+      return
+    end
+  end
 end

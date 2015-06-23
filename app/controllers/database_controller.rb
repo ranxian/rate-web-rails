@@ -1,4 +1,6 @@
 class DatabaseController < ApplicationController
+  before_filter :authenticate_vip!
+
   def index
     
   end
