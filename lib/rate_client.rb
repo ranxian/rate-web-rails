@@ -4,6 +4,7 @@ require 'json'
 require 'pp'
 require 'thread'
 require 'yaml'
+require 'rails'
 
 #
 # RateClient is a ruby wrapper to talk with RATE-server. It could be used to
@@ -48,7 +49,11 @@ class RateClient
   # Initialize a client object from the rate.yml config file.
   #
   def initialize(options = {})
-    @config = YAML.load_file(Rails.root.join('config', 'rate.yml'))
+    if Rails.root
+      @config = YAML.load_file(Rails.root.join('config', 'rate.yml'))
+    else
+      @config = YAML.load_file('rate.yml')
+    end
 
     @host = @config['rate_host']
     @port = @config['rate_port']
@@ -320,6 +325,9 @@ class RateClient
       else
         if @progress >= 0 && @progress < 1
           @progress = line.to_f
+          if @verbose
+            print (@progress * 100).round(2).to_s + '%' + "\r"
+          end
         else
           msg << line
         end
