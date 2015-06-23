@@ -1,0 +1,24 @@
+<h3>Browse Database</h3>
+<hr>
+
+<p>Query: <%= @query_command %></p>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <%= render partial: 'shared/browse_samples', locals: { samples: @samples, uplimit: 4 } %>
+  </table>  
+</div>
+
+<div class="text-center">
+  <% if @page > 1 %>
+    <%= link_to 'Prev', database_browse_by_query_path(query_command: @query_command, page: @page - 1) %>
+  <% end %>
+  <%= link_to 'Next', database_browse_by_query_path(query_command: @query_command, page: @page + 1) %>
+</div>
+
+<% content_for :sidebar do %>
+  <%= link_to 'By Class', database_browse_by_query_path(query_command: @query_command, page: @page, by_class: 'yes'),
+      class: 'btn btn-primary' %>
+  <%= link_to 'Not By Class', database_browse_by_query_path(query_command: @query_command, page: @page, by_class: 'no'),
+      class: 'btn btn-primary' %>
+<% end %>

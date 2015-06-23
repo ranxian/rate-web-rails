@@ -62,19 +62,27 @@ class RateClient
     return class_samples
   end
 
+  def self.get_samples_by_query(query)
+    client = self.get_mysql_client
+    query = "SELECT uuid FROM sample #{query}"
+
+    sample_uuids = client.query(query).map { |r| r['uuid'] }
+    self.get_samples_by_uuids(sample_uuids)
+  end
+
   def self.get_samples_by_uuids(uuids)
     client = RateClient.get_mysql_client
     uuids.map do |uuid|
       if uuid.starts_with?('#')
         uuid
       else
-        info = client.query("SELECT sample.created, sample.file, person.name, " + 
+        info = client.query("SELECT sample.created, sample.class_uuid, sample.file, person.name, " + 
           "person.gender FROM sample INNER JOIN class INNER JOIN " + 
           "person WHERE sample.uuid='#{uuid}' and class.uuid = sample.class_uuid " + 
-          "and class.person_uuid = person.uuid").to_a[0]
-
+          "and class.person_uuid = person.uuid and sample.classified='VALID'").to_a[0]
+        next if not info
         { uuid: uuid, filepath: info['file'], gender: info['gender'], name: info['name'], 
-          created: info['created'].strftime('%D') }
+          created: info['created'].strftime('%D'), class_uuid: info['class_uuid'] }
       end
     end
   end

@@ -32,13 +32,13 @@ class DatabaseController < ApplicationController
   end
 
   def browse
-    if params[:sample_uuids_file]
+    if params[:sample_uuids_file].present?
       @tempfile = params[:sample_uuids_file].tempfile
       @lines = File.readlines @tempfile
       @uuids = @lines.map { |uuid| uuid.chomp }
       
       @samples = RateClient.get_samples_by_uuids(@uuids)
-    elsif params[:class_uuids_file]
+    elsif params[:class_uuids_file].present?
       @tempfile = params[:class_uuids_file].tempfile
       class_uuids = (File.readlines @tempfile).map(&:chomp)
       class_samples = RateClient.get_samples_by_class(class_uuids)
@@ -49,6 +49,40 @@ class DatabaseController < ApplicationController
         else
           ["# CLASS #{k}", v]
         end
+      end.flatten
+    end
+  end
+
+  def browse_by_query
+    per_page = 100
+    @query_command = params[:query_command]
+    checked_command = @query_command.clone
+    @page = 1
+    if params[:page].present?
+      @page = params[:page].to_i
+    end
+
+    ['insert', 'update', 'delete'].each do |command|
+      if @query_command.include?(command) || @query_command.include?(command.upcase)
+        redirect_to :back, notice: 'ILLEGAL SQL'
+        return
+      end
+    end
+
+    if not @query_command.upcase.include?('LIMIT')
+      checked_command << " LIMIT #{(@page-1) * per_page},#{per_page}"
+    end
+
+    @samples = RateClient.get_samples_by_query(checked_command).reject { |s| s == nil }
+
+    if params[:by_class] == 'yes'
+      class_samples = {}
+      @samples.each do |sample|
+        class_samples[sample[:class_uuid]] ||= []
+        class_samples[sample[:class_uuid]] << sample
+      end
+      @samples = class_samples.map do |k, v|
+        ["# CLASS #{k}", v]
       end.flatten
     end
   end
