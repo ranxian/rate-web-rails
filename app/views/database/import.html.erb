@@ -1,0 +1,25 @@
+<h3>Import Samples</h3>
+<hr>
+<%= form_tag database_do_import_path, multipart: true do %>
+  <div class="form-group">
+    <%= label_tag :import_tag %>
+    <%= text_field_tag :import_tag, '', class: 'form-control', required: 'true' %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :server_path %>
+    <%= text_field_tag :server_path, '', class: 'form-control' %>
+    <p class="help-block">If your zip file is larger than 100M, upload it on the server, then fill in this path. Then you don't have to upload it in the following field</p>
+  </div>
+  <div class="form-group">
+    <%= label_tag :zip_file %>
+    <%= file_field_tag :zip_file, class: 'form-control' %>
+    <p class="help-block">If your zip file is less than 100M, you could upload it here</p>
+  </div>
+  <div class="form-group">
+    <%= label_tag :view_name %>
+    <%= text_field_tag :view_name, '', class: 'form-control' %>
+    <p class="help-block">If your want RATE to create a view by your import_tag, give it a name here.</p>
+  </div>
+
+  <%= submit_tag 'Submit', class: 'btn btn-primary' %>
+<% end %>

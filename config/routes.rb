@@ -54,6 +54,12 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "home#show"
 
+  controller :database do
+    get 'database' => 'database#index'
+    get 'database/import' => 'import'
+    post 'database/do_import' => 'do_import'
+  end
+
   controller :admin do
     get 'admin' => 'admin#index'
     get 'admin/task_list' => 'task_list'

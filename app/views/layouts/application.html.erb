@@ -53,6 +53,9 @@
           <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav" style="margin-left: 18px">
               <li class="<%= params[:controller] == 'home' ? 'active' : '' %>"><%= link_to "Home", home_show_path %></li>
+              <% if current_user && current_user.vip %>
+                <li class="<%= params[:controller] == 'views' ? 'active' : '' %>"><%= link_to "Database", database_path %></li>
+              <% end %>
               <li class="<%= params[:controller] == 'views' ? 'active' : '' %>"><%= link_to "View", views_path %></li>
               <li class="<%= params[:controller] == 'benches' ? 'active' : '' %>"><%= link_to "Benchmark", benches_path %></li>
               <li class="<%= params[:controller] == 'algorithms' ? 'active' : '' %>"><%= link_to "Algorithm", algorithms_path %></li>
@@ -81,7 +84,8 @@
         <% if controller_name == 'algorithms' ||
               controller_name == 'views' ||
               controller_name == 'benches' ||
-              controller_name == 'tasks' %>
+              controller_name == 'tasks' ||
+              controller_name == 'database' %>
           <div class="row">
             <div class="col-md-9">
               <%= render 'layouts/messages' %>

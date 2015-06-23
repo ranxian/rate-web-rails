@@ -18,7 +18,7 @@ class RateClient
   def self.get_mysql_client
     client = Mysql2::Client.new(host: 'rate.pku.edu.cn', username: 'root', 
                                 password: 'ailabBiometrics', database: 'rate')
-
+    
     return client
   end
 
@@ -122,7 +122,7 @@ class RateClient
   # Delete RATE-server resources.
   #
   def delete(target, uuid)
-    result = self.issue "delete #{target} uuid:#{uuid}"
+    self.issue "delete #{target} uuid:#{uuid}"
   end
 
   ##
@@ -154,6 +154,42 @@ class RateClient
     end
 
     result
+  end
+
+  ##
+  # Upload a zip file or designate a zip file on the server to import samples
+  # into RATE's database. In the zip file, every dir stands for a class, every
+  # images in that dir is a sample of that class.
+  #
+  # === Parameters
+  #
+  # [has_file String] true: the client is going to upload the zip file. false: 
+  #                   The zip file is on the server, then *zip_path* must be provided.
+  # [zip_path String] the path on the server for the zip file. This API may only
+  #                   be used by who has access to RATE's server
+  # [import_tag String] the import tag for all the classes and samples imported
+  #
+  def import(options = {})
+    need_arg! options, :import_tag
+    if not options[:has_file]
+      need_arg! options, :zip_path
+    else
+      need_arg! options, :path
+      file_exist! options[:path]
+    end
+
+    cmd = ["import", "import_tag:#{options[:import_tag]}"]
+    if options[:has_file]
+      cmd << "has_file:true"
+      @socket.puts cmd.join(' ')
+      puts cmd.join(' ')
+      send_file options[:path]
+    else
+      cmd << "zip_path:#{options[:zip_path]}"
+      @socket.puts cmd.join(' ')
+    end
+
+    receive
   end
 
   # PRIVATE API
