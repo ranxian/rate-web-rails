@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   controller :database do
     get 'database' => 'database#index'
     get 'database/import' => 'import'
+    post 'database/browse' => 'browse'
     post 'database/do_import' => 'do_import'
   end
 

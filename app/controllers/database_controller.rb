@@ -30,4 +30,26 @@ class DatabaseController < ApplicationController
 
     redirect_to database_path
   end
+
+  def browse
+    if params[:sample_uuids_file]
+      @tempfile = params[:sample_uuids_file].tempfile
+      @lines = File.readlines @tempfile
+      @uuids = @lines.map { |uuid| uuid.chomp }
+      
+      @samples = RateClient.get_samples_by_uuids(@uuids)
+    elsif params[:class_uuids_file]
+      @tempfile = params[:class_uuids_file].tempfile
+      class_uuids = (File.readlines @tempfile).map(&:chomp)
+      class_samples = RateClient.get_samples_by_class(class_uuids)
+
+      @samples = class_samples.flat_map do |k, v|
+        if k.starts_with?('#')
+          k
+        else
+          ["# CLASS #{k}", v]
+        end
+      end.flatten
+    end
+  end
 end

@@ -39,18 +39,8 @@
       <tr>
         <td class="text-center" colspan="5"><strong>CLASS <%= class_uuid %></strong></td>
       </tr>
-      
-      <% samples.each_slice(5).each do |ss| %>
-        <tr>
-          <% ss.each do |s| %>
-            <td>
-              <%= link_to RateClient.viewer_url('samples/' + s[:filepath]) do %>
-                <%= image_tag RateClient.viewer_url('samples/' + s[:filepath]), width: '200px', target: '_blank' %>
-              <% end %>
-            </td>
-          <% end %>
-        </tr>
-      <% end %>
+
+      <%= render partial: 'shared/browse_samples', locals: { samples: samples } %>
     <% end %>
   </table>
 </div>

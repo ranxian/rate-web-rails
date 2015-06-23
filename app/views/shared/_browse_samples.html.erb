@@ -1,0 +1,32 @@
+<% uplimit ||= 5 %>
+<% count = 0 %>
+
+<% samples.each do |s| %>
+  <% if s.is_a?(String) %>
+    <tr>
+      <td colspan="<%= uplimit %>" class="text-center"><strong><%= s %></strong></td>
+    </tr>
+  <% count = 0 %>
+  <% next %>
+
+  <% end %>
+  <% if count == 0 %>
+    <tr>
+  <% end %>
+    <td>
+      <%= link_to RateClient.viewer_url('samples/' + s[:filepath]) do %>
+        <%= image_tag RateClient.viewer_url('samples/' + s[:filepath]), width: '200px', target: '_blank' %>
+      <% end %>
+      <hr>
+        Created: <%= s[:created] %><br>
+        Name: <%= s[:name] %><br>
+        Gender: <%= s[:gender] %><br>
+        Dir: <%= s[:filepath].split('/')[1] %><br>
+        UUID: <%= s[:uuid] %>
+    </td>
+    <% count += 1 %>
+  <% if count == uplimit %>
+    <% count = 0 %>
+    </tr>
+  <% end %>
+<% end %>

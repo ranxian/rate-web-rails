@@ -65,17 +65,11 @@ class View
 
   # 返回 { class_uuid: [{uuid: UUID, filepath: filepath}], ... }
   def class_samples(skip=0, limit=10)
-    class_samples = {}
-    client = RateClient.get_mysql_client
     class_uuids = self.class_uuids(skip, limit)
-    class_uuids.each do |class_uuid|
-      sample_uuids = client.query("SELECT sample_uuid FROM view_sample WHERE view_uuid='#{self.uuid}' AND class_uuid='#{class_uuid}'")
-            .map { |r| r['sample_uuid'] }
-      sample_uuids.each do |uuid|
-        filepath = client.query("SELECT file FROM sample WHERE uuid='#{uuid}'").to_a[0]['file']
-        class_samples[class_uuid] ||= []
-        class_samples[class_uuid] << { uuid: uuid, filepath: filepath }
-      end
+    class_samples = RateClient.get_samples_by_class(class_uuids, self.uuid)
+
+    class_samples.each do |k, v|
+      class_samples[k] = v.sort { |s1, s2| s1[:created] <=> s2[:created] }
     end
 
     return class_samples

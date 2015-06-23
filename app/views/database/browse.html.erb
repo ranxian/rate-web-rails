@@ -1,0 +1,9 @@
+<h3>Browse Database</h3>
+<hr>
+
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <%= render partial: 'shared/browse_samples', locals: { samples: @samples, uplimit: 4 } %>
+  </table>  
+</div>
+

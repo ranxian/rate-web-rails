@@ -1,3 +1,22 @@
 <% content_for :sidebar do %>
   <%= link_to 'Import Samples', database_import_path, class: 'btn btn-primary' if current_user.vip %>
 <% end %>
+
+<h3>RATE Database</h3>
+<hr>
+
+<%= form_tag database_browse_path, multipart: true do %>
+  <div class="form-group">
+    <%= label_tag 'Browse by sample uuids file' %>
+    <%= file_field_tag 'sample_uuids_file', class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'Browse by class uuids file' %>
+    <%= file_field_tag 'class_uuids_file', class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'Browse by query command' %>
+    <%= text_field_tag :query_command, 'not implemented', disabled: true, class: 'form-control' %>
+  </div>
+  <%= submit_tag 'submit', class: 'btn btn-primary' %>
+<% end %>

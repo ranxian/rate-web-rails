@@ -17,11 +17,66 @@ class RateClient
   attr_reader :host, :port, :progress, :running, :result
   attr_accessor :verbose
 
+  ##
+  # Get a mysql2 client connected to RATE
+  #
   def self.get_mysql_client
     client = Mysql2::Client.new(host: 'rate.pku.edu.cn', username: 'root', 
                                 password: 'ailabBiometrics', database: 'rate')
     
     return client
+  end
+
+  ##
+  # 返回 { class_uuid: [{uuid: UUID, filepath: filepath}], ... }
+  #
+  def self.get_samples_by_class(class_uuids, view_uuid = nil) 
+    class_samples = {}
+    client = RateClient.get_mysql_client
+    class_uuids.each do |class_uuid|
+      if class_uuid.starts_with?('#')
+        class_samples[class_uuid] = []
+      end
+      sample_uuids = []
+      if view_uuid
+        sample_uuids = client.query("SELECT sample_uuid FROM view_sample WHERE class_uuid='#{class_uuid}'" + 
+          " AND view_uuid='#{view_uuid}'").map { |r| r['sample_uuid'] }
+      else
+        sample_uuids = client.query("SELECT uuid FROM sample WHERE class_uuid='#{class_uuid}' AND classified = 'VALID'").map { |r| r['uuid'] }
+      end
+            
+      sample_uuids.each do |uuid|
+        query = "SELECT sample.created, sample.file, person.name, " + 
+          "person.gender FROM sample INNER JOIN class INNER JOIN " + 
+          "person WHERE sample.uuid='#{uuid}' and class.uuid = sample.class_uuid " + 
+          "and class.person_uuid = person.uuid"
+
+        info = client.query(query).to_a[0]
+        class_samples[class_uuid] ||= []
+        class_samples[class_uuid] << { uuid: uuid, filepath: info['file'], 
+          gender: info['gender'], name: info['name'], 
+          created: info['created'].strftime('%D') }
+      end
+    end
+
+    return class_samples
+  end
+
+  def self.get_samples_by_uuids(uuids)
+    client = RateClient.get_mysql_client
+    uuids.map do |uuid|
+      if uuid.starts_with?('#')
+        uuid
+      else
+        info = client.query("SELECT sample.created, sample.file, person.name, " + 
+          "person.gender FROM sample INNER JOIN class INNER JOIN " + 
+          "person WHERE sample.uuid='#{uuid}' and class.uuid = sample.class_uuid " + 
+          "and class.person_uuid = person.uuid").to_a[0]
+
+        { uuid: uuid, filepath: info['file'], gender: info['gender'], name: info['name'], 
+          created: info['created'].strftime('%D') }
+      end
+    end
   end
 
   ##
@@ -510,5 +565,15 @@ class RateResult
 
   def first
     RateResult.new @json['contents'].first
+  end
+end
+
+class RateDatabase
+  def classes
+    
+  end
+
+  def method_name
+    
   end
 end
