@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) << :name
   end
 
-  def anthenticate_vip!
+  def authenticate_vip!
     if not (current_user && current_user.vip)
       redirect_to :back, notice: 'You are not VIP'
       return
