@@ -3,6 +3,7 @@ require 'socket'
 require 'json'
 require 'pp'
 require 'thread'
+require 'yaml'
 
 #
 # RateClient is a ruby wrapper to talk with RATE-server. It could be used to
