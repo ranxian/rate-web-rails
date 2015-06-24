@@ -34,8 +34,9 @@ class RateClient
     class_samples = {}
     client = RateClient.get_mysql_client
     class_uuids.each do |class_uuid|
+      class_samples[class_uuid] = []
       if class_uuid.starts_with?('#')
-        class_samples[class_uuid] = []
+        next
       end
       sample_uuids = []
       if view_uuid
@@ -52,7 +53,7 @@ class RateClient
           "and class.person_uuid = person.uuid"
 
         info = client.query(query).to_a[0]
-        class_samples[class_uuid] ||= []
+        next if not info
         class_samples[class_uuid] << { uuid: uuid, filepath: info['file'], 
           gender: info['gender'], name: info['name'], 
           created: info['created'].strftime('%D') }
