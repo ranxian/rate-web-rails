@@ -15,7 +15,7 @@
     <tbody>
       <% views.each do |view| %>
         <tr>
-          <td class="<%= view.writable?(current_user) ? 'highlighted' : '' %>"><%= link_to view.name, view %></td>
+          <td class="<%= view.writable?(current_user) ? 'highlighted' : '' %>" style="width: 100px;"><%= link_to view.name, view %></td>
           <td><%= view.num_of_classes %></td>
           <td><%= view.num_of_samples %></td>
           <td><%= view.benches.count %></td>

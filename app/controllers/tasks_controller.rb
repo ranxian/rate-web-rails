@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :rerun, :update_from_server, :stop, :continue_task]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, 
+    :rerun, :update_from_server, :stop, :continue_task, :browse_result]
 
   # GET /tasks
   # GET /tasks.json
@@ -8,6 +9,8 @@ class TasksController < ApplicationController
       task.update_from_server!
     end
     @tasks = Task.where(secret: false).desc(:created_at).page(params[:page]).per(20)
+
+    render layout: 'no_sidebar'
   end
 
   def rerun
@@ -87,6 +90,24 @@ class TasksController < ApplicationController
         format.html { render :edit }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def browse_result
+    @type = params[:type]
+    @page = 1
+    @per = 50
+    if params[:page].present?
+      @page = params[:page].to_i
+    end
+
+    case @type
+    when "genuine"
+      @results = @task.genuine_results(@page, @per)
+    when "imposter"
+      @results = @task.imposter_results(@page, @per)
+    when 'enroll'
+      @results = @task.enroll_results(@page, @per)
     end
   end
 

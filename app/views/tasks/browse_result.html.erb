@@ -1,0 +1,32 @@
+<h3><%= @type.capitalize %> Results for Task <%= @task.uuid %></h3>
+<hr>
+
+<% if @type == 'imposter' %>
+  <%= render partial: 'tasks/match_results_table', locals: { results: @results } %>
+<% elsif @type == 'genuine' %>
+  <%= render partial: 'tasks/match_results_table', locals: { results: @results } %>
+<% elsif @type == 'enroll' %>
+  <%= render partial: 'tasks/enroll_results_table', locals: { results: @results } %>
+<% elsif @type == 'failed_match' %>
+  <%= render partial: 'tasks/enroll_results_table', locals: { results: @results } %>
+<% elsif @type == 'failed_enroll' %>
+  <%= render partial: 'tasks/enroll_results_table', locals: { results: @results } %>
+<% end %>
+
+<br>
+<% unless @type == 'charts' %>
+  <div class="text-center">
+    <% if @page > 1 %>
+      <%= link_to 'Prev', browse_result_task_path(id: @task.id, type: @type, page: @page - 1) %>
+    <% end %>
+    <%= link_to 'Next', browse_result_task_path(id: @task.id, type: @type, page: @page + 1) %>
+  </div>
+<br>
+<% end %>
+
+<% content_for :sidebar do %>
+  <%= link_to("Enroll", browse_result_task_path(id: @task.id, type: 'enroll') , class: 'btn btn-primary') %>
+  <%= link_to("Imposter", browse_result_task_path(id: @task.id, type: 'imposter') , class: 'btn btn-primary') %>
+  <%= link_to("Genuine", browse_result_task_path(id: @task.id, type: 'genuine') , class: 'btn btn-primary') %>
+  <%= link_to("Charts", browse_result_task_path(id: @task.id, type: 'charts') , class: 'btn btn-primary') %>
+<% end %>

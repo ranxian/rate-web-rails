@@ -1,9 +1,5 @@
-<h1>Tasks</h1>
+<h1>Tasks <%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %></h1>
 
 <%= render partial: 'table', locals: { tasks: @tasks } %>
 <%= paginate @tasks %>
 <br>
-
-<% content_for :sidebar do %>
-<%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %>
-<% end %>

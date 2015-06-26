@@ -45,7 +45,7 @@
 
   <% if current_user.vip || (current_user == @task.runner) %>
     <h4>First 5 Failed Results</h4>
-    <%= render partial: 'tasks/enroll_results_table', locals: { results: @task.failed_enroll_results } %>
+    <%= render partial: 'tasks/enroll_results_table', locals: { results: @task.failed_enroll_results.first(5) } %>
 
     <h4>First 10 Failed Matches</h4>
 
@@ -53,13 +53,11 @@
 
     <h4>First 100 Genuine Results</h4>
 
-    <% genuine_results, imposter_results = @task.match_results %>
-
-    <%= render partial: 'tasks/match_results_table', locals: { results: genuine_results } %>
+    <%= render partial: 'tasks/match_results_table', locals: { results: @task.genuine_results } %>
     
     <h4>First 100 Imposter Results</h4>
 
-    <%= render partial: 'tasks/match_results_table', locals: { results: imposter_results } %>
+    <%= render partial: 'tasks/match_results_table', locals: { results: @task.imposter_results } %>
   <% end %>
 <% end %>
 
@@ -70,7 +68,7 @@
     <%= link_to 'Stop', stop_task_path, class: 'btn btn-warning', disabled: @task.finished %>
   <% end %>
   <% if @task.bench.view.writers.include?(current_user) || current_user.vip %>
-    <%= link_to 'Browse Imposter', @task.imposter_viewer_url, target: '_blank', class: 'btn btn-primary' %>
+    <%= link_to 'Browse Imposter', browse_result_task_path(id: @task.id, type: 'imposter'), target: '_blank', class: 'btn btn-primary' %>
     <%= link_to 'Browse Genuine', @task.genuine_viewer_url, target: '_blank', class: 'btn btn-primary' %>
   <% end %>
   <% if current_user.vip %>

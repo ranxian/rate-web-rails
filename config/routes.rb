@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get 'continue_task'
       get 'update_from_server'
       get 'stop'
+      get 'browse_result'
     end
   end
 

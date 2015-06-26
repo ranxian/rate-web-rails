@@ -1,13 +1,3 @@
-<h1>Views</h1>
+<h1>Views <%= link_to 'New View', new_view_path, class: 'btn btn-primary' if current_user.vip %></h1>
 
 <%= render partial: 'table', locals: { views: @views } %>
-
-<% content_for :sidebar do %>
-<%= link_to 'New View', new_view_path, class: 'btn btn-primary' if current_user.vip %>
-<div class="panel panel-default">
-  <div class="panel-body">
-    You have <%= @views.count %> views in total
-  </div>
-</div>
-<% end %>
-

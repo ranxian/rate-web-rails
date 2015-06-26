@@ -65,7 +65,7 @@ class RateClient
 
   def self.get_samples_by_query(query)
     client = self.get_mysql_client
-    query = "SELECT uuid FROM sample #{query}"
+    query = "SELECT sample.uuid FROM sample #{query}"
 
     sample_uuids = client.query(query).map { |r| r['uuid'] }
     self.get_samples_by_uuids(sample_uuids)

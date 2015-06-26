@@ -14,6 +14,8 @@ class ViewsController < ApplicationController
     end
     
     @views = @views.page(params[:page]).per(20)
+
+    render layout: 'no_sidebar'
   end
 
   # GET /views/1

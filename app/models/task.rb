@@ -157,9 +157,9 @@ class Task
     return dict1, dict2
   end
 
-  def enroll_results
+  def enroll_results(page=1, per=50)
     _, uuid_table = self.uuid_dictionary
-    results = Curl.get(self.enroll_result_file_url).body_str.each_line.first(50).map do |line|
+    results = Curl.get(self.enroll_result_file_url).body_str.each_line.to_a[((page-1)*per)...(page*per)].map do |line|
       sp = line.split(" ")
       [uuid_table[sp[0]], sp[1]]
     end
@@ -192,7 +192,7 @@ class Task
       return []
     end
 
-    results = http.body_str.each_line.first(5).map do |line|
+    results = http.body_str.each_line.map do |line|
       sp = line.split(" ")
       [uuid_table[sp[0]], 'FAIL']
     end
@@ -200,22 +200,28 @@ class Task
     results
   end
 
-  def match_results
+  def genuine_results(page=1, per=50)
     genuine_results = []
+    uuid_table, _ = self.uuid_dictionary
+
+    genuine_results = Curl.get(self.genuine_result_file_url).body_str.each_line.to_a[((page-1)*per)...(page*per)].map do |line|
+      sp = line.split(" ")
+      [uuid_table[sp[0]], uuid_table[sp[1]], sp[5]]
+    end
+
+    return genuine_results
+  end
+
+  def imposter_results(page=1, per=50)
     imposter_results = []
     uuid_table, _ = self.uuid_dictionary
 
-    genuine_results = Curl.get(self.genuine_result_file_url).body_str.each_line.first(50).map do |line|
+    imposter_results = Curl.get(self.imposter_result_file_url).body_str.each_line.to_a[((page-1)*per)...(page*per)].map do |line|
       sp = line.split(" ")
       [uuid_table[sp[0]], uuid_table[sp[1]], sp[5]]
     end
 
-    imposter_results = Curl.get(self.imposter_result_file_url).body_str.each_line.first(50).map do |line|
-      sp = line.split(" ")
-      [uuid_table[sp[0]], uuid_table[sp[1]], sp[5]]
-    end
-
-    return genuine_results, imposter_results
+    return imposter_results
   end
 
   after_create do
