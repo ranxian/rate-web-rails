@@ -1,6 +1,24 @@
 <h3><%= @type.capitalize %> Results for Task <%= @task.uuid %></h3>
 <hr>
 
+<% if @type == 'imposter' || @type == 'genuine' %>
+  <%= form_tag browse_result_task_path(id: @task.id, type: @type), method: :get, class: 'form-inline text-center form-validate' do %>
+    <%= label_tag :Threshold %>
+    <%= hidden_field_tag :id, @task.id %>
+    <%= hidden_field_tag :type, @type %>
+    <div class="form-group">
+      <%= text_field_tag :lower_thres, @lower_thres, class: 'form-control' %>  
+    </div>
+    to
+    <div class="form-group">
+      <%= text_field_tag :upper_thres, @upper_thres, class: 'form-control' %>  
+    </div>
+    <%= submit_tag 'Query', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
+
+<br>
+
 <% if @type == 'imposter' %>
   <%= render partial: 'tasks/match_results_table', locals: { results: @results } %>
 <% elsif @type == 'genuine' %>
@@ -8,9 +26,17 @@
 <% elsif @type == 'enroll' %>
   <%= render partial: 'tasks/enroll_results_table', locals: { results: @results } %>
 <% elsif @type == 'failed_match' %>
-  <%= render partial: 'tasks/enroll_results_table', locals: { results: @results } %>
+  <% if @results.empty? %>
+    No failed matches
+  <% else %>
+    <%= render partial: 'tasks/match_results_table', locals: { results: @results } %>
+  <% end %>
 <% elsif @type == 'failed_enroll' %>
-  <%= render partial: 'tasks/enroll_results_table', locals: { results: @results } %>
+  <% if @results.empty? %>
+    No failed enrollments
+  <% else %>
+    <%= render partial: 'tasks/enroll_results_table', locals: { results: @results } %>
+  <% end %>
 <% end %>
 
 <br>
@@ -28,5 +54,8 @@
   <%= link_to("Enroll", browse_result_task_path(id: @task.id, type: 'enroll') , class: 'btn btn-primary') %>
   <%= link_to("Imposter", browse_result_task_path(id: @task.id, type: 'imposter') , class: 'btn btn-primary') %>
   <%= link_to("Genuine", browse_result_task_path(id: @task.id, type: 'genuine') , class: 'btn btn-primary') %>
-  <%= link_to("Charts", browse_result_task_path(id: @task.id, type: 'charts') , class: 'btn btn-primary') %>
+  <hr>
+  <%= link_to("Failed Enroll", browse_result_task_path(id: @task.id, type: 'failed_enroll') , class: 'btn btn-warning') %>
+  <%= link_to("Failed Match", browse_result_task_path(id: @task.id, type: 'failed_match') , class: 'btn btn-warning') %>
+  <hr>
 <% end %>

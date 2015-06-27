@@ -68,8 +68,7 @@
     <%= link_to 'Stop', stop_task_path, class: 'btn btn-warning', disabled: @task.finished %>
   <% end %>
   <% if @task.bench.view.writers.include?(current_user) || current_user.vip %>
-    <%= link_to 'Browse Imposter', browse_result_task_path(id: @task.id, type: 'imposter'), target: '_blank', class: 'btn btn-primary' %>
-    <%= link_to 'Browse Genuine', @task.genuine_viewer_url, target: '_blank', class: 'btn btn-primary' %>
+    <%= link_to 'Browse Results', browse_result_task_path(id: @task.id, type: 'enroll'), target: '_blank', class: 'btn btn-primary' %>
   <% end %>
   <% if current_user.vip %>
     <%= link_to 'Delete Task', @task, method: :delete, data: { confirm: 'are you sure?' }, class: 'btn btn-danger' %>  

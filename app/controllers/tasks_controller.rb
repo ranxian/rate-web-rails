@@ -97,17 +97,31 @@ class TasksController < ApplicationController
     @type = params[:type]
     @page = 1
     @per = 50
+    @lower_thres = 0.0
+    @upper_thres = 1.0
     if params[:page].present?
       @page = params[:page].to_i
+    end
+    
+    @lower_thres = params[:lower_thres].to_f if params[:lower_thres].present?
+    @upper_thres = params[:upper_thres].to_f if params[:upper_thres].present?
+
+    if @lower_thres > @upper_thres
+      redirect_to :back, flash: { error: 'Lower Threshold Is Not Lower' }
+      return
     end
 
     case @type
     when "genuine"
-      @results = @task.genuine_results(@page, @per)
+      @results = @task.genuine_results(@page, @per, @lower_thres, @upper_thres)
     when "imposter"
-      @results = @task.imposter_results(@page, @per)
+      @results = @task.imposter_results(@page, @per, @lower_thres, @upper_thres)
     when 'enroll'
       @results = @task.enroll_results(@page, @per)
+    when 'failed_enroll'
+      @results = @task.failed_enroll_results(@page, @per)
+    when 'failed_match'
+      @results = @task.failed_match_results(@page, @per)
     end
   end
 

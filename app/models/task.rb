@@ -167,7 +167,7 @@ class Task
     return results
   end
 
-  def failed_match_results
+  def failed_match_results(page=1, per=10)
     uuid_table, _ = self.uuid_dictionary
 
     http = Curl.get(self.match_failed_file_url)
@@ -175,7 +175,7 @@ class Task
       return []
     end
 
-    results = http.body_str.each_line.first(10).map do |line|
+    results = http.body_str.each_line.to_a[((page-1)*per)...(page*per)].map do |line|
       sp = line.split(" ")
       [uuid_table[sp[0]], uuid_table[sp[1]], 'FAIL']
     end
@@ -183,7 +183,7 @@ class Task
     results
   end
 
-  def failed_enroll_results
+  def failed_enroll_results(page=1, per=50, lower_thres=0.0, upper_thres=1.0)
     _, uuid_table = self.uuid_dictionary
 
     http = Curl.get(self.enroll_failed_file_url)
@@ -192,7 +192,7 @@ class Task
       return []
     end
 
-    results = http.body_str.each_line.map do |line|
+    results = http.body_str.each_line.to_a[((page-1)*per)...(page*per)].map do |line|
       sp = line.split(" ")
       [uuid_table[sp[0]], 'FAIL']
     end
@@ -200,28 +200,37 @@ class Task
     results
   end
 
-  def genuine_results(page=1, per=50)
-    genuine_results = []
+  def match_results(result_file_url, page=1, per=50, lower_thres=0.0, upper_thres=1.0)
+    results = []
     uuid_table, _ = self.uuid_dictionary
 
-    genuine_results = Curl.get(self.genuine_result_file_url).body_str.each_line.to_a[((page-1)*per)...(page*per)].map do |line|
+    skip = 0
+    collected = 0
+
+    Curl.get(result_file_url).body_str.each_line do |line|
       sp = line.split(" ")
-      [uuid_table[sp[0]], uuid_table[sp[1]], sp[5]]
+      uuid1, uuid2, score = uuid_table[sp[0]], uuid_table[sp[1]], sp[5]
+      score_f = score.to_f
+      if score_f >= lower_thres && score_f <= upper_thres
+        if skip < (page-1)*50
+          skip += 1
+        else
+          results << [uuid1, uuid2, score]
+          collected += 1
+          break if collected >= per
+        end
+      end
     end
 
-    return genuine_results
+    return results
   end
 
-  def imposter_results(page=1, per=50)
-    imposter_results = []
-    uuid_table, _ = self.uuid_dictionary
+  def genuine_results(page=1, per=50, lower_thres=0.0, upper_thres=1.0)
+    match_results(self.genuine_result_file_url, page, per, lower_thres, upper_thres)
+  end
 
-    imposter_results = Curl.get(self.imposter_result_file_url).body_str.each_line.to_a[((page-1)*per)...(page*per)].map do |line|
-      sp = line.split(" ")
-      [uuid_table[sp[0]], uuid_table[sp[1]], sp[5]]
-    end
-
-    return imposter_results
+  def imposter_results(page=1, per=50, lower_thres=0.0, upper_thres=1.0)
+    match_results(self.imposter_result_file_url, page, per, lower_thres, upper_thres)
   end
 
   after_create do
