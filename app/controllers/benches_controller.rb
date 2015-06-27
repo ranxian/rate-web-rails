@@ -11,6 +11,8 @@ class BenchesController < ApplicationController
       @benchs = Bench.published.desc(:created_at)
     end
     @benches = @benchs.page(params[:page]).per(20)
+
+    render layout: 'no_sidebar'
   end
 
   def progress

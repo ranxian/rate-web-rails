@@ -77,7 +77,8 @@ class DatabaseController < ApplicationController
 
     @samples = RateClient.get_samples_by_query(checked_command).reject { |s| s == nil }
 
-    if params[:by_class] == 'yes'
+    @by_class = params[:by_class]
+    if @by_class == 'yes'
       class_samples = {}
       @samples.each do |sample|
         class_samples[sample[:class_uuid]] ||= []

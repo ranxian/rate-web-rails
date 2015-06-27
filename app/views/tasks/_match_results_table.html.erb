@@ -11,12 +11,13 @@
       <tr>
         <% slice.each do |result| %>
           <td>
-            <div class="image">
+            <div>
+              <img src="nothing", width="120px",class="match-result" data-toggle="modal" data-target="#match-result-modal" data-file-one="<%= result[0] %>" data-file-two="<%= result[1] %>">
               <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 120px;" %>  
             </div>
           </td>
           <td>
-            <div class="image">
+            <div>
               <%= image_tag RateClient.viewer_url('samples/' + result[1]), style: "width: 120px;" %>  
             </div>
           </td>
@@ -25,3 +26,34 @@
     <% end %>  
   </table>
 </div>
+
+<div class="modal-fade" id="match-result-modal" tabindex="-1" role="dialog" aria-labelledby="MatchResultModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+</script>

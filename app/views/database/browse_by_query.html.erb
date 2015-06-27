@@ -11,9 +11,9 @@
 
 <div class="text-center">
   <% if @page > 1 %>
-    <%= link_to 'Prev', database_browse_by_query_path(query_command: @query_command, page: @page - 1) %>
+    <%= link_to 'Prev', database_browse_by_query_path(query_command: @query_command, page: @page - 1, by_class: @by_class) %>
   <% end %>
-  <%= link_to 'Next', database_browse_by_query_path(query_command: @query_command, page: @page + 1) %>
+  <%= link_to 'Next', database_browse_by_query_path(query_command: @query_command, page: @page + 1, by_class: @by_class) %>
 </div>
 
 <% content_for :sidebar do %>
