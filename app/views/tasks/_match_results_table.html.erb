@@ -12,7 +12,7 @@
         <% slice.each do |result| %>
           <td>
             <div>
-              <img src="nothing", width="120px",class="match-result" data-toggle="modal" data-target="#match-result-modal" data-file-one="<%= result[0] %>" data-file-two="<%= result[1] %>">
+              <img src="nothing" width="120px" class="match-result">
               <%= image_tag RateClient.viewer_url('samples/' + result[0]), style: "width: 120px;" %>  
             </div>
           </td>
