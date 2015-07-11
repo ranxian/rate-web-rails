@@ -73,11 +73,11 @@
 
   <h4>First 100 Genuine Results</h4>
 
-  <%= render partial: 'tasks/match_results_table', locals: { results: genuine_results } %>
+  <%= render partial: 'tasks/match_results_table', locals: { results: @task.genuine_results } %>
   
   <h4>First 100 Imposter Results</h4>
 
-  <%= render partial: 'tasks/match_results_table', locals: { results: imposter_results } %>
+  <%= render partial: 'tasks/match_results_table', locals: { results: @task.imposter_results } %>
 
 <% end %>
 
